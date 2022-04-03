@@ -7,9 +7,9 @@
 
             <gradient
                 android:angle="200"
-                android:startColor="@color/cloud_rainy_thunderstorm"
-                android:centerColor="@color/cloud_rainy_thunderstorm1"
-                android:endColor="@color/cloud_rainy_thunderstorm2"/>
+                android:startColor="@color/cloud_sunny2"
+                android:centerColor="@color/cloud_sunny1"
+                android:endColor="@color/cloud_sunny"/>
 
         </shape>
     </item>

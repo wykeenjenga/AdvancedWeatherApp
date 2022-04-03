@@ -150,8 +150,15 @@ class MainActivity : AppCompatActivity() {
                     val waterDrop = response.getJSONObject("main").getString("humidity")+"\t%"
                     val windSpeed = response.getJSONObject("wind").getString("speed")+"\tkm/h"
 
+                    //max and min temperature
+                    var mintemp=response.getJSONObject("main").getString("temp_min")
+                    mintemp=((((mintemp).toFloat()-273.15)).toInt()).toString()
+
+                    var maxtemp=response.getJSONObject("main").getString("temp_max")
+                    maxtemp=((ceil((maxtemp).toFloat()-273.15)).toInt()).toString()
+
                     //add data
-                    data.add(citiesModel(city, temperature, icon, description, waterDrop, windSpeed))
+                    data.add(citiesModel(city, temperature, icon, description, waterDrop, windSpeed, mintemp, maxtemp))
 
                     val adapter = CityAdapter(data, applicationContext)
                     recyclerview.adapter = adapter

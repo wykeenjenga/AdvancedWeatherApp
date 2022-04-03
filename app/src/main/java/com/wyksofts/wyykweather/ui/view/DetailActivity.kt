@@ -21,6 +21,8 @@ class DetailActivity : AppCompatActivity() {
     var temperature: String = ""
     var wind_speed: String = ""
     var water_drop: String = ""
+    var min: String = ""
+    var max: String = ""
 
     //variables
     lateinit var cityT: TextView
@@ -31,6 +33,8 @@ class DetailActivity : AppCompatActivity() {
     lateinit var wind_speedT: TextView
     lateinit var water_dropT: TextView
     lateinit var time: TextView
+    lateinit var mintemp: TextView
+    lateinit var maxtemp: TextView
 
 
 
@@ -47,6 +51,8 @@ class DetailActivity : AppCompatActivity() {
         wind_speedT = findViewById(R.id.wind_speed)
         water_dropT = findViewById(R.id.water_drop)
         time = findViewById(R.id.time)
+        mintemp = findViewById(R.id.min_temp)
+        maxtemp = findViewById(R.id.max_temp)
 
 
         //get city name
@@ -56,6 +62,8 @@ class DetailActivity : AppCompatActivity() {
         temperature = intent.getStringExtra("temperature").toString()
         wind_speed = intent.getStringExtra("wind_speed").toString()
         water_drop = intent.getStringExtra("water_drop").toString()
+        min = intent.getStringExtra("min_temp").toString()
+        max = intent.getStringExtra("max_temp").toString()
 
         //variables
         initUI()
@@ -68,6 +76,8 @@ class DetailActivity : AppCompatActivity() {
         temperatureT.text = "$temperature\t°C"
         water_dropT.text = water_drop
         wind_speedT.text = wind_speed
+        mintemp.text = "Min:\t $min°C"
+        maxtemp.text = "Max:\t $max°C"
 
         Glide.with(applicationContext)
             .load(IconManager().getIcon(icon))

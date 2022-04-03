@@ -98,7 +98,6 @@ class MainActivity : AppCompatActivity() {
             } else {
                 if (arrayList.isEmpty()) {
                     recyclerView.setVisibility(View.GONE)
-                    Toast.makeText(applicationContext,"No city found", Toast.LENGTH_SHORT).show()
                 } else {
                     recyclerView.setVisibility(View.VISIBLE)
                 }

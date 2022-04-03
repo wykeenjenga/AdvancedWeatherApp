@@ -23,6 +23,8 @@
     <string name="weather_icon_description">Weather Icon</string>
     <string name="search_for_a_city">Search for a city</string>
     <string name="forecast">Forecast</string>
+    <string name="it_was_last_updated_on">It was last updated on:</string>
+    <string name="feels_like">Feels like;</string>
 
 
 </resources>

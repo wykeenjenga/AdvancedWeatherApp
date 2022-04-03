@@ -50,7 +50,11 @@ class CityAdapter(
             Toast.makeText(context,""+data.city, Toast.LENGTH_SHORT).show()
 
             //open detailed viewcity: String,
-            openDetailedView(data.city,data.icon,data.description,data.temp, data.wind_speed,data.water_drop)
+            openDetailedView(
+                data.city,data.icon,
+                data.description,data.temp,
+                data.wind_speed,data.water_drop,
+                data.mintemp,data.maxtemp)
 
 
         }
@@ -67,8 +71,14 @@ class CityAdapter(
     }
 
     //open detailed fragment
-    private fun  openDetailedView(city: String, icon: String, description: String,
-                                  temperature: String, wind_speed: String,water_drop: String) {
+    private fun  openDetailedView(city: String,
+                                  icon: String,
+                                  description: String,
+                                  temperature: String,
+                                  wind_speed: String,
+                                  water_drop: String,
+                                  min_temp: String,
+                                  max_temp: String) {
         val intent: Intent = Intent(context, DetailActivity::class.java)
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("city", city)
@@ -77,6 +87,8 @@ class CityAdapter(
         intent.putExtra("temperature", temperature)
         intent.putExtra("wind_speed", wind_speed)
         intent.putExtra("water_drop", water_drop)
+        intent.putExtra("min_temp", min_temp)
+        intent.putExtra("max_temp", max_temp)
         context.startActivity(intent)
     }
 

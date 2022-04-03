@@ -92,31 +92,106 @@
                     android:id="@+id/status"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="18sp"
+                    android:textSize="24sp"
                     android:fontFamily="serif"
                     android:layout_marginTop="@dimen/margin_top"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
                 <TextView
-                    android:id="@+id/time"
                     android:textStyle="bold"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/colorAccent"
                     android:textSize="18sp"
                     android:fontFamily="serif"
+                    android:text="@string/feels_like"
                     android:layout_marginTop="@dimen/margin_top"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
-
+                <View
+                    android:background="@color/colorAccent"
+                    android:layout_width="60dp"
+                    android:layout_height="2dp"/>
                 <TextView
                     android:id="@+id/temperature"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"
                     android:textSize="60sp"
-                    android:layout_marginTop="@dimen/margin_top"
+                    android:layout_marginTop="2dp"
                     android:fontFamily="serif"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp"
+                    android:fontFamily="serif"
+                    android:text="@string/it_was_last_updated_on"
+                    android:layout_marginTop="@dimen/margin_top"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <View
+                    android:background="@color/colorAccent"
+                    android:layout_width="160dp"
+                    android:layout_height="2dp"/>
+
+                <TextView
+                    android:id="@+id/time"
+                    android:textStyle="normal"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"
+                    android:fontFamily="serif"
+                    android:layout_marginTop="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/margin_top"
+                    android:layout_width="240dp"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/min_temp"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="16sp"
+                            android:fontFamily="serif"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/max_temp"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="16sp"
+                            android:fontFamily="serif"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </LinearLayout>
 
                 <LinearLayout
                     android:orientation="horizontal"
@@ -172,49 +247,7 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:layout_marginTop="@dimen/margin_top"
-                    android:layout_width="240dp"
-                    android:layout_height="wrap_content">
 
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/min_temp"
-                            android:textStyle="bold"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="16sp"
-                            android:fontFamily="serif"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                    </LinearLayout>
-
-
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/max_temp"
-                            android:textStyle="bold"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="16sp"
-                            android:fontFamily="serif"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-                    </LinearLayout>
-                </LinearLayout>
 
 
                 <LinearLayout

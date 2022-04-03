@@ -72,11 +72,12 @@ class DetailActivity : AppCompatActivity() {
         //variables
         initUI()
 
-        setCardBackgroundColor()
+        setCardBackgroundColor(description)
     }
 
-    private fun setCardBackgroundColor() {
-        card_background.setBackgroundResource(R.drawable.detailed_sunny_bg)
+    //set background color of the app
+    private fun setCardBackgroundColor(description: String) {
+        card_background.setBackgroundResource(IconManager().getBackground(description))
     }
 
     @SuppressLint("SetTextI18n")

@@ -28,7 +28,7 @@ import com.wyksofts.wyykweather.utils.IconManager
 import java.lang.Math.ceil
 
 
-class MainActivity : AppCompatActivity(), citydetailsInterface {
+class MainActivity : AppCompatActivity() {
 
 
     lateinit var city: TextView
@@ -40,8 +40,6 @@ class MainActivity : AppCompatActivity(), citydetailsInterface {
     lateinit var search_city: ImageView
     lateinit var search_view: LinearLayout
     lateinit var search: EditText
-
-    lateinit var viewInteface: citydetailsInterface
 
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -151,7 +149,7 @@ class MainActivity : AppCompatActivity(), citydetailsInterface {
                     //add data
                     data.add(citiesModel(city, temperature, icon, description))
 
-                    val adapter = CityAdapter(data, applicationContext, viewInteface)
+                    val adapter = CityAdapter(data, applicationContext)
                     recyclerview.adapter = adapter
 
                     search.setEnabled(true)
@@ -295,15 +293,6 @@ class MainActivity : AppCompatActivity(), citydetailsInterface {
         }
     }
 
-    override fun onCityClicked(
-        city: String,
-        icon: String,
-        description: String,
-        temperature: String
-    ) {
-
-
-    }
 
 
 }

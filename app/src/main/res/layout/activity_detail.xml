@@ -19,14 +19,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
-            android:padding="12dp"
+            android:padding="18dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/arrow_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/list_weather_icon_size"
+                android:layout_height="@dimen/list_weather_icon_size"
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 android:clickable="true"
@@ -35,8 +35,8 @@
 
             <ImageView
                 android:id="@+id/logout_menu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/list_weather_icon_size"
+                android:layout_height="@dimen/list_weather_icon_size"
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
                 android:clickable="true"
@@ -112,7 +112,7 @@
                     android:id="@+id/temperature"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="36sp"
+                    android:textSize="60sp"
                     android:text="@string/_32_c"
                     android:layout_marginTop="@dimen/margin_top"
                     android:fontFamily="serif"

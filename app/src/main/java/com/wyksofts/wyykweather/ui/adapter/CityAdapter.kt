@@ -12,13 +12,11 @@ import com.bumptech.glide.Glide
 import com.wyksofts.wyykweather.R
 import com.wyksofts.wyykweather.model.citiesModel
 import com.wyksofts.wyykweather.ui.view.DetailActivity
-import com.wyksofts.wyykweather.ui.view.citydetailsInterface
 import com.wyksofts.wyykweather.utils.IconManager
 
 class CityAdapter(
     var mList: List<citiesModel>,
-    val context: Context,
-    viewInterface: citydetailsInterface) : RecyclerView.Adapter<CityAdapter.ViewHolder>() {
+    val context: Context) : RecyclerView.Adapter<CityAdapter.ViewHolder>() {
 
 
     // create new views

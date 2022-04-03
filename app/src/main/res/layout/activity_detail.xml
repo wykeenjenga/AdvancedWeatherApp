@@ -54,7 +54,6 @@
 
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/not_verified_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardBackgroundColor="@color/white"
@@ -63,10 +62,10 @@
             app:cardUseCompatPadding="true">
 
             <LinearLayout
+                android:id="@+id/card_background"
                 android:orientation="vertical"
                 android:gravity="center"
                 android:padding="12dp"
-                android:background="@drawable/detailed_bg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 

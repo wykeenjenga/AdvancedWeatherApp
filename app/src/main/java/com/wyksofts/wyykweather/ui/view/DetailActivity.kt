@@ -3,6 +3,7 @@ package com.wyksofts.wyykweather.ui.view;
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -35,6 +36,7 @@ class DetailActivity : AppCompatActivity() {
     lateinit var time: TextView
     lateinit var mintemp: TextView
     lateinit var maxtemp: TextView
+    lateinit var card_background: LinearLayout
 
 
 
@@ -54,6 +56,8 @@ class DetailActivity : AppCompatActivity() {
         mintemp = findViewById(R.id.min_temp)
         maxtemp = findViewById(R.id.max_temp)
 
+        card_background = findViewById(R.id.card_background)
+
 
         //get city name
         city = intent.getStringExtra("city").toString()
@@ -67,6 +71,12 @@ class DetailActivity : AppCompatActivity() {
 
         //variables
         initUI()
+
+        setCardBackgroundColor()
+    }
+
+    private fun setCardBackgroundColor() {
+        card_background.setBackgroundResource(R.drawable.detailed_sunny_bg)
     }
 
     @SuppressLint("SetTextI18n")

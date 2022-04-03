@@ -62,7 +62,6 @@ class MainActivity : AppCompatActivity() {
         //location
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
-        //window.statusBarColor= Color.parseColor("#1383C3")
 
         getCurrentWeather()
 

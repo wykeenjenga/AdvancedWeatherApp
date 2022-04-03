@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+
+        <shape android:shape="rectangle">
+
+            <gradient
+                android:angle="200"
+                android:startColor="@color/cloud_sunny_wind"
+                android:centerColor="@color/cloud_sunny_wind"
+                android:endColor="@color/cloud_sunny_wind"/>
+
+        </shape>
+    </item>
+
+
+</selector>

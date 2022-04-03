@@ -125,14 +125,10 @@ class DetailActivity : AppCompatActivity() {
             Request.Method.GET, url,null, { response ->
 
                 //temperature
-//                var temperature = response.getJSONObject("main").getString("temp")
-//                temperature=((((temperature).toFloat()-273.15)).toInt()).toString()
+                var temperature = response.getJSONObject("main").getString("temp")
+                temperature=((((temperature).toFloat()-273.15)).toInt()).toString()
 
-                var temperature = arrayOf(response.getJSONObject("main").getString("temp"))
-
-
-
-                Toast.makeText(this, "data:\t"+temperature, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Temp:\t"+temperature, Toast.LENGTH_SHORT).show()
 
 
                 //add data

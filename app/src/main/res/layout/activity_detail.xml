@@ -206,6 +206,7 @@
                         android:gravity="center"
                         android:layout_height="wrap_content">
 
+
                         <ImageView
                             android:src="@drawable/baseline_air_20"
                             android:layout_width="@dimen/list_weather_icon_size"
@@ -251,6 +252,7 @@
 
                 <LinearLayout
                     android:layout_marginTop="@dimen/margin_top"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 

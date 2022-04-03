@@ -3,7 +3,6 @@ package com.wyksofts.wyykweather.ui.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +16,7 @@ import com.wyksofts.wyykweather.model.citiesModel
 import com.wyksofts.wyykweather.ui.view.DetailActivity
 import com.wyksofts.wyykweather.utils.IconManager
 
-class CityAdapter(private val mList: List<citiesModel>,
+class CityAdapter(private var mList: List<citiesModel>,
                   val context: Context) : RecyclerView.Adapter<CityAdapter.ViewHolder>() {
 
 
@@ -55,6 +54,14 @@ class CityAdapter(private val mList: List<citiesModel>,
 
         }
 
+    }
+
+    //upDateList
+    fun upDateList(listData: List<citiesModel>?) {
+        val arrayList: ArrayList<citiesModel> = ArrayList<citiesModel>()
+        mList = arrayList
+        arrayList.addAll(listData!!)
+        notifyDataSetChanged()
     }
 
     //open detailed fragment

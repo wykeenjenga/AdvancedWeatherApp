@@ -3,11 +3,14 @@ import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.View
+import android.view.animation.AnimationUtils
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
@@ -34,6 +37,10 @@ class MainActivity : AppCompatActivity() {
     lateinit var wind_speed: TextView
     lateinit var water_drop: TextView
     lateinit var weather_icon: ImageView
+    lateinit var search_city: ImageView
+    lateinit var search_view: LinearLayout
+    lateinit var search: EditText
+
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
@@ -48,6 +55,9 @@ class MainActivity : AppCompatActivity() {
         wind_speed = findViewById(R.id.wind_speed)
         water_drop = findViewById(R.id.water_drop)
         weather_icon = findViewById(R.id.weather_icon)
+        search_city = findViewById(R.id.search_city)
+        search_view = findViewById(R.id.search_view)
+        search = findViewById(R.id.search)
 
         //location
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
@@ -58,7 +68,47 @@ class MainActivity : AppCompatActivity() {
 
         getCitiesWeather()
 
+        initSearch()
+
     }
+
+    private fun initSearch() {
+
+        search_city.setOnClickListener{
+            search_view.isVisible = true
+            search_city.isVisible = false
+
+            val anim = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_down)
+            search_view.startAnimation(anim)
+
+        }
+    }
+
+    //init filter
+    fun filter(
+        city: String, data: ArrayList<citiesModel>,
+        recyclerView: RecyclerView,
+        adapter: CityAdapter
+    ) {
+        val arrayList: java.util.ArrayList<citiesModel> = java.util.ArrayList<citiesModel>()
+        for (model in data) {
+            if (model.city.contains(city)) {
+                recyclerView.setVisibility(View.VISIBLE)
+                arrayList.add(model)
+            } else {
+                if (arrayList.isEmpty()) {
+                    recyclerView.setVisibility(View.GONE)
+                } else {
+                    recyclerView.setVisibility(View.VISIBLE)
+                }
+            }
+            if (city.isEmpty()) {
+                recyclerView.setVisibility(View.VISIBLE)
+            }
+            adapter.upDateList(arrayList)
+        }
+    }
+
 
 
     //get cities weather
@@ -100,6 +150,15 @@ class MainActivity : AppCompatActivity() {
 
                     val adapter = CityAdapter(data, applicationContext)
                     recyclerview.adapter = adapter
+
+                    search.setEnabled(true)
+                    search.addTextChangedListener(object : TextWatcher {
+                        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+                        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+                        override fun afterTextChanged(s: Editable) {
+                            filter(s.toString(), data, recyclerview, adapter)
+                        }
+                    })
 
                 },
                 { Toast.makeText(this, "error fetching data", Toast.LENGTH_LONG).show() })

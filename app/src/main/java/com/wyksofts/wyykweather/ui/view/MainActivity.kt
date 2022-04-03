@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         //window.statusBarColor= Color.parseColor("#1383C3")
-        
+
         getCurrentWeather()
 
         getCitiesWeather()
@@ -70,8 +70,9 @@ class MainActivity : AppCompatActivity() {
 
         //loop through cities
         for (city in cities) {
+
             val queue = Volley.newRequestQueue(this)
-            val url = "https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${Constants.OPEN_WEATHER_API_KEY}"
+            val url = "https://api.openweathermap.org/data/2.5/weather?q=${cities[3]}&appid=${Constants.OPEN_WEATHER_API_KEY}"
             val jsonRequest = JsonObjectRequest(
                 Request.Method.GET, url,null, { response ->
                     addCity(response)
@@ -79,6 +80,7 @@ class MainActivity : AppCompatActivity() {
                 { Toast.makeText(this, "error fetching data", Toast.LENGTH_LONG).show() })
 
             queue.add(jsonRequest)
+
         }
     }
 
@@ -119,15 +121,9 @@ class MainActivity : AppCompatActivity() {
 
     //get device current location
     fun getCurrentWeather() {
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-            && ActivityCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
+        if (ActivityCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             showPermissionAlert()
             return
         }
@@ -188,8 +184,8 @@ class MainActivity : AppCompatActivity() {
                 maxtemp=((ceil((maxtemp).toFloat()-273.15)).toInt()).toString()
 
                 //pressure.text=response.getJSONObject("main").getString("pressure")
-                water_drop.text = response.getJSONObject("main").getString("humidity")+"%"
-                wind_speed.text = response.getJSONObject("wind").getString("speed")+"km/h"
+                water_drop.text = response.getJSONObject("main").getString("humidity")+"\t%"
+                wind_speed.text = response.getJSONObject("wind").getString("speed")+"\tkm/h"
 
 
             }, {

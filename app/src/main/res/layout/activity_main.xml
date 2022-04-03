@@ -79,16 +79,14 @@
                     android:layout_height="wrap_content">
                     <TextView
                         android:id="@+id/status"
-                        android:text="@string/cloudy"
                         android:textStyle="bold"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="14sp"
+                        android:textSize="18sp"
                         android:fontFamily="serif"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                     <TextView
                         android:id="@+id/temperature"
-                        android:text="@string/_32_c"
                         android:textStyle="bold"
                         android:textColor="@color/colorPrimary"
                         android:textSize="60sp"
@@ -115,7 +113,6 @@
 
                             <TextView
                                 android:id="@+id/wind_speed"
-                                android:text="@string/_8_km_h"
                                 android:textStyle="bold"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="12sp"
@@ -139,7 +136,6 @@
 
                             <TextView
                                 android:id="@+id/water_drop"
-                                android:text="@string/_47"
                                 android:textStyle="bold"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="12sp"
@@ -166,7 +162,6 @@
                     <ImageView
                         android:id="@+id/weather_icon"
                         android:layout_width="wrap_content"
-                        android:src="@drawable/moon_cloud"
                         android:layout_height="140dp"/>
 
 

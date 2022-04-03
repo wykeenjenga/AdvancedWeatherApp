@@ -6,6 +6,7 @@
         <entry key="app/src/main/res/drawable-v24/baseline_favorite_24.xml" value="0.142" />
         <entry key="app/src/main/res/drawable-v24/baseline_favorite_border_24.xml" value="0.142" />
         <entry key="app/src/main/res/drawable-v24/baseline_west_24.xml" value="0.142" />
+        <entry key="app/src/main/res/drawable-v24/detailed_bg.xml" value="0.142" />
         <entry key="app/src/main/res/drawable/baseline_air_20.xml" value="0.1365" />
         <entry key="app/src/main/res/drawable/baseline_create_24.xml" value="0.1365" />
         <entry key="app/src/main/res/drawable/baseline_place_24.xml" value="0.1365" />
@@ -19,6 +20,7 @@
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.24635416666666668" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.24635416666666668" />
         <entry key="app/src/main/res/layout/city_item_view.xml" value="0.140597539543058" />
+        <entry key="app/src/main/res/layout/deatail_forecast_card.xml" value="0.24635416666666668" />
         <entry key="app/src/main/res/layout/fragment_city_detailedview.xml" value="0.24635416666666668" />
         <entry key="app/src/main/res/layout/fragment_city_list_view.xml" value="0.25" />
         <entry key="app/src/main/res/layout/search_toolbar.xml" value="0.21203703703703702" />

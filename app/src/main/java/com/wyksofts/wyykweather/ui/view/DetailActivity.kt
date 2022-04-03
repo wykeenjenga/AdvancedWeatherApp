@@ -30,7 +30,7 @@ class DetailActivity : AppCompatActivity() {
     lateinit var arrow_back: ImageView
     lateinit var wind_speedT: TextView
     lateinit var water_dropT: TextView
-
+    lateinit var time: TextView
 
 
 
@@ -46,6 +46,7 @@ class DetailActivity : AppCompatActivity() {
         arrow_back = findViewById(R.id.arrow_back)
         wind_speedT = findViewById(R.id.wind_speed)
         water_dropT = findViewById(R.id.water_drop)
+        time = findViewById(R.id.time)
 
 
         //get city name
@@ -73,7 +74,7 @@ class DetailActivity : AppCompatActivity() {
             .into(weatherIcon)
 
         val currentDateTimeString = DateFormat.getDateTimeInstance().format(Date())
-        textView.setText(currentDateTimeString)
+        time.text = currentDateTimeString
 
 
     }

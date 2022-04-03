@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.view.DetailActivity">
 
@@ -65,6 +66,7 @@
                 android:orientation="vertical"
                 android:gravity="center"
                 android:padding="12dp"
+                android:background="@drawable/detailed_bg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -92,7 +94,6 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="18sp"
                     android:fontFamily="serif"
-                    android:text="Rainny"
                     android:layout_marginTop="@dimen/margin_top"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -103,7 +104,6 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="18sp"
                     android:fontFamily="serif"
-                    android:text="10:46"
                     android:layout_marginTop="@dimen/margin_top"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -113,7 +113,6 @@
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"
                     android:textSize="60sp"
-                    android:text="@string/_32_c"
                     android:layout_marginTop="@dimen/margin_top"
                     android:fontFamily="serif"
                     android:layout_width="wrap_content"
@@ -139,13 +138,14 @@
                             android:layout_height="@dimen/list_weather_icon_size"/>
 
                         <TextView
-                            android:id="@+id/wind_speed"
+                            android:id="@+id/water_drop"
                             android:textStyle="bold"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="14sp"
+                            android:textSize="16sp"
                             android:fontFamily="serif"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
+
                     </LinearLayout>
 
 
@@ -162,10 +162,10 @@
                             android:layout_height="@dimen/list_weather_icon_size"/>
 
                         <TextView
-                            android:id="@+id/water_drop"
+                            android:id="@+id/wind_speed"
                             android:textStyle="bold"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="14sp"
+                            android:textSize="16sp"
                             android:fontFamily="serif"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
@@ -177,6 +177,15 @@
                     android:layout_marginTop="@dimen/margin_top"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp"
+                        android:fontFamily="serif"
+                        android:text="@string/forecast"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/detailed_city_recyclerview"

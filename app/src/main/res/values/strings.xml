@@ -22,6 +22,7 @@
     <string name="missing_api_key_message">API Key not added. Please add it.</string>
     <string name="weather_icon_description">Weather Icon</string>
     <string name="search_for_a_city">Search for a city</string>
+    <string name="forecast">Forecast</string>
 
 
 </resources>

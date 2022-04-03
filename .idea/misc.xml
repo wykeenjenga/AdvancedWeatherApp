@@ -3,18 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-v24/baseline_favorite_24.xml" value="0.142" />
+        <entry key="app/src/main/res/drawable-v24/baseline_favorite_border_24.xml" value="0.142" />
         <entry key="app/src/main/res/drawable/baseline_air_20.xml" value="0.1365" />
         <entry key="app/src/main/res/drawable/baseline_create_24.xml" value="0.1365" />
         <entry key="app/src/main/res/drawable/baseline_place_24.xml" value="0.1365" />
         <entry key="app/src/main/res/drawable/baseline_water_drop_20.xml" value="0.1365" />
         <entry key="app/src/main/res/drawable/cloudy_bg.xml" value="0.1365" />
+        <entry key="app/src/main/res/drawable/divider.xml" value="0.142" />
         <entry key="app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1365" />
         <entry key="app/src/main/res/drawable/splash_bg.xml" value="0.13522033691406243" />
         <entry key="app/src/main/res/layout/activity_detail.xml" value="0.24635416666666668" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.23229166666666667" />
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.24635416666666668" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.24635416666666668" />
-        <entry key="app/src/main/res/layout/city_item_view.xml" value="0.23229166666666667" />
+        <entry key="app/src/main/res/layout/city_item_view.xml" value="0.140597539543058" />
         <entry key="app/src/main/res/layout/fragment_city_detailedview.xml" value="0.24635416666666668" />
         <entry key="app/src/main/res/layout/fragment_city_list_view.xml" value="0.25" />
         <entry key="app/src/main/res/layout/search_toolbar.xml" value="0.21203703703703702" />

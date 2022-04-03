@@ -50,6 +50,9 @@ class CityAdapter(private val mList: List<citiesModel>,
         holder.itemView.setOnClickListener {
 
             Toast.makeText(context,""+data.city, Toast.LENGTH_SHORT).show()
+            //open detailed view
+
+
         }
 
     }

@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
     //get cities weather
     private fun getCitiesWeather(){
 
-        val cities = arrayOf("Nairobi", "Eden", "Elizabethtown", "New London", "Kampala", "Lagos")
+        val cities = arrayOf("Nairobi", "Eden", "Elizabethtown", "New London", "Kampala", "Lagos", "Dakar")
 
         //adda data
         val recyclerview = findViewById<RecyclerView>(R.id.cities_recycler_view)

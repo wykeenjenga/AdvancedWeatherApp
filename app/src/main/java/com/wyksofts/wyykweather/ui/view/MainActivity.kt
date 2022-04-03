@@ -137,6 +137,10 @@ class MainActivity : AppCompatActivity() {
                     //description
                     val description = response.getJSONArray("weather").getJSONObject(0).getString("main")
 
+                    //get lat and long
+                    var lat = response.getJSONObject("coord").getString("lat")
+                    var long = response.getJSONObject("coord").getString("lon")
+
                     //temperature
                     var temperature = response.getJSONObject("main").getString("temp")
                     temperature=((((temperature).toFloat()-273.15)).toInt()).toString()
@@ -156,7 +160,8 @@ class MainActivity : AppCompatActivity() {
                     maxtemp=((ceil((maxtemp).toFloat()-273.15)).toInt()).toString()
 
                     //add data
-                    data.add(citiesModel(city, temperature, icon, description, waterDrop, windSpeed, mintemp, maxtemp))
+                    data.add(citiesModel(city, temperature, icon, description,
+                        waterDrop, windSpeed, mintemp, maxtemp, lat, long))
 
                     val adapter = CityAdapter(data, applicationContext)
                     recyclerview.adapter = adapter

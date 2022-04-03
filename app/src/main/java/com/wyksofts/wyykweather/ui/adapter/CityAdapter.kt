@@ -45,16 +45,16 @@ class CityAdapter(
             .load(IconManager().getIcon(icon))
             .into(holder.weatherIcon)
 
+        //on item clicked
         holder.card.setOnClickListener {
-
-            Toast.makeText(context,""+data.city, Toast.LENGTH_SHORT).show()
 
             //open detailed viewcity: String,
             openDetailedView(
                 data.city,data.icon,
                 data.description,data.temp,
                 data.wind_speed,data.water_drop,
-                data.mintemp,data.maxtemp)
+                data.mintemp,data.maxtemp, data.lat, data.long
+            )
 
 
         }
@@ -71,14 +71,18 @@ class CityAdapter(
     }
 
     //open detailed fragment
-    private fun  openDetailedView(city: String,
-                                  icon: String,
-                                  description: String,
-                                  temperature: String,
-                                  wind_speed: String,
-                                  water_drop: String,
-                                  min_temp: String,
-                                  max_temp: String) {
+    private fun  openDetailedView(
+        city: String,
+        icon: String,
+        description: String,
+        temperature: String,
+        wind_speed: String,
+        water_drop: String,
+        min_temp: String,
+        max_temp: String,
+        lat: String,
+        long: String
+    ) {
         val intent: Intent = Intent(context, DetailActivity::class.java)
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("city", city)
@@ -89,6 +93,8 @@ class CityAdapter(
         intent.putExtra("water_drop", water_drop)
         intent.putExtra("min_temp", min_temp)
         intent.putExtra("max_temp", max_temp)
+        intent.putExtra("lat", lat)
+        intent.putExtra("long", long)
         context.startActivity(intent)
     }
 

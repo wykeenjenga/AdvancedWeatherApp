@@ -5,9 +5,14 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import com.bumptech.glide.Glide
 import com.wyksofts.wyykweather.R
+import com.wyksofts.wyykweather.utils.Constants
 import com.wyksofts.wyykweather.utils.IconManager
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -69,6 +74,11 @@ class DetailActivity : AppCompatActivity() {
         min = intent.getStringExtra("min_temp").toString()
         max = intent.getStringExtra("max_temp").toString()
 
+        val lat = intent.getStringArrayExtra("lat").toString()
+        val long = intent.getStringArrayExtra("long").toString()
+
+        getWeatherForecast(city,lat,long)
+
         //variables
         initUI()
 
@@ -99,6 +109,47 @@ class DetailActivity : AppCompatActivity() {
 
 
     }
+
+    //get weather forecast
+    private fun getWeatherForecast(city: String, lat: String, long: String){
+
+        val queue = Volley.newRequestQueue(this)
+
+        Toast.makeText(this, "data:\t${lat}\t,$long", Toast.LENGTH_SHORT).show()
+
+        //val url = "api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${Constants.OPEN_WEATHER_API_KEY}"
+
+        val url = "https://api.openweathermap.org/data/2.5/forecast?q=$city&appid=${Constants.OPEN_WEATHER_API_KEY}"
+
+        val jsonRequest = JsonObjectRequest(
+            Request.Method.GET, url,null, { response ->
+
+                //temperature
+//                var temperature = response.getJSONObject("main").getString("temp")
+//                temperature=((((temperature).toFloat()-273.15)).toInt()).toString()
+
+                var temperature = arrayOf(response.getJSONObject("main").getString("temp"))
+
+
+
+                Toast.makeText(this, "data:\t"+temperature, Toast.LENGTH_SHORT).show()
+
+
+                //add data
+                //data.add(citiesModel(city, temperature, icon, description, waterDrop, windSpeed, mintemp, maxtemp))
+
+                //val adapter = CityAdapter(data, applicationContext)
+                //recyclerview.adapter = adapter
+
+
+            },
+            { Toast.makeText(this, "error fetching data5", Toast.LENGTH_LONG).show() })
+
+        queue.add(jsonRequest)
+
+    }
+
+
 
     @SuppressLint("SimpleDateFormat")
     private fun  getDate(date: Long): String {

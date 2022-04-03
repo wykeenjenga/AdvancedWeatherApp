@@ -6,18 +6,19 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wyksofts.wyykweather.R
 import com.wyksofts.wyykweather.model.citiesModel
 import com.wyksofts.wyykweather.ui.view.DetailActivity
+import com.wyksofts.wyykweather.ui.view.citydetailsInterface
 import com.wyksofts.wyykweather.utils.IconManager
 
-class CityAdapter(private var mList: List<citiesModel>,
-                  val context: Context) : RecyclerView.Adapter<CityAdapter.ViewHolder>() {
+class CityAdapter(
+    var mList: List<citiesModel>,
+    val context: Context,
+    viewInterface: citydetailsInterface) : RecyclerView.Adapter<CityAdapter.ViewHolder>() {
 
 
     // create new views
@@ -46,10 +47,12 @@ class CityAdapter(private var mList: List<citiesModel>,
             .load(IconManager().getIcon(icon))
             .into(holder.weatherIcon)
 
-        holder.itemView.setOnClickListener {
+        holder.card.setOnClickListener {
 
             Toast.makeText(context,""+data.city, Toast.LENGTH_SHORT).show()
-            //open detailed view
+
+            //open detailed viewcity: String,
+            openDetailedView(data.city,data.icon,data.description,data.temp)
 
 
         }
@@ -57,6 +60,7 @@ class CityAdapter(private var mList: List<citiesModel>,
     }
 
     //upDateList
+    @SuppressLint("NotifyDataSetChanged")
     fun upDateList(listData: List<citiesModel>?) {
         val arrayList: ArrayList<citiesModel> = ArrayList<citiesModel>()
         mList = arrayList
@@ -65,10 +69,14 @@ class CityAdapter(private var mList: List<citiesModel>,
     }
 
     //open detailed fragment
-    private fun  openDetailedView(city: String) {
+    private fun  openDetailedView(city: String, icon: String, description: String, temperature: String) {
         val intent: Intent = Intent(context, DetailActivity::class.java)
-        intent.putExtra("name", city)
-        context?.startActivity(intent)
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("city", city)
+        intent.putExtra("description", description)
+        intent.putExtra("icon", icon)
+        intent.putExtra("temperature", temperature)
+        context.startActivity(intent)
     }
 
     // return the number of the items in the list
@@ -81,6 +89,7 @@ class CityAdapter(private var mList: List<citiesModel>,
         val weatherIcon: ImageView = itemView.findViewById(R.id.weatherIcon)
         val city: TextView = itemView.findViewById(R.id.city)
         val degreeText: TextView = itemView.findViewById(R.id.degreeText)
+        val card: RelativeLayout = itemView.findViewById(R.id.itemView)
     }
 }
 

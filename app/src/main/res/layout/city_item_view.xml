@@ -8,7 +8,9 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <RelativeLayout
+            android:id="@+id/itemView"
             android:background="@drawable/ripple_effect"
             android:clickable="true"
             android:focusable="true"

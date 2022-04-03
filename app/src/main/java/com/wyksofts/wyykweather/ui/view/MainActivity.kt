@@ -28,7 +28,7 @@ import com.wyksofts.wyykweather.utils.IconManager
 import java.lang.Math.ceil
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), citydetailsInterface {
 
 
     lateinit var city: TextView
@@ -40,6 +40,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var search_city: ImageView
     lateinit var search_view: LinearLayout
     lateinit var search: EditText
+
+    lateinit var viewInteface: citydetailsInterface
 
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -92,12 +94,13 @@ class MainActivity : AppCompatActivity() {
     ) {
         val arrayList: java.util.ArrayList<citiesModel> = java.util.ArrayList<citiesModel>()
         for (model in data) {
-            if (model.city.contains(city)) {
+            if (model.city.toLowerCase().contains(city)) {
                 recyclerView.setVisibility(View.VISIBLE)
                 arrayList.add(model)
             } else {
                 if (arrayList.isEmpty()) {
                     recyclerView.setVisibility(View.GONE)
+                    Toast.makeText(applicationContext,"No city found", Toast.LENGTH_SHORT).show()
                 } else {
                     recyclerView.setVisibility(View.VISIBLE)
                 }
@@ -146,9 +149,9 @@ class MainActivity : AppCompatActivity() {
                     val icon = response.getJSONArray("weather").getJSONObject(0).getString("icon")
 
                     //add data
-                    data.add(citiesModel(city, temperature, icon))
+                    data.add(citiesModel(city, temperature, icon, description))
 
-                    val adapter = CityAdapter(data, applicationContext)
+                    val adapter = CityAdapter(data, applicationContext, viewInteface)
                     recyclerview.adapter = adapter
 
                     search.setEnabled(true)
@@ -292,6 +295,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onCityClicked(
+        city: String,
+        icon: String,
+        description: String,
+        temperature: String
+    ) {
+
+
+    }
 
 
 }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="main_padding">8dp</dimen>
+    <dimen name="list_item_size">100dp</dimen>
+    <dimen name="list_weather_icon_size">30dp</dimen>
+    <dimen name="margin_end">46dp</dimen>
+</resources>

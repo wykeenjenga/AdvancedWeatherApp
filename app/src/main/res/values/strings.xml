@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Wyyk Weather</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="APIString">d9abb2c1d05c5882e937cffd1ecd4923</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="city_list_view">City list view</string>
+    <string name="wyyk_weather">WyyK WeaTher</string>
+    <string name="search_city">Search city...</string>
+    <string name="cloudy">Cloudy</string>
+    <string name="_32_c">32°C</string>
+    <string name="_8_km_h">8 km/h</string>
+    <string name="_47">47 %</string>
+    <string name="today">Today</string>
+    <string name="cities">Cities</string>
+    <string name="nairobi_city">Nairobi City</string>
+
+    <string name="menu_search_title">Search</string>
+    <string name="menu_search_hint">Write a city name here</string>
+    <string name="empty_state_message">Either you have not made a search or there is nothing to show for your search.</string>
+    <string name="city_not_found_toast_message">City is not found</string>
+    <string name="connection_error_message">There was something wrong with the connection.</string>
+    <string name="missing_api_key_message">API Key not added. Please add it.</string>
+    <string name="weather_icon_description">Weather Icon</string>
+
+
+</resources>

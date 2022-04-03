@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/drawable/baseline_air_20.xml" value="0.1365" />
+        <entry key="app/src/main/res/drawable/baseline_create_24.xml" value="0.1365" />
+        <entry key="app/src/main/res/drawable/baseline_place_24.xml" value="0.1365" />
+        <entry key="app/src/main/res/drawable/baseline_water_drop_20.xml" value="0.1365" />
+        <entry key="app/src/main/res/drawable/cloudy_bg.xml" value="0.1365" />
+        <entry key="app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1365" />
+        <entry key="app/src/main/res/drawable/splash_bg.xml" value="0.13522033691406243" />
+        <entry key="app/src/main/res/layout/activity_detail.xml" value="0.24635416666666668" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.23229166666666667" />
+        <entry key="app/src/main/res/layout/activity_main2.xml" value="0.24635416666666668" />
+        <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.24635416666666668" />
+        <entry key="app/src/main/res/layout/city_item_view.xml" value="0.23229166666666667" />
+        <entry key="app/src/main/res/layout/fragment_city_detailedview.xml" value="0.24635416666666668" />
+        <entry key="app/src/main/res/layout/fragment_city_list_view.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/search_toolbar.xml" value="0.21203703703703702" />
+        <entry key="app/src/main/res/menu/main_page_menu.xml" value="0.24635416666666668" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

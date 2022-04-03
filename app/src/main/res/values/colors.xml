@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#222535</color>
+    <color name="colorPrimaryDark">#273a58</color>
+    <color name="colorAccent">#7d5593</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="color2">#0A124E</color>
+
+
+    <color name="cloud_sunny_wind_accent">#96f5f5</color>
+    <color name="cloud_sunny_wind">#6efae6</color>
+    <color name="cloud_sunny_wind1">#70f3e9</color>
+    <color name="cloud_sunny_wind2">#72efed</color>
+
+
+    <color name="cloud_rainy_thunderstorm">#5ae6ff</color>
+    <color name="cloud_rainy_thunderstorm1">#59d7fc</color>
+    <color name="cloud_rainy_thunderstorm2">#5acbf9</color>
+
+
+    <color name="cloud_sunny">#f9e177</color>
+    <color name="cloud_sunny1">#fec98b</color>
+    <color name="cloud_sunny2">#ffbe94</color>
+
+
+</resources>

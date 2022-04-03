@@ -1,6 +1,7 @@
 package com.wyksofts.wyykweather.ui.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,8 @@ import com.wyksofts.wyykweather.R
 import com.wyksofts.wyykweather.model.citiesModel
 import com.wyksofts.wyykweather.utils.IconManager
 
-class CityAdapter(private val mList: List<citiesModel>) : RecyclerView.Adapter<CityAdapter.ViewHolder>() {
+class CityAdapter(private val mList: List<citiesModel>,
+                  val context: Context) : RecyclerView.Adapter<CityAdapter.ViewHolder>() {
 
 
     // create new views
@@ -29,17 +31,17 @@ class CityAdapter(private val mList: List<citiesModel>) : RecyclerView.Adapter<C
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        val ItemsViewModel = mList[position]
+        val data = mList[position]
 
         //city
-        holder.city.text = ItemsViewModel.city
-        holder.degreeText.text = "${ItemsViewModel.temp}°C"
+        holder.city.text = data.city
+        holder.degreeText.text = "${data.temp}°C"
 
-        val icon = ItemsViewModel.icon
+        val icon = data.icon
 
-//        Glide.with()
-//            .load(IconManager().getIcon(icon))
-//            .into(holder.weatherIcon)
+        Glide.with(context)
+            .load(IconManager().getIcon(icon))
+            .into(holder.weatherIcon)
 
     }
 

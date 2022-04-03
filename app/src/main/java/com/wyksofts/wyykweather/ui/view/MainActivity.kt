@@ -1,7 +1,6 @@
 package com.wyksofts.wyykweather.ui.view;
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
 import android.widget.ImageView
@@ -23,7 +22,6 @@ import com.wyksofts.wyykweather.model.citiesModel
 import com.wyksofts.wyykweather.ui.adapter.CityAdapter
 import com.wyksofts.wyykweather.utils.Constants
 import com.wyksofts.wyykweather.utils.IconManager
-import org.json.JSONObject
 import java.lang.Math.ceil
 
 
@@ -72,10 +70,35 @@ class MainActivity : AppCompatActivity() {
         for (city in cities) {
 
             val queue = Volley.newRequestQueue(this)
-            val url = "https://api.openweathermap.org/data/2.5/weather?q=${cities[3]}&appid=${Constants.OPEN_WEATHER_API_KEY}"
+            val url = "https://api.openweathermap.org/data/2.5/weather?q=${cities[2]}&appid=${Constants.OPEN_WEATHER_API_KEY}"
             val jsonRequest = JsonObjectRequest(
                 Request.Method.GET, url,null, { response ->
-                    addCity(response)
+
+                    //adda data
+                    val recyclerview = findViewById<RecyclerView>(R.id.cities_recycler_view)
+                    recyclerview.layoutManager = LinearLayoutManager(this)
+                    val data = ArrayList<citiesModel>()
+
+
+                    //city
+                    val city = response.getString("name")
+
+                    //description
+                    val description = response.getJSONArray("weather").getJSONObject(0).getString("main")
+
+                    //temperature
+                    var temperature = response.getJSONObject("main").getString("temp")
+                    temperature=((((temperature).toFloat()-273.15)).toInt()).toString()
+
+                    //icon
+                    val icon = response.getJSONArray("weather").getJSONObject(0).getString("icon")
+
+                    //add data
+                    data.add(citiesModel(city, temperature, icon))
+
+                    val adapter = CityAdapter(data, applicationContext)
+                    recyclerview.adapter = adapter
+
                 },
                 { Toast.makeText(this, "error fetching data", Toast.LENGTH_LONG).show() })
 
@@ -84,38 +107,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //add data to recyclerView
-    private fun addCity(response: JSONObject){
-
-        val recyclerview = findViewById<RecyclerView>(R.id.cities_recycler_view)
-        recyclerview.layoutManager = LinearLayoutManager(this)
-        val data = ArrayList<citiesModel>()
-
-        //get data from json
-
-        //city
-        val city = response.getString("name")
-
-        //description
-        val description = response.getJSONArray("weather").getJSONObject(0).getString("main")
-
-        //temperature
-        var temperature = response.getJSONObject("main").getString("temp")
-        temperature=((((temperature).toFloat()-273.15)).toInt()).toString()
-
-        //icon
-        val icon = response.getJSONArray("weather").getJSONObject(0).getString("icon")
-
-        Glide.with(this)
-            .load(IconManager().getIcon(icon))
-            .into(weather_icon)
-
-        //add data
-        data.add(citiesModel(city, temperature, icon))
-
-        val adapter = CityAdapter(data)
-        recyclerview.adapter = adapter
-    }
 
 
 

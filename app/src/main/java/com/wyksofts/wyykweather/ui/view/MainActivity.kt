@@ -66,19 +66,21 @@ class MainActivity : AppCompatActivity() {
 
         val cities = arrayOf("Nairobi", "Eden", "Elizabethtown", "New London", "Kampala", "Lagos")
 
+        //adda data
+        val recyclerview = findViewById<RecyclerView>(R.id.cities_recycler_view)
+        recyclerview.layoutManager = LinearLayoutManager(this)
+        val data = ArrayList<citiesModel>()
+
+        var url = ""
+
+        val queue = Volley.newRequestQueue(this)
         //loop through cities
         for (city in cities) {
 
-            val queue = Volley.newRequestQueue(this)
-            val url = "https://api.openweathermap.org/data/2.5/weather?q=${cities[2]}&appid=${Constants.OPEN_WEATHER_API_KEY}"
+            url = "https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${Constants.OPEN_WEATHER_API_KEY}"
+
             val jsonRequest = JsonObjectRequest(
                 Request.Method.GET, url,null, { response ->
-
-                    //adda data
-                    val recyclerview = findViewById<RecyclerView>(R.id.cities_recycler_view)
-                    recyclerview.layoutManager = LinearLayoutManager(this)
-                    val data = ArrayList<citiesModel>()
-
 
                     //city
                     val city = response.getString("name")
@@ -103,12 +105,9 @@ class MainActivity : AppCompatActivity() {
                 { Toast.makeText(this, "error fetching data", Toast.LENGTH_LONG).show() })
 
             queue.add(jsonRequest)
-
         }
+
     }
-
-
-
 
     //get device current location
     fun getCurrentWeather() {

@@ -6,10 +6,14 @@ import com.wyksofts.wyykweather.R
 
 class DetailActivity : AppCompatActivity() {
 
+    var city: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
+
+        //get city name
+        city = intent.getStringExtra("name").toString()
     }
 
 }

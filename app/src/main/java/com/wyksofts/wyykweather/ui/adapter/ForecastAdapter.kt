@@ -50,11 +50,7 @@ class ForecastAdapter() {
 //            itemView.setOnClickListener { openDetailsView(itemView.context, forecastElement) }
 //        }
 //
-//        private fun  openDetailsView(context: Context?, forecastElement : ForecastItemViewModel) {
-//            val intent: Intent = Intent(context, DetailActivity::class.java)
-//            intent.putExtra("extra", forecastElement)
-//            context?.startActivity(intent)
-//        }
+
 //
 //        private fun  getDate(date: Long): String {
 //            val timeFormatter = SimpleDateFormat("dd.MM.yyyy")

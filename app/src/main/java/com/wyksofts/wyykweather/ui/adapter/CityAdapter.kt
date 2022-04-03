@@ -2,15 +2,19 @@ package com.wyksofts.wyykweather.ui.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
+import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wyksofts.wyykweather.R
 import com.wyksofts.wyykweather.model.citiesModel
+import com.wyksofts.wyykweather.ui.view.DetailActivity
 import com.wyksofts.wyykweather.utils.IconManager
 
 class CityAdapter(private val mList: List<citiesModel>,
@@ -43,6 +47,18 @@ class CityAdapter(private val mList: List<citiesModel>,
             .load(IconManager().getIcon(icon))
             .into(holder.weatherIcon)
 
+        holder.itemView.setOnClickListener {
+
+            Toast.makeText(context,""+data.city, Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
+    //open detailed fragment
+    private fun  openDetailedView(city: String) {
+        val intent: Intent = Intent(context, DetailActivity::class.java)
+        intent.putExtra("name", city)
+        context?.startActivity(intent)
     }
 
     // return the number of the items in the list

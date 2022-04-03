@@ -8,6 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.wyksofts.wyykweather.R
 import com.wyksofts.wyykweather.utils.IconManager
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class DetailActivity : AppCompatActivity() {
 
@@ -16,6 +19,8 @@ class DetailActivity : AppCompatActivity() {
     var description: String = ""
     var icon: String = ""
     var temperature: String = ""
+    var wind_speed: String = ""
+    var water_drop: String = ""
 
     //variables
     lateinit var cityT: TextView
@@ -23,6 +28,8 @@ class DetailActivity : AppCompatActivity() {
     lateinit var temperatureT: TextView
     lateinit var weatherIcon: ImageView
     lateinit var arrow_back: ImageView
+    lateinit var wind_speedT: TextView
+    lateinit var water_dropT: TextView
 
 
 
@@ -37,12 +44,17 @@ class DetailActivity : AppCompatActivity() {
         temperatureT = findViewById(R.id.temperature)
         weatherIcon = findViewById(R.id.weather_icon)
         arrow_back = findViewById(R.id.arrow_back)
+        wind_speedT = findViewById(R.id.wind_speed)
+        water_dropT = findViewById(R.id.water_drop)
+
 
         //get city name
         city = intent.getStringExtra("city").toString()
         description = intent.getStringExtra("description").toString()
         icon = intent.getStringExtra("icon").toString()
         temperature = intent.getStringExtra("temperature").toString()
+        wind_speed = intent.getStringExtra("wind_speed").toString()
+        water_drop = intent.getStringExtra("water_drop").toString()
 
         //variables
         initUI()
@@ -53,11 +65,23 @@ class DetailActivity : AppCompatActivity() {
         cityT.text = city
         statusT.text = description
         temperatureT.text = "$temperature\t°C"
+        water_dropT.text = water_drop
+        wind_speedT.text = wind_speed
 
         Glide.with(applicationContext)
             .load(IconManager().getIcon(icon))
             .into(weatherIcon)
 
+        val currentDateTimeString = DateFormat.getDateTimeInstance().format(Date())
+        textView.setText(currentDateTimeString)
+
+
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun  getDate(date: Long): String {
+        val timeFormatter = SimpleDateFormat("dd.MM.yyyy")
+        return timeFormatter.format(Date(date*1000L))
     }
 
 

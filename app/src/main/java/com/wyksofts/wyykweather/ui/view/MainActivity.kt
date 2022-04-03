@@ -146,8 +146,12 @@ class MainActivity : AppCompatActivity() {
                     //icon
                     val icon = response.getJSONArray("weather").getJSONObject(0).getString("icon")
 
+                    //wind_speed and water_drop
+                    val waterDrop = response.getJSONObject("main").getString("humidity")+"\t%"
+                    val windSpeed = response.getJSONObject("wind").getString("speed")+"\tkm/h"
+
                     //add data
-                    data.add(citiesModel(city, temperature, icon, description))
+                    data.add(citiesModel(city, temperature, icon, description, waterDrop, windSpeed))
 
                     val adapter = CityAdapter(data, applicationContext)
                     recyclerview.adapter = adapter

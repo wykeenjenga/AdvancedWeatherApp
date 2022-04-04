@@ -144,12 +144,8 @@ class DetailActivity : AppCompatActivity() {
                 val list = response.getJSONArray("list").getJSONObject(day).getString("main")
 
                 //create jsonObject
-
-                val jsonObject = JSONObject()
-
-                //temperature and
-                var temperature = jsonObject.getJSONObject("temp")
-                ///temperature=((((temperature).toFloat()-273.15)).toInt()).toString()
+                var gson = Gson()
+                var mMineUserEntity = gson?.fromJson(response, MineUserEntity.MineUserInfo::class.java)
 
 
 

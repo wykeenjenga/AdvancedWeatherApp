@@ -5,9 +5,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:padding="8dp"
+        android:gravity="center"
         android:orientation="vertical"
         android:layout_height="match_parent">
 
@@ -25,7 +25,7 @@
             android:id="@+id/temperature"
             android:textStyle="bold"
             android:textColor="@color/colorPrimary"
-            android:textSize="16sp"
+            android:textSize="26sp"
             android:text="@string/_32_c"
             android:fontFamily="serif"
             android:layout_width="wrap_content"

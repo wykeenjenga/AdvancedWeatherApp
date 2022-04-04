@@ -17,7 +17,7 @@ class ForecastAdapter(var mList: List<forecastModel>,
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.city_item_view, parent, false)
+            .inflate(R.layout.deatail_forecast_card, parent, false)
 
         return ViewHolder(view)
     }
@@ -28,7 +28,8 @@ class ForecastAdapter(var mList: List<forecastModel>,
         val data = mList[position]
 
         //city
-        holder.day.text = data.dayOfTheWeek
+
+        holder.day.text =
         holder.temperature.text = "${data.temperature}°"
 
     }

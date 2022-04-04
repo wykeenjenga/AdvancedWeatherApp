@@ -7,6 +7,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="color2">#0A124E</color>
+    <color name="colorAccentLight">#837D5593</color>
 
 
     <color name="cloud_sunny_wind_accent">#96f5f5</color>

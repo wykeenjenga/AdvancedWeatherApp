@@ -38,8 +38,8 @@ class ForecastAdapter(var mList: List<forecastModel>,
 
         holder.day.text = Convert().convertDate(data.dayOfTheWeek)
         holder.temperature.text = "${data.temperature}°"
-        holder.min_temp.text = "${data.min_temp}°"
-        holder.max_temp.text = "${data.max_temp}°"
+        holder.min_temp.text = "Min:\t${data.min_temp}°\t"
+        holder.max_temp.text = "Max:\t${data.max_temp}°\t"
 
         val icon = data.icon
 
@@ -48,7 +48,8 @@ class ForecastAdapter(var mList: List<forecastModel>,
             .load(IconManager().getforecastIcon(icon))
             .into(holder.weather_icon)
 
-        holder.card_background.setBackgroundResource(
+
+        holder.card_background.setBackgroundColor(
             IconManager().getColor(Convert().convertDate(data.dayOfTheWeek))
         )
 

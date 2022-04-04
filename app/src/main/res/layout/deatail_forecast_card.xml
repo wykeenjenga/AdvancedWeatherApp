@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="145dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="8dp"
+    app:cardCornerRadius="24dp"
     app:cardElevation="4dp"
     app:cardUseCompatPadding="true"
-    android:layout_height="wrap_content">
+    android:layout_height="190dp">
 
     <LinearLayout
         android:id="@+id/viewBG"
@@ -18,79 +19,93 @@
         android:orientation="vertical"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/day"
-            android:textStyle="bold"
-            android:textColor="@color/colorPrimary"
-            android:textSize="14sp"
-            android:text="THU"
-            android:fontFamily="serif"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <ImageView
-            android:id="@+id/weatherIcon"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:src="@drawable/a01d_svg"
-            android:layout_marginTop="12dp"/>
-
-        <TextView
-            android:id="@+id/temperature"
-            android:textStyle="bold"
-            android:textColor="@color/colorPrimary"
-            android:textSize="26sp"
-            android:text="@string/_32_c"
-            android:fontFamily="serif"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
         <LinearLayout
-            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:padding="8dp"
             android:gravity="center"
-            android:layout_marginTop="@dimen/margin_top"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:background="@drawable/ripple_effect"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/day"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:fontFamily="serif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/weatherIcon"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:src="@drawable/a01d_svg"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="6dp"/>
+
+            <TextView
+                android:id="@+id/temperature"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="26sp"
+                android:text="@string/_32_c"
+                android:fontFamily="serif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="0dp"
-                android:layout_weight="1"
                 android:gravity="center"
+                android:layout_marginTop="@dimen/margin_top"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/min_temp"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:fontFamily="serif"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_height="wrap_content">
 
+                    <TextView
+                        android:id="@+id/min_temp"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:fontFamily="serif"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/max_temp"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:fontFamily="serif"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
             </LinearLayout>
 
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/max_temp"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:fontFamily="serif"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
+
         </LinearLayout>
 
-
-
-
     </LinearLayout>
+
+
 </androidx.cardview.widget.CardView>

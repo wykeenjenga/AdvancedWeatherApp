@@ -10,7 +10,6 @@
     <string name="_32_c">32°C</string>
     <string name="_8_km_h">8 km/h</string>
     <string name="_47">47 %</string>
-    <string name="today">Today</string>
     <string name="cities">Cities</string>
     <string name="nairobi_city">Nairobi City</string>
 
@@ -25,6 +24,7 @@
     <string name="forecast">Forecast</string>
     <string name="it_was_last_updated_on">It was last updated on:</string>
     <string name="feels_like">Feels like;</string>
+    <string name="today">Today</string>
 
 
 </resources>

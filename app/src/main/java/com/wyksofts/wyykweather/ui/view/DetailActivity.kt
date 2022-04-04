@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -112,6 +113,9 @@ class DetailActivity : AppCompatActivity() {
             cardView.outlineAmbientShadowColor = IconManager().getColor(description)
             cardView.outlineSpotShadowColor = IconManager().getColor(description)
         }
+
+        val anim = AnimationUtils.loadAnimation(applicationContext, R.anim.zoom_in)
+        weatherIcon.startAnimation(anim)
     }
 
     @SuppressLint("SetTextI18n")

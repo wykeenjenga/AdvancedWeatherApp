@@ -9,7 +9,6 @@ class IconManager {
     fun getforecastIcon(weatherIcon: String?): Int {
 
         val icon: Int = when (weatherIcon) {
-
             "01d" -> R.drawable.a01d_svg
             "01n" -> R.drawable.a01n_svg
             "09n" -> R.drawable.a09n_svg
@@ -71,6 +70,9 @@ class IconManager {
             "Fri" -> Color.parseColor("#DC0000")
             "Sat" -> Color.parseColor("#0051FF")
             "Sun" -> Color.parseColor("#3D28E0")
+            "Rain" -> Color.parseColor("#0090FF")
+            "Clouds" -> Color.parseColor("#0051FF")
+            "Clear" -> Color.parseColor("#FFAE00")
 
             else -> Color.parseColor("#28E0AE")
         }

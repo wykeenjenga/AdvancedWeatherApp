@@ -11,6 +11,8 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wyksofts.wyykweather.R
@@ -30,7 +32,7 @@ class ForecastAdapter(var mList: List<forecastModel>,
     }
 
     // binds the list items to a view
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "NewApi")
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
@@ -54,6 +56,13 @@ class ForecastAdapter(var mList: List<forecastModel>,
             IconManager().getColor(Convert().convertDate(data.dayOfTheWeek))
         )
 
+        holder.cardView.outlineAmbientShadowColor = IconManager()
+            .getColor(Convert()
+                .convertDate(data.dayOfTheWeek))
+        holder.cardView.outlineSpotShadowColor = IconManager()
+            .getColor(Convert()
+                .convertDate(data.dayOfTheWeek))
+        
     }
 
     // return the number of the items in the list
@@ -68,6 +77,7 @@ class ForecastAdapter(var mList: List<forecastModel>,
         val card_background: RelativeLayout = itemView.findViewById(R.id.viewBG)
         val min_temp: TextView = itemView.findViewById(R.id.min_temp)
         val max_temp: TextView = itemView.findViewById(R.id.max_temp)
+        val cardView: CardView = itemView.findViewById(R.id.cardView)
     }
 
 

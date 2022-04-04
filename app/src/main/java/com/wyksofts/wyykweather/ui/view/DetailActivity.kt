@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
@@ -60,6 +61,7 @@ class DetailActivity : AppCompatActivity() {
     lateinit var mintemp: TextView
     lateinit var maxtemp: TextView
     lateinit var card_background: LinearLayout
+    lateinit var cardView: CardView
 
 
 
@@ -78,6 +80,7 @@ class DetailActivity : AppCompatActivity() {
         time = findViewById(R.id.time)
         mintemp = findViewById(R.id.min_temp)
         maxtemp = findViewById(R.id.max_temp)
+        cardView = findViewById(R.id.cardView)
 
         card_background = findViewById(R.id.card_background)
 
@@ -105,6 +108,10 @@ class DetailActivity : AppCompatActivity() {
     //set background color of the app
     private fun setCardBackgroundColor(description: String) {
         card_background.setBackgroundResource(IconManager().getBackground(description))
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            cardView.outlineAmbientShadowColor = IconManager().getColor(description)
+            cardView.outlineSpotShadowColor = IconManager().getColor(description)
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -124,15 +131,6 @@ class DetailActivity : AppCompatActivity() {
         val currentDateTimeString = DateFormat.getDateTimeInstance().format(Date())
         time.text = currentDateTimeString
 
-
-
-        val unix = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val l = LocalDate.parse("04-04-2022", DateTimeFormatter.ofPattern("dd-MM-yyyy"))
-            l.atStartOfDay(ZoneId.systemDefault()).toInstant().epochSecond
-
-        } else {
-            TODO("VERSION.SDK_INT < O")
-        }
 
         getWeatherForecast()
 

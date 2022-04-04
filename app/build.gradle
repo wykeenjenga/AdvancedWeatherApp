@@ -63,9 +63,6 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:19.0.1'
     implementation 'com.android.volley:volley:1.2.1'
 
-    //shadow
-    implementation 'com.loopeer.lib:shadow:0.0.3'
-
 
 
 }

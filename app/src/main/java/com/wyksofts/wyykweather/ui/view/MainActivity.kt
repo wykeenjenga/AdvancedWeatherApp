@@ -240,7 +240,7 @@ class MainActivity : AppCompatActivity() {
                 //temperature
                 var tempr = response.getJSONObject("main").getString("temp")
                 tempr=((((tempr).toFloat()-273.15)).toInt()).toString()
-                temperature.text="${tempr}°C"
+                temperature.text="${tempr}°"
 
 
                 var mintemp=response.getJSONObject("main").getString("temp_min")

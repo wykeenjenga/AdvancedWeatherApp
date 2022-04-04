@@ -48,12 +48,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="serif"
             android:background="@drawable/bg"
             android:layout_gravity="center"
             android:text="@string/today"
-            android:textColor="@color/black"
-            android:textSize="14sp"
+            android:textColor="@color/colorAccent"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
 
@@ -79,8 +78,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="serif"
                     android:layout_gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -102,64 +101,45 @@
                         android:layout_height="wrap_content">
 
                         <TextView
+                            android:id="@+id/status"
                             android:textStyle="bold"
-                            android:textColor="@color/colorAccent"
-                            android:textSize="14sp"
+                            android:textColor="@color/white"
+                            android:textSize="24sp"
                             android:fontFamily="serif"
-                            android:text="@string/feels_like"
-                            android:layout_marginTop="@dimen/margin_top"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
-                        <View
-                            android:background="@color/colorAccent"
-                            android:layout_width="40dp"
-                            android:layout_height="2dp"/>
+                        
                         <TextView
                             android:id="@+id/temperature"
                             android:textStyle="bold"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="40sp"
-                            android:layout_marginTop="2dp"
+                            android:textColor="@color/white"
+                            android:textSize="50sp"
+                            android:layout_marginTop="@dimen/margin_top"
                             android:fontFamily="serif"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
-                        <TextView
-                            android:id="@+id/status"
-                            android:textStyle="bold"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="24sp"
-                            android:fontFamily="serif"
-                            android:layout_marginTop="@dimen/margin_top"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
 
                     </LinearLayout>
 
                 </LinearLayout>
 
-
-
-
                 <TextView
-                    android:textStyle="bold"
-                    android:textColor="@color/colorAccent"
+                    android:textStyle="normal"
+                    android:textColor="@color/black"
                     android:textSize="14sp"
                     android:fontFamily="serif"
                     android:text="@string/it_was_last_updated_on"
-                    android:layout_marginTop="@dimen/margin_top"
+                    android:layout_marginTop="4dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
-                <View
-                    android:background="@color/colorAccent"
-                    android:layout_width="100dp"
-                    android:layout_height="2dp"/>
+                
 
                 <TextView
                     android:id="@+id/time"
                     android:textStyle="normal"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
                     android:fontFamily="serif"
                     android:layout_marginTop="4dp"
                     android:layout_width="wrap_content"
@@ -183,9 +163,8 @@
                         <TextView
                             android:id="@+id/min_temp"
                             android:textStyle="bold"
-                            android:textColor="@color/colorPrimary"
+                            android:textColor="@color/white"
                             android:textSize="16sp"
-                            android:fontFamily="serif"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
@@ -202,9 +181,8 @@
                         <TextView
                             android:id="@+id/max_temp"
                             android:textStyle="bold"
-                            android:textColor="@color/colorPrimary"
+                            android:textColor="@color/white"
                             android:textSize="16sp"
-                            android:fontFamily="serif"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
                     </LinearLayout>
@@ -235,7 +213,6 @@
                             android:textStyle="bold"
                             android:textColor="@color/colorPrimary"
                             android:textSize="16sp"
-                            android:fontFamily="serif"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
@@ -259,7 +236,6 @@
                             android:textStyle="bold"
                             android:textColor="@color/colorPrimary"
                             android:textSize="16sp"
-                            android:fontFamily="serif"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
                     </LinearLayout>
@@ -278,8 +254,9 @@
 
             <TextView
                 android:textStyle="bold"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorAccent"
                 android:textSize="18sp"
+                android:layout_marginStart="12dp"
                 android:fontFamily="serif"
                 android:text="@string/forecast"
                 android:layout_width="wrap_content"

@@ -111,11 +111,11 @@ class DetailActivity : AppCompatActivity() {
     private fun initUI() {
         cityT.text = city
         statusT.text = description
-        temperatureT.text = "$temperature\t°C"
+        temperatureT.text = "$temperature\t°"
         water_dropT.text = water_drop
         wind_speedT.text = wind_speed
-        mintemp.text = "Min:\t $min°C"
-        maxtemp.text = "Max:\t $max°C"
+        mintemp.text = "Min:\t $min°"
+        maxtemp.text = "Max:\t $max°"
 
         Glide.with(applicationContext)
             .load(IconManager().getIcon(icon))

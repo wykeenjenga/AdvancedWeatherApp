@@ -3,25 +3,25 @@ package com.wyksofts.wyykweather.ui.view;
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.bumptech.glide.Glide
-import com.google.firebase.firestore.util.Assert
 import com.google.gson.Gson
 import com.wyksofts.wyykweather.R
 import com.wyksofts.wyykweather.data.ForecastData
+import com.wyksofts.wyykweather.model.forecastModel
+import com.wyksofts.wyykweather.ui.adapter.CityAdapter
 import com.wyksofts.wyykweather.utils.Constants
 import com.wyksofts.wyykweather.utils.IconManager
-import org.json.JSONObject
 import java.text.DateFormat
-import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -134,7 +134,10 @@ class DetailActivity : AppCompatActivity() {
     //get weather forecast
     private fun getWeatherForecast(){
 
-        Toast.makeText(this, "Data:\t$lat,$long", Toast.LENGTH_SHORT).show()
+        //recyclerView
+        val recyclerview = findViewById<RecyclerView>(R.id.detailed_city_recyclerview)
+        recyclerview.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL ,false)
+        val listdata = ArrayList<forecastModel>()
 
         val queue = Volley.newRequestQueue(this)
         val url = "https://api.openweathermap.org/data/2.5/onecall?lat=$lat&lon=$long&exclude=current,minutely,hourly,alerts&appid=${Constants.OPEN_WEATHER_API_KEY}"
@@ -157,27 +160,19 @@ class DetailActivity : AppCompatActivity() {
                 val model = gson.fromJson(jsonString, ForecastData.tempData::class.java)
 
                 //temperature
-                val temperature = model.day
-
+                var temperature = model.day
+                temperature=((((temperature).toFloat()-273.15)).toInt()).toString()
                 //date
                 val date = Constants.getDate(day_list)
 
+
+                //add data
+                listdata.add(forecastModel(date,temperature))
+
+                val adapter = CityAdapter(listdata, applicationContext)
+                recyclerview.adapter = adapter
+
             }
-
-
-
-//            //response is in the form of arraylist
-//            val list = response.getJSONArray("list").getJSONObject(day).getString("main")
-//            val day = response.getJSONArray("list").getJSONObject(day).getString("dt_txt")
-//
-//            //create jsonObject
-//            var gson = Gson()
-//            var jsonString = list
-//            var testModel = gson.fromJson(jsonString, ForecastData.tempData::class.java)
-//
-//            testModel.temp
-
-            //Toast.makeText(this, "Data:\t${testModel.temp}\t\t$day", Toast.LENGTH_SHORT).show()
 
 
         },{ Toast.makeText(this, "error fetching forecast", Toast.LENGTH_LONG).show() })

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
@@ -64,7 +65,7 @@ class ForecastAdapter(var mList: List<forecastModel>,
         val day: TextView = itemView.findViewById(R.id.day)
         val temperature: TextView = itemView.findViewById(R.id.temperature)
         val weather_icon: ImageView = itemView.findViewById(R.id.weatherIcon)
-        val card_background: LinearLayout = itemView.findViewById(R.id.viewBG)
+        val card_background: RelativeLayout = itemView.findViewById(R.id.viewBG)
         val min_temp: TextView = itemView.findViewById(R.id.min_temp)
         val max_temp: TextView = itemView.findViewById(R.id.max_temp)
     }

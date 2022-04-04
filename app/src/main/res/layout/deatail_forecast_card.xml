@@ -1,111 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<androidx.cardview.widget.CardView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="145dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="24dp"
-    app:cardElevation="4dp"
-    app:cardUseCompatPadding="true"
-    android:layout_height="190dp">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:id="@+id/viewBG"
-        android:layout_width="match_parent"
-        android:padding="8dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:layout_height="match_parent">
 
-        <LinearLayout
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="160dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true"
+        android:layout_height="220dp">
+
+        <RelativeLayout
+            android:id="@+id/viewBG"
             android:layout_width="match_parent"
-            android:padding="8dp"
             android:gravity="center"
-            android:background="@drawable/ripple_effect"
-            android:clickable="true"
-            android:focusable="true"
             android:orientation="vertical"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/day"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                android:fontFamily="serif"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
             <ImageView
-                android:id="@+id/weatherIcon"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:src="@drawable/a01d_svg"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="6dp"/>
-
-            <TextView
-                android:id="@+id/temperature"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:textSize="26sp"
-                android:text="@string/_32_c"
-                android:fontFamily="serif"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_width="170dp"
+                android:layout_height="124dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="-40dp"
+                android:src="@drawable/ic_big_cloud" />
 
             <LinearLayout
-                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:padding="12dp"
+                android:layout_centerInParent="true"
                 android:gravity="center"
-                android:layout_marginTop="@dimen/margin_top"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:background="@drawable/ripple_effect"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/day"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:fontFamily="serif"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:id="@+id/weatherIcon"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:src="@drawable/a01d_svg"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="6dp"/>
+
+                <TextView
+                    android:id="@+id/temperature"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:textSize="26sp"
+                    android:text="@string/_32_c"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
                 <LinearLayout
                     android:orientation="horizontal"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:gravity="center"
+                    android:layout_marginTop="@dimen/margin_top"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/min_temp"
-                        android:textStyle="bold"
-                        android:textColor="@color/white"
-                        android:textSize="14sp"
-                        android:fontFamily="serif"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="wrap_content">
 
+                        <TextView
+                            android:id="@+id/min_temp"
+                            android:textStyle="bold"
+                            android:textColor="@color/white"
+                            android:textSize="14sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/max_temp"
+                            android:textStyle="bold"
+                            android:textColor="@color/white"
+                            android:textSize="14sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
                 </LinearLayout>
 
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/max_temp"
-                        android:textStyle="bold"
-                        android:textColor="@color/white"
-                        android:textSize="14sp"
-                        android:fontFamily="serif"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
             </LinearLayout>
 
+        </RelativeLayout>
 
 
+    </androidx.cardview.widget.CardView>
 
-        </LinearLayout>
-
-    </LinearLayout>
+</RelativeLayout>
 
 
-</androidx.cardview.widget.CardView>

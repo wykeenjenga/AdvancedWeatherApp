@@ -54,7 +54,7 @@ class IconManager {
             "Wind" -> R.drawable.detailed_wind_bg
             "Rain","Storm" -> R.drawable.detailed_rainny_bg
             "Snow", "Drizzle", "Thunderstorm" -> R.drawable.detailed_snow_bg
-            else -> R.drawable.detailed_sunny_bg
+            else -> R.drawable.detailed_default_bg
 
         }
         return bg

@@ -9,15 +9,20 @@
         <entry key="app/src/main/res/drawable-v24/detailed_bg.xml" value="0.142" />
         <entry key="app/src/main/res/drawable-v24/detailed_rainny_bg.xml" value="0.142" />
         <entry key="app/src/main/res/drawable-v24/detailed_wind_bg.xml" value="0.142" />
+        <entry key="app/src/main/res/drawable-v24/ripple_effect.xml" value="0.1175" />
+        <entry key="app/src/main/res/drawable/a01d_svg.xml" value="0.1175" />
         <entry key="app/src/main/res/drawable/a01n_svg.xml" value="0.111" />
+        <entry key="app/src/main/res/drawable/a04d_svg.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/baseline_air_20.xml" value="0.1365" />
         <entry key="app/src/main/res/drawable/baseline_create_24.xml" value="0.1365" />
         <entry key="app/src/main/res/drawable/baseline_place_24.xml" value="0.1365" />
         <entry key="app/src/main/res/drawable/baseline_water_drop_20.xml" value="0.1365" />
+        <entry key="app/src/main/res/drawable/bg.xml" value="0.11" />
         <entry key="app/src/main/res/drawable/cloudy_bg.xml" value="0.1365" />
         <entry key="app/src/main/res/drawable/detailed_snow_bg.xml" value="0.142" />
         <entry key="app/src/main/res/drawable/divider.xml" value="0.142" />
         <entry key="app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1365" />
+        <entry key="app/src/main/res/drawable/ic_big_cloud.xml" value="0.156" />
         <entry key="app/src/main/res/drawable/splash_bg.xml" value="0.13522033691406243" />
         <entry key="app/src/main/res/layout/activity_detail.xml" value="0.24635416666666668" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.23229166666666667" />

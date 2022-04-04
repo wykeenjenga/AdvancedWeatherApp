@@ -13,7 +13,10 @@ import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.bumptech.glide.Glide
+import com.google.firebase.firestore.util.Assert
+import com.google.gson.Gson
 import com.wyksofts.wyykweather.R
+import com.wyksofts.wyykweather.data.ForecastData
 import com.wyksofts.wyykweather.utils.Constants
 import com.wyksofts.wyykweather.utils.IconManager
 import org.json.JSONObject
@@ -145,11 +148,13 @@ class DetailActivity : AppCompatActivity() {
 
                 //create jsonObject
                 var gson = Gson()
-                var mMineUserEntity = gson?.fromJson(response, MineUserEntity.MineUserInfo::class.java)
+                var jsonString = list
+                var testModel = gson.fromJson(jsonString, ForecastData.tempData::class.java)
+
+                testModel.temp
 
 
-
-                Toast.makeText(this, "Data:\t"+temperature, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Data:\t"+testModel.temp, Toast.LENGTH_SHORT).show()
 
                 Log.d("data---", list.toString())
 

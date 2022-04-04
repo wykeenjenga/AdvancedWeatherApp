@@ -24,6 +24,7 @@
         <entry key="app/src/main/res/drawable/divider.xml" value="0.142" />
         <entry key="app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1365" />
         <entry key="app/src/main/res/drawable/ic_big_cloud.xml" value="0.156" />
+        <entry key="app/src/main/res/drawable/list_ripple_effect.xml" value="0.156" />
         <entry key="app/src/main/res/drawable/splash_bg.xml" value="0.13522033691406243" />
         <entry key="app/src/main/res/layout/activity_detail.xml" value="0.24635416666666668" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.23229166666666667" />

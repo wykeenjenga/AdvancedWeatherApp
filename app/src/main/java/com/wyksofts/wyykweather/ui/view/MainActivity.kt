@@ -5,6 +5,7 @@ import android.location.Location
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.*
@@ -137,20 +138,21 @@ class MainActivity : AppCompatActivity() {
                     //description
                     val description = response.getJSONArray("weather").getJSONObject(0).getString("main")
 
-                    //get lat and long
-                    var lat = response.getJSONObject("coord").getString("lat")
-                    var long = response.getJSONObject("coord").getString("lon")
-
-                    //temperature
-                    var temperature = response.getJSONObject("main").getString("temp")
-                    temperature=((((temperature).toFloat()-273.15)).toInt()).toString()
-
                     //icon
                     val icon = response.getJSONArray("weather").getJSONObject(0).getString("icon")
 
                     //wind_speed and water_drop
                     val waterDrop = response.getJSONObject("main").getString("humidity")+"\t%"
                     val windSpeed = response.getJSONObject("wind").getString("speed")+"\tkm/h"
+
+                    //get lat and long
+                    val lat = response.getJSONObject("coord").getString("lat").toString()
+                    val long = response.getJSONObject("coord").getString("lon").toString()
+
+                    //temperature
+                    var temperature = response.getJSONObject("main").getString("temp")
+                    temperature=((((temperature).toFloat()-273.15)).toInt()).toString()
+
 
                     //max and min temperature
                     var mintemp=response.getJSONObject("main").getString("temp_min")

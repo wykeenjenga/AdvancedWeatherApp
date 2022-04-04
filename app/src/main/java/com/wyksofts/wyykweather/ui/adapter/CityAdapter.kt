@@ -48,12 +48,15 @@ class CityAdapter(
         //on item clicked
         holder.card.setOnClickListener {
 
+            //Toast.makeText(context, "${data.lat},${data.long}", Toast.LENGTH_SHORT).show()
+
             //open detailed viewcity: String,
             openDetailedView(
                 data.city,data.icon,
                 data.description,data.temp,
                 data.wind_speed,data.water_drop,
-                data.mintemp,data.maxtemp, data.lat, data.long
+                data.mintemp,data.maxtemp,
+                data.lat, data.long
             )
 
 

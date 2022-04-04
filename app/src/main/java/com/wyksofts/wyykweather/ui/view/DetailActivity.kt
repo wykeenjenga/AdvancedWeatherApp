@@ -38,6 +38,8 @@ class DetailActivity : AppCompatActivity() {
     var water_drop: String = ""
     var min: String = ""
     var max: String = ""
+    var lat: String = ""
+    var long: String = ""
 
     //variables
     lateinit var cityT: TextView
@@ -82,14 +84,13 @@ class DetailActivity : AppCompatActivity() {
         water_drop = intent.getStringExtra("water_drop").toString()
         min = intent.getStringExtra("min_temp").toString()
         max = intent.getStringExtra("max_temp").toString()
-
-        val lat = intent.getStringArrayExtra("lat").toString()
-        val long = intent.getStringArrayExtra("long").toString()
+        lat = intent.getStringExtra("lat").toString()
+        long = intent.getStringExtra("long").toString()
 
 
 
         //variables
-        initUI(lat,long)
+        initUI()
 
         setCardBackgroundColor(description)
     }
@@ -100,7 +101,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun initUI(lat: String, long: String) {
+    private fun initUI() {
         cityT.text = city
         statusT.text = description
         temperatureT.text = "$temperature\t°C"
@@ -126,56 +127,67 @@ class DetailActivity : AppCompatActivity() {
             TODO("VERSION.SDK_INT < O")
         }
 
-        getWeatherForecast(city,lat,long,unix)
+        getWeatherForecast()
 
     }
 
     //get weather forecast
-    private fun getWeatherForecast(city: String, lat: String, long: String, unix: Long){
+    private fun getWeatherForecast(){
+
+        Toast.makeText(this, "Data:\t$lat,$long", Toast.LENGTH_SHORT).show()
 
         val queue = Volley.newRequestQueue(this)
-        val url = "https://api.openweathermap.org/data/2.5/forecast?q=$city&dt=$unix&appid=${Constants.OPEN_WEATHER_API_KEY}"
+        val url = "https://api.openweathermap.org/data/2.5/onecall?lat=$lat&lon=$long&exclude=current,minutely,hourly,alerts&appid=${Constants.OPEN_WEATHER_API_KEY}"
 
-        //days
-        val days = arrayOf(1, 2, 3, 4, 5)
 
-        for(day in days) {
+        val jsonRequest = JsonObjectRequest(Request.Method.GET, url,null, { response ->
 
-            val jsonRequest = JsonObjectRequest(Request.Method.GET, url,null, { response ->
+            //days
+            val days = arrayOf(1, 2, 3, 4, 5, 6)
 
-                //response is in the form of arraylist
-                val list = response.getJSONArray("list").getJSONObject(day).getString("main")
+
+            for(day in days) {
+
+                val temp_list = response.getJSONArray("daily").getJSONObject(day).getString("temp")
+                val day_list = response.getJSONArray("daily").getJSONObject(day).getString("dt").toLong()
 
                 //create jsonObject
-                var gson = Gson()
-                var jsonString = list
-                var testModel = gson.fromJson(jsonString, ForecastData.tempData::class.java)
+                val gson = Gson()
+                val jsonString = temp_list
+                val model = gson.fromJson(jsonString, ForecastData.tempData::class.java)
 
-                testModel.temp
+                //temperature
+                val temperature = model.day
+
+                //date
+                val date = Constants.getDate(day_list)
+
+            }
 
 
-                Toast.makeText(this, "Data:\t"+testModel.temp, Toast.LENGTH_SHORT).show()
 
-                Log.d("data---", list.toString())
+//            //response is in the form of arraylist
+//            val list = response.getJSONArray("list").getJSONObject(day).getString("main")
+//            val day = response.getJSONArray("list").getJSONObject(day).getString("dt_txt")
+//
+//            //create jsonObject
+//            var gson = Gson()
+//            var jsonString = list
+//            var testModel = gson.fromJson(jsonString, ForecastData.tempData::class.java)
+//
+//            testModel.temp
+
+            //Toast.makeText(this, "Data:\t${testModel.temp}\t\t$day", Toast.LENGTH_SHORT).show()
 
 
-            },{ Toast.makeText(this, "error fetching forecast", Toast.LENGTH_LONG).show() })
+        },{ Toast.makeText(this, "error fetching forecast", Toast.LENGTH_LONG).show() })
 
-            queue.add(jsonRequest)
-
-        }
+        queue.add(jsonRequest)
 
 
 
     }
 
-
-
-    @SuppressLint("SimpleDateFormat")
-    private fun  getDate(date: Long): String {
-        val timeFormatter = SimpleDateFormat("dd.MM.yyyy")
-        return timeFormatter.format(Date(date*1000L))
-    }
 
 
 }

@@ -10,10 +10,14 @@ class ConvertDate {
 
     @SuppressLint("SimpleDateFormat")
     @RequiresApi(Build.VERSION_CODES.N)
-    fun convert(date: String) : String {
-        val inFormat = SimpleDateFormat("dd-MM-yyyy")
-        val date: Date = inFormat.parse(date)
-        val outFormat = SimpleDateFormat("EEEE")
+    fun convert(input: String) : String {
+
+        val inFormat = SimpleDateFormat("dd.MM.yyyy")
+
+        val date: Date = inFormat.parse(input)
+
+        val outFormat = SimpleDateFormat("EEE")
+
         val day: String = outFormat.format(date)
 
         return day

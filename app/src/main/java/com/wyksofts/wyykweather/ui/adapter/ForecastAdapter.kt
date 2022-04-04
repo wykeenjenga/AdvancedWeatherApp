@@ -1,15 +1,16 @@
 package com.wyksofts.wyykweather.ui.adapter
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.wyksofts.wyykweather.R
 import com.wyksofts.wyykweather.model.forecastModel
+import com.wyksofts.wyykweather.utils.ConvertDate
 
 class ForecastAdapter(var mList: List<forecastModel>,
                       val context: Context) : RecyclerView.Adapter<ForecastAdapter.ViewHolder>() {
@@ -23,13 +24,13 @@ class ForecastAdapter(var mList: List<forecastModel>,
     }
 
     // binds the list items to a view
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val data = mList[position]
 
-        //city
 
-        holder.day.text =
+        holder.day.text = ConvertDate().convert(data.dayOfTheWeek)
         holder.temperature.text = "${data.temperature}°"
 
     }
@@ -47,3 +48,4 @@ class ForecastAdapter(var mList: List<forecastModel>,
 
 
 }
+

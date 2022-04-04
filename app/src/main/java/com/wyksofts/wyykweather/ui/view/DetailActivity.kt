@@ -1,7 +1,9 @@
 package com.wyksofts.wyykweather.ui.view;
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -14,8 +16,12 @@ import com.bumptech.glide.Glide
 import com.wyksofts.wyykweather.R
 import com.wyksofts.wyykweather.utils.Constants
 import com.wyksofts.wyykweather.utils.IconManager
+import org.json.JSONObject
 import java.text.DateFormat
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class DetailActivity : AppCompatActivity() {
@@ -77,10 +83,10 @@ class DetailActivity : AppCompatActivity() {
         val lat = intent.getStringArrayExtra("lat").toString()
         val long = intent.getStringArrayExtra("long").toString()
 
-        getWeatherForecast(city,lat,long)
+
 
         //variables
-        initUI()
+        initUI(lat,long)
 
         setCardBackgroundColor(description)
     }
@@ -91,7 +97,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun initUI() {
+    private fun initUI(lat: String, long: String) {
         cityT.text = city
         statusT.text = description
         temperatureT.text = "$temperature\t°C"
@@ -108,40 +114,57 @@ class DetailActivity : AppCompatActivity() {
         time.text = currentDateTimeString
 
 
+
+        val unix = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val l = LocalDate.parse("04-04-2022", DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+            l.atStartOfDay(ZoneId.systemDefault()).toInstant().epochSecond
+
+        } else {
+            TODO("VERSION.SDK_INT < O")
+        }
+
+        getWeatherForecast(city,lat,long,unix)
+
     }
 
     //get weather forecast
-    private fun getWeatherForecast(city: String, lat: String, long: String){
+    private fun getWeatherForecast(city: String, lat: String, long: String, unix: Long){
 
         val queue = Volley.newRequestQueue(this)
+        val url = "https://api.openweathermap.org/data/2.5/forecast?q=$city&dt=$unix&appid=${Constants.OPEN_WEATHER_API_KEY}"
 
-        Toast.makeText(this, "data:\t${lat}\t,$long", Toast.LENGTH_SHORT).show()
+        //days
+        val days = arrayOf(1, 2, 3, 4, 5)
 
-        //val url = "api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${Constants.OPEN_WEATHER_API_KEY}"
+        for(day in days) {
 
-        val url = "https://api.openweathermap.org/data/2.5/forecast?q=$city&appid=${Constants.OPEN_WEATHER_API_KEY}"
+            val jsonRequest = JsonObjectRequest(Request.Method.GET, url,null, { response ->
 
-        val jsonRequest = JsonObjectRequest(
-            Request.Method.GET, url,null, { response ->
+                //response is in the form of arraylist
+                val list = response.getJSONArray("list").getJSONObject(day).getString("main")
 
-                //temperature
-                var temperature = response.getJSONObject("main").getString("temp")
-                temperature=((((temperature).toFloat()-273.15)).toInt()).toString()
+                //create jsonObject
 
-                Toast.makeText(this, "Temp:\t"+temperature, Toast.LENGTH_SHORT).show()
+                val jsonObject = JSONObject()
 
-
-                //add data
-                //data.add(citiesModel(city, temperature, icon, description, waterDrop, windSpeed, mintemp, maxtemp))
-
-                //val adapter = CityAdapter(data, applicationContext)
-                //recyclerview.adapter = adapter
+                //temperature and
+                var temperature = jsonObject.getJSONObject("temp")
+                ///temperature=((((temperature).toFloat()-273.15)).toInt()).toString()
 
 
-            },
-            { Toast.makeText(this, "error fetching data5", Toast.LENGTH_LONG).show() })
 
-        queue.add(jsonRequest)
+                Toast.makeText(this, "Data:\t"+temperature, Toast.LENGTH_SHORT).show()
+
+                Log.d("data---", list.toString())
+
+
+            },{ Toast.makeText(this, "error fetching forecast", Toast.LENGTH_LONG).show() })
+
+            queue.add(jsonRequest)
+
+        }
+
+
 
     }
 

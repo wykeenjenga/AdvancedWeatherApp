@@ -19,9 +19,11 @@ import com.wyksofts.wyykweather.R
 import com.wyksofts.wyykweather.data.ForecastData
 import com.wyksofts.wyykweather.model.forecastModel
 import com.wyksofts.wyykweather.ui.adapter.CityAdapter
+import com.wyksofts.wyykweather.ui.adapter.ForecastAdapter
 import com.wyksofts.wyykweather.utils.Constants
 import com.wyksofts.wyykweather.utils.IconManager
 import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -169,7 +171,7 @@ class DetailActivity : AppCompatActivity() {
                 //add data
                 listdata.add(forecastModel(date,temperature))
 
-                val adapter = CityAdapter(listdata, applicationContext)
+                val adapter = ForecastAdapter(listdata, applicationContext)
                 recyclerview.adapter = adapter
 
             }

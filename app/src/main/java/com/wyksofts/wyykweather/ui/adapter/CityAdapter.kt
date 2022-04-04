@@ -16,7 +16,7 @@ import com.wyksofts.wyykweather.ui.view.DetailActivity
 import com.wyksofts.wyykweather.utils.IconManager
 
 class CityAdapter(
-    var mList: java.util.ArrayList<forecastModel>,
+    var mList: List<citiesModel>,
     val context: Context) : RecyclerView.Adapter<CityAdapter.ViewHolder>() {
 
 

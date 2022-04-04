@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="145dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardBackgroundColor="@color/white"
@@ -10,6 +11,7 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
+        android:id="@+id/viewBG"
         android:layout_width="match_parent"
         android:padding="8dp"
         android:gravity="center"
@@ -27,9 +29,10 @@
             android:layout_height="wrap_content"/>
 
         <ImageView
-            android:id="@+id/imageViewForecastIcon"
+            android:id="@+id/weatherIcon"
             android:layout_width="56dp"
             android:layout_height="56dp"
+            android:src="@drawable/a01d_svg"
             android:layout_marginTop="12dp"/>
 
         <TextView

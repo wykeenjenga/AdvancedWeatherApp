@@ -10,7 +10,7 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.wyksofts.wyykweather.R
 import com.wyksofts.wyykweather.model.forecastModel
-import com.wyksofts.wyykweather.utils.ConvertDate
+import com.wyksofts.wyykweather.utils.Convert
 
 class ForecastAdapter(var mList: List<forecastModel>,
                       val context: Context) : RecyclerView.Adapter<ForecastAdapter.ViewHolder>() {
@@ -30,7 +30,7 @@ class ForecastAdapter(var mList: List<forecastModel>,
         val data = mList[position]
 
 
-        holder.day.text = ConvertDate().convert(data.dayOfTheWeek)
+        holder.day.text = Convert().convertDate(data.dayOfTheWeek)
         holder.temperature.text = "${data.temperature}°"
 
     }

@@ -3,6 +3,7 @@ package com.wyksofts.wyykweather.ui.view;
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -14,6 +15,7 @@ import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.bumptech.glide.Glide
+import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
 import com.wyksofts.wyykweather.R
 import com.wyksofts.wyykweather.data.ForecastData
@@ -21,7 +23,10 @@ import com.wyksofts.wyykweather.model.forecastModel
 import com.wyksofts.wyykweather.ui.adapter.CityAdapter
 import com.wyksofts.wyykweather.ui.adapter.ForecastAdapter
 import com.wyksofts.wyykweather.utils.Constants
+import com.wyksofts.wyykweather.utils.Convert
 import com.wyksofts.wyykweather.utils.IconManager
+import org.json.JSONArray
+import org.json.JSONObject
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -153,23 +158,31 @@ class DetailActivity : AppCompatActivity() {
 
             for(day in days) {
 
+                //create jsonObject
+                val gson = Gson()
+
                 val temp_list = response.getJSONArray("daily").getJSONObject(day).getString("temp")
                 val day_list = response.getJSONArray("daily").getJSONObject(day).getString("dt").toLong()
 
-                //create jsonObject
-                val gson = Gson()
-                val jsonString = temp_list
-                val model = gson.fromJson(jsonString, ForecastData.tempData::class.java)
+                //icon
+                val icon_list = response.getJSONArray("daily").getJSONObject(day).getJSONArray("weather")
+
+                val weatherIcon = ForecastData().getWeatherIcon(icon_list.toString())
 
                 //temperature
-                var temperature = model.day
-                temperature=((((temperature).toFloat()-273.15)).toInt()).toString()
+                val jsonString = temp_list
+                val temp_model = gson.fromJson(jsonString, ForecastData.tempData::class.java)
+
+                //temperature, min and max
+                val temperature = Convert().convertTemp(temp_model.day)
+                val min_temperature = Convert().convertTemp(temp_model.min)
+                val max_temperature = Convert().convertTemp(temp_model.max)
+
                 //date
                 val date = Constants.getDate(day_list)
 
-
                 //add data
-                listdata.add(forecastModel(date,temperature))
+                listdata.add(forecastModel(date,temperature,weatherIcon,min_temperature,max_temperature))
 
                 val adapter = ForecastAdapter(listdata, applicationContext)
                 recyclerview.adapter = adapter
@@ -181,10 +194,6 @@ class DetailActivity : AppCompatActivity() {
 
         queue.add(jsonRequest)
 
-
-
     }
-
-
 
 }

@@ -1,16 +1,19 @@
 package com.wyksofts.wyykweather.utils
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.icu.text.SimpleDateFormat
 import android.os.Build
 import androidx.annotation.RequiresApi
+import java.time.DayOfWeek
+import java.time.LocalDate
 import java.util.*
 
-class ConvertDate {
+class Convert {
 
     @SuppressLint("SimpleDateFormat")
     @RequiresApi(Build.VERSION_CODES.N)
-    fun convert(input: String) : String {
+    fun convertDate(input: String) : String {
 
         val inFormat = SimpleDateFormat("dd.MM.yyyy")
 
@@ -22,4 +25,14 @@ class ConvertDate {
 
         return day
     }
+
+    fun convertTemp(temperature: String) : String {
+
+        val temp =((((temperature).toFloat()-273.15)).toInt()).toString()
+
+        return temp
+    }
+
+
+
 }

@@ -1,6 +1,8 @@
 package com.wyksofts.wyykweather.utils
 
+import android.graphics.Color
 import com.wyksofts.wyykweather.R
+import java.time.DayOfWeek
 
 class IconManager {
 
@@ -31,5 +33,22 @@ class IconManager {
 
         }
         return bg
+    }
+
+    fun getColor(colorBg: String?): Int {
+
+        val color: Int = when (colorBg) {
+
+            "MONDAY" -> Color.parseColor("#28E0AE")
+            "TUESDAY" -> Color.parseColor("#FF0090")
+            "WEDNESDAY" -> Color.parseColor("#FFAE00")
+            "THURSDAY" -> Color.parseColor("#0090FF")
+            "FRIDAY" -> Color.parseColor("#DC0000")
+            "SATURDAY" -> Color.parseColor("#0051FF")
+            "SUNDAY" -> Color.parseColor("#3D28E0")
+            else -> Color.parseColor("#28E0AE")
+        }
+
+        return color
     }
 }

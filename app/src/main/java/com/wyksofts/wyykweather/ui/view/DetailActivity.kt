@@ -117,7 +117,11 @@ class DetailActivity : AppCompatActivity() {
             this.finish()
         }
 
+        //get favourite db data
         Favorite(viewModel).getCities(data_city)
+
+
+        favBtn.startAnimation(AnimationUtils.loadAnimation(applicationContext,R.anim.zoom_in))
 
         //on favBtn clicked
         favBtn.setOnClickListener {

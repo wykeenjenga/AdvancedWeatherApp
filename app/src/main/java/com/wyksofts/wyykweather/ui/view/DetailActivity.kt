@@ -83,6 +83,7 @@ class DetailActivity : AppCompatActivity() {
         maxtemp = findViewById(R.id.max_temp)
         cardView = findViewById(R.id.cardView)
         progress_bar = findViewById(R.id.progress_bar)
+        fav = findViewById(R.id.like)
 
         card_background = findViewById(R.id.card_background)
 
@@ -142,6 +143,10 @@ class DetailActivity : AppCompatActivity() {
 
         arrow_back.setOnClickListener {
             this.finish()
+        }
+
+        fav.setOnClickListener {
+            //add city to favourite
         }
 
     }

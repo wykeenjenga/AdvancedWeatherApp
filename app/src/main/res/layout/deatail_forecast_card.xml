@@ -33,9 +33,9 @@
                 android:layout_width="match_parent"
                 android:padding="12dp"
                 android:layout_centerInParent="true"
-                android:foreground="@drawable/ripple_effect"
                 android:clickable="true"
                 android:focusable="true"
+                android:background="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:layout_height="match_parent">

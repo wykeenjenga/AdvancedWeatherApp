@@ -39,9 +39,9 @@
                 android:id="@+id/like"
                 android:layout_width="@dimen/list_weather_icon_size_large"
                 android:layout_height="@dimen/list_weather_icon_size_large"
-                android:background="@drawable/list_ripple_effect"
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
+                android:background="@drawable/list_ripple_effect"
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/baseline_favorite_border_24" />

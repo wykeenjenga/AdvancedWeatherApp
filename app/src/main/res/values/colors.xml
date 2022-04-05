@@ -8,9 +8,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="color2">#0A124E</color>
 
-    <color name="colorAccentRipple">#807D5593</color>
+    <color name="colorAccentRipple">#4D7D5593</color>
     <color name="colorAccentLight">#397D5593</color>
-    <color name="transparent">#00FFFFFF</color>
+    <color name="transparent">#63FFFFFF</color>
 
 
     <color name="cloud_sunny_wind_accent">#96f5f5</color>

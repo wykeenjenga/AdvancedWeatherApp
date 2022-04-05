@@ -138,9 +138,7 @@ class DetailActivity : AppCompatActivity() {
         }
 
 
-        fav.setOnClickListener {
-            val list = FavoriteCity().getCities(city,fav,applicationContext)
-        }
+        FavoriteCity().getCities(city,fav,applicationContext)
 
 
     }

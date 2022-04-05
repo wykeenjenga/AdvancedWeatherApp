@@ -28,7 +28,7 @@ class FavoriteCity {
             .document(cityName)
             .set(city, SetOptions.merge())
             .addOnSuccessListener { documentReference ->
-                showToast().showSuccess(context,"$cityName \t successfully added")
+                showToast().showSuccess(context,"$cityName successfully added")
             }
             .addOnFailureListener { e ->
                 showToast().showFailure(context,"Error adding: \t$cityName")
@@ -37,7 +37,16 @@ class FavoriteCity {
     }
 
     //delete city from cloud
-    fun deleteCity(cityName: String){
+    fun deleteCity(cityName: String, context: Context){
+
+        db.collection("cities").document(cityName)
+            .delete()
+            .addOnSuccessListener {
+                showToast().showFailure(context,"$cityName removed from fav")
+            }
+            .addOnFailureListener {
+                    e -> showToast().showFailure(context,"Unable to remove $cityName")
+            }
 
     }
 

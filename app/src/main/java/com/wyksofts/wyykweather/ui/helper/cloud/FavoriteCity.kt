@@ -9,6 +9,7 @@ import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.wyksofts.wyykweather.R
+import com.wyksofts.wyykweather.utils.showToast
 
 class FavoriteCity {
 
@@ -27,23 +28,21 @@ class FavoriteCity {
             .document(cityName)
             .set(city, SetOptions.merge())
             .addOnSuccessListener { documentReference ->
-                Toast.makeText(context,
-                    "DocumentSnapshot added with", Toast.LENGTH_LONG).show()
+                showToast().showSuccess(context,"$cityName \t successfully added")
             }
             .addOnFailureListener { e ->
-                Toast.makeText(context,
-                    "Error adding document", Toast.LENGTH_LONG).show()
+                showToast().showFailure(context,"Error adding: \t$cityName")
             }
 
     }
 
     //delete city from cloud
-    fun deleteCity(cityName: String, context: Context){
+    fun deleteCity(cityName: String){
 
     }
 
     //get all cities
-    fun getCities(city: String, favBtn: ImageView) {
+    fun getCities(city: String, favBtn: ImageView, context: Context){
 
         val docRef = db.collection("cities").document(city)
         docRef.get()
@@ -52,10 +51,22 @@ class FavoriteCity {
                 if (document != null){
 
                     val name = document.get("cityName").toString()
-                    if (name.equals(city)){
+
+                    if (name == city){
                         favBtn.setImageResource(R.drawable.baseline_favorite_24)
+
+                        favBtn.setOnClickListener {
+                            deleteCity(city)
+                        }
+
                     }else{
                         favBtn.setImageResource(R.drawable.baseline_favorite_border_24)
+
+                        favBtn.setOnClickListener {
+                            addCity(city,context)
+                            favBtn.setImageResource(R.drawable.baseline_favorite_24)
+                        }
+
                     }
                 }else{
                     favBtn.setImageResource(R.drawable.baseline_favorite_border_24)

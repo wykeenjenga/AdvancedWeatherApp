@@ -132,43 +132,19 @@ class DetailActivity : AppCompatActivity() {
 
         getWeatherForecast()
 
-        getCities()
-
 
         arrow_back.setOnClickListener {
             this.finish()
         }
 
-        var isFavorite = false
+
         fav.setOnClickListener {
-
-            FavoriteCity().addCity(city,applicationContext)
-            fav.setImageResource(R.drawable.baseline_favorite_24)
-
-//            //add city to favourite
-//            if (isFavorite){
-//                FavoriteCity().addCity(city,applicationContext)
-//                fav.setImageResource(R.drawable.baseline_favorite_24)
-//                isFavorite = true
-//            }
-//            else{
-//                FavoriteCity().deleteCity(city,applicationContext)
-//                fav.setImageResource(R.drawable.baseline_favorite_border_24)
-//                isFavorite = false
-//            }
-
+            val list = FavoriteCity().getCities(city,fav,applicationContext)
         }
 
 
     }
 
-    //get all cities
-    private fun getCities(){
-
-        val list = FavoriteCity().getCities(city,fav)
-
-        //
-    }
 
     //get weather forecast
     private fun getWeatherForecast(){

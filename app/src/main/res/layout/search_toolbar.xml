@@ -28,7 +28,6 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center">
                 <LinearLayout
-                    android:id="@+id/command_search"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
@@ -44,7 +43,7 @@
                 </LinearLayout>
 
                 <EditText
-                    android:id="@+id/search"
+                    android:id="@+id/searchCity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"

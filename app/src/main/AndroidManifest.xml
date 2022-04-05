@@ -15,14 +15,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".ui.view.DetailActivity"
+            android:name=".ui.main.DetailActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.view.MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="false" />
 
         <activity
-            android:name=".ui.view.SplashScreen"
+            android:name=".ui.main.SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

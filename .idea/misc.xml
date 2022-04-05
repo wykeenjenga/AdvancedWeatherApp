@@ -22,12 +22,16 @@
         <entry key="app/src/main/res/drawable/detailed_default_bg.xml" value="0.156" />
         <entry key="app/src/main/res/drawable/detailed_snow_bg.xml" value="0.142" />
         <entry key="app/src/main/res/drawable/divider.xml" value="0.142" />
+        <entry key="app/src/main/res/drawable/home_ripple_effect.xml" value="0.157" />
         <entry key="app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1365" />
+        <entry key="app/src/main/res/drawable/ic_baseline_search_accent_24.xml" value="0.157" />
         <entry key="app/src/main/res/drawable/ic_big_cloud.xml" value="0.156" />
+        <entry key="app/src/main/res/drawable/ic_menu_24.xml" value="0.157" />
+        <entry key="app/src/main/res/drawable/ic_small_cloud.xml" value="0.157" />
         <entry key="app/src/main/res/drawable/list_ripple_effect.xml" value="0.156" />
         <entry key="app/src/main/res/drawable/splash_bg.xml" value="0.13522033691406243" />
         <entry key="app/src/main/res/layout-land/activity_detail.xml" value="0.18645833333333334" />
-        <entry key="app/src/main/res/layout/activity_detail.xml" value="0.24635416666666668" />
+        <entry key="app/src/main/res/layout/activity_detail.xml" value="0.307433573404948" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.23229166666666667" />
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.24635416666666668" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.24635416666666668" />
@@ -35,6 +39,8 @@
         <entry key="app/src/main/res/layout/deatail_forecast_card.xml" value="0.24635416666666668" />
         <entry key="app/src/main/res/layout/fragment_city_detailedview.xml" value="0.24635416666666668" />
         <entry key="app/src/main/res/layout/fragment_city_list_view.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_detailed.xml" value="0.2515625" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2515625" />
         <entry key="app/src/main/res/layout/search_toolbar.xml" value="0.21203703703703702" />
         <entry key="app/src/main/res/menu/main_page_menu.xml" value="0.24635416666666668" />
       </map>

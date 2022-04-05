@@ -1,4 +1,4 @@
-package com.wyksofts.wyykweather.ui.adapter
+package com.wyksofts.wyykweather.ui.forecast
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,12 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wyksofts.wyykweather.R

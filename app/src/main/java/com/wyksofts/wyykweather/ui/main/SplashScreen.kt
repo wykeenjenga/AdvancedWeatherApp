@@ -1,7 +1,6 @@
-package com.wyksofts.wyykweather.ui.view
+package com.wyksofts.wyykweather.ui.main
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.wyksofts.wyykweather.R

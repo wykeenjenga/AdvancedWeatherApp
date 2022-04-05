@@ -1,34 +1,34 @@
-package com.wyksofts.wyykweather.ui.view;
+package com.wyksofts.wyykweather.ui.main
 
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
+import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.wyksofts.wyykweather.R
-import com.wyksofts.wyykweather.data.forecast.ForecastData
-import com.wyksofts.wyykweather.model.forecastModel
-import com.wyksofts.wyykweather.ui.adapter.ForecastAdapter
 import com.wyksofts.wyykweather.data.cloud.Favorite
+import com.wyksofts.wyykweather.data.forecast.ForecastData
 import com.wyksofts.wyykweather.model.FavoriteViewModel
-import com.wyksofts.wyykweather.utils.Constants
-import com.wyksofts.wyykweather.utils.Convert
-import com.wyksofts.wyykweather.utils.IconManager
-import kotlinx.android.synthetic.main.activity_detail.*
+import com.wyksofts.wyykweather.model.forecastModel
+import com.wyksofts.wyykweather.ui.forecast.ForecastAdapter
+import com.wyksofts.wyykweather.utils.*
+import kotlinx.android.synthetic.main.fragment_detailed.*
 import java.text.DateFormat
 import java.util.*
 
-class DetailActivity : AppCompatActivity() {
+class DetailedFragment : Fragment() {
 
     //view_model
     lateinit var viewModel: FavoriteViewModel
@@ -45,50 +45,48 @@ class DetailActivity : AppCompatActivity() {
     var data_lat: String = ""
     var data_long: String = ""
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
 
         viewModel = ViewModelProvider(this).get(FavoriteViewModel::class.java)
         viewModel.currentIcon.observe(this, androidx.lifecycle.Observer  {
-
             favBtn.setImageResource(it)
         })
 
+        val bundle = this.arguments
+        if (bundle != null) {
+            //get city details
+            data_city = bundle.getString("city").toString()
+            data_description = bundle.getString("description").toString()
+            data_icon = bundle.getString("icon").toString()
+            data_temperature = bundle.getString("temperature").toString()
+            data_wind_speed = bundle.getString("wind_speed").toString()
+            data_water_drop = bundle.getString("water_drop").toString()
+            data_min = bundle.getString("min_temp").toString()
+            data_max = bundle.getString("max_temp").toString()
+            data_lat = bundle.getString("lat").toString()
+            data_long = bundle.getString("long").toString()
+        }
 
-        //get city details
-        data_city = intent.getStringExtra("city").toString()
-        data_description = intent.getStringExtra("description").toString()
-        data_icon = intent.getStringExtra("icon").toString()
-        data_temperature = intent.getStringExtra("temperature").toString()
-        data_wind_speed = intent.getStringExtra("wind_speed").toString()
-        data_water_drop = intent.getStringExtra("water_drop").toString()
-        data_min = intent.getStringExtra("min_temp").toString()
-        data_max = intent.getStringExtra("max_temp").toString()
-        data_lat = intent.getStringExtra("lat").toString()
-        data_long = intent.getStringExtra("long").toString()
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?): View? {
+        // Inflate the layout for this fragment
+        val view =  inflater.inflate(R.layout.fragment_detailed, container, false)
 
 
+        //set background colorScheme
+        card_background.setBackgroundResource(BackgroundManager().getBackground(data_description))
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            cardView.outlineAmbientShadowColor = IconManager().getColor(data_description)
+            cardView.outlineSpotShadowColor = IconManager().getColor(data_description)
+        }
 
         //variables
         initUI()
 
-        setCardBackgroundColor(data_description)
-
-    }
-
-    //set background color of the app
-    private fun setCardBackgroundColor(description: String) {
-        card_background.setBackgroundResource(IconManager().getBackground(description))
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            cardView.outlineAmbientShadowColor = IconManager().getColor(description)
-            cardView.outlineSpotShadowColor = IconManager().getColor(description)
-        }
-
-        val anim = AnimationUtils.loadAnimation(applicationContext, R.anim.zoom_in)
-        weather_icon.startAnimation(anim)
+        return view
     }
 
     @SuppressLint("SetTextI18n")
@@ -102,9 +100,11 @@ class DetailActivity : AppCompatActivity() {
         min_temp.text = "Min:\t $data_min°"
         max_temp.text = "Max:\t $data_max°"
 
-        Glide.with(applicationContext)
-            .load(IconManager().getIcon(data_icon))
-            .into(weather_icon)
+        context?.let {
+            Glide.with(it)
+                .load(IconManager().getIcon(data_icon))
+                .into(weather_icon)
+        }
 
         val currentDateTimeString = DateFormat.getDateTimeInstance().format(Date())
         time.text = currentDateTimeString
@@ -114,23 +114,28 @@ class DetailActivity : AppCompatActivity() {
 
 
         arrow_back.setOnClickListener {
-            this.finish()
+            activity?.supportFragmentManager?.popBackStackImmediate()
         }
 
         //get favourite db data
         Favorite(viewModel).getCities(data_city)
 
 
-        favBtn.startAnimation(AnimationUtils.loadAnimation(applicationContext,R.anim.zoom_in))
+        Animator().animate(favBtn,1.0f,1.2f,1100)
+        weather_icon.startAnimation(AnimationUtils.loadAnimation(context, R.anim.zoom_in))
 
         //on favBtn clicked
         favBtn.setOnClickListener {
             if(viewModel.favIcon == R.drawable.baseline_favorite_24){
-                viewModel.currentIcon.value = Favorite(viewModel).deleteCity(data_city, applicationContext)
+                viewModel.currentIcon.value =
+                    context?.let { it1 -> Favorite(viewModel).deleteCity(data_city, it1) }
             }else{
-                viewModel.currentIcon.value = Favorite(viewModel).addCity(data_city,applicationContext)
+                viewModel.currentIcon.value =
+                    context?.let { it1 -> Favorite(viewModel).addCity(data_city, it1) }
             }
         }
+
+        Animator().animate(imageViewBigCloud,0.5f,1.3f,10000)
 
     }
 
@@ -142,11 +147,12 @@ class DetailActivity : AppCompatActivity() {
         progress_bar.isVisible = true
 
         //recyclerView
-        val recyclerview = findViewById<RecyclerView>(R.id.detailed_city_recyclerview)
-        recyclerview.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL ,false)
+        detailed_city_recyclerview.layoutManager = LinearLayoutManager(context,
+            LinearLayoutManager.HORIZONTAL ,false)
+
         val listdata = ArrayList<forecastModel>()
 
-        val queue = Volley.newRequestQueue(this)
+        val queue = Volley.newRequestQueue(context)
         val url = "https://api.openweathermap.org/data/2.5/onecall?lat=$data_lat&lon=$data_long&exclude=current,minutely,hourly,alerts&appid=${Constants.OPEN_WEATHER_API_KEY}"
 
 
@@ -186,14 +192,16 @@ class DetailActivity : AppCompatActivity() {
                 //add data
                 listdata.add(forecastModel(date,temperature,weatherIcon,min_temperature,max_temperature))
 
-                val adapter = ForecastAdapter(listdata, applicationContext)
-                recyclerview.adapter = adapter
+                val adapter = context?.let { ForecastAdapter(listdata, it) }
+                detailed_city_recyclerview.adapter = adapter
+
+                detailed_city_recyclerview.startAnimation(AnimationUtils.loadAnimation(context, R.anim.recycler_view_anim))
 
             }
 
 
         },{
-            Toast.makeText(this, "error fetching forecast", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "error fetching forecast", Toast.LENGTH_LONG).show()
             progress_bar.isVisible = false
         })
 

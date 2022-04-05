@@ -1,10 +1,10 @@
-package com.wyksofts.wyykweather.ui.helper
+package com.wyksofts.wyykweather.ui.helper.local
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.wyksofts.wyykweather.ui.helper.addCitytoFav.CityEntry.SQL_CREATE_ENTRIES
-import com.wyksofts.wyykweather.ui.helper.addCitytoFav.CityEntry.SQL_DELETE_ENTRIES
+import com.wyksofts.wyykweather.ui.helper.local.addCitytoFav.CityEntry.SQL_CREATE_ENTRIES
+import com.wyksofts.wyykweather.ui.helper.local.addCitytoFav.CityEntry.SQL_DELETE_ENTRIES
 
 class FeedReaderDbHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     override fun onCreate(db: SQLiteDatabase) {

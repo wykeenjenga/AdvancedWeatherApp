@@ -8,6 +8,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.view.isVisible
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
@@ -20,6 +21,7 @@ import com.wyksofts.wyykweather.data.ForecastData
 import com.wyksofts.wyykweather.model.forecastModel
 import com.wyksofts.wyykweather.ui.adapter.ForecastAdapter
 import com.wyksofts.wyykweather.ui.helper.cloud.FavoriteCity
+import com.wyksofts.wyykweather.ui.helper.cloud.FavoriteViewModel
 import com.wyksofts.wyykweather.utils.Constants
 import com.wyksofts.wyykweather.utils.Convert
 import com.wyksofts.wyykweather.utils.IconManager
@@ -27,6 +29,10 @@ import java.text.DateFormat
 import java.util.*
 
 class DetailActivity : AppCompatActivity() {
+
+    //view_model
+
+    lateinit var viewModel: FavoriteViewModel
 
     //shared resources
     var city: String = ""
@@ -75,6 +81,13 @@ class DetailActivity : AppCompatActivity() {
         maxtemp = findViewById(R.id.max_temp)
         cardView = findViewById(R.id.cardView)
         progress_bar = findViewById(R.id.progress_bar)
+
+        viewModel = ViewModelProvider(this).get(FavoriteViewModel::class.java)
+        viewModel.currentIcon.observe(this, androidx.lifecycle.Observer  {
+
+            fav.setImageResource(it)
+        })
+
         fav = findViewById(R.id.like)
 
         card_background = findViewById(R.id.card_background)
@@ -98,6 +111,8 @@ class DetailActivity : AppCompatActivity() {
         initUI()
 
         setCardBackgroundColor(description)
+
+        changeFavIcon()
     }
 
     //set background color of the app
@@ -137,10 +152,15 @@ class DetailActivity : AppCompatActivity() {
             this.finish()
         }
 
+        //FavoriteCity().getCities(city,fav,applicationContext)
 
-        FavoriteCity().getCities(city,fav,applicationContext)
+    }
 
+    private fun changeFavIcon(){
 
+        fav.setOnClickListener {
+            viewModel.currentIcon.value = FavoriteCity().getCities(city,fav,applicationContext)
+        }
     }
 
 

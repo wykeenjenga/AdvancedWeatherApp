@@ -51,7 +51,9 @@ class FavoriteCity {
     }
 
     //get all cities
-    fun getCities(city: String, favBtn: ImageView, context: Context){
+    fun getCities(city: String, favBtn: ImageView, context: Context) :Int{
+
+        var icon = R.drawable.baseline_favorite_border_24
 
         val docRef = db.collection("cities").document(city)
         docRef.get()
@@ -62,28 +64,31 @@ class FavoriteCity {
                     val name = document.get("cityName").toString()
 
                     if (name == city){
-                        favBtn.setImageResource(R.drawable.baseline_favorite_24)
+
+                        icon = R.drawable.baseline_favorite_24
 
                         favBtn.setOnClickListener {
                             deleteCity(city, context)
-                            favBtn.setImageResource(R.drawable.baseline_favorite_border_24)
+                            icon = R.drawable.baseline_favorite_border_24
                         }
 
                     }else{
-                        favBtn.setImageResource(R.drawable.baseline_favorite_border_24)
+                        icon = R.drawable.baseline_favorite_border_24
                         favBtn.setOnClickListener {
                             addCity(city,context)
-                            favBtn.setImageResource(R.drawable.baseline_favorite_24)
+                            icon = R.drawable.baseline_favorite_24
                         }
 
                     }
                 }else{
-                    favBtn.setImageResource(R.drawable.baseline_favorite_border_24)
+                    icon = R.drawable.baseline_favorite_border_24
                 }
             }
             .addOnFailureListener { exception ->
-                favBtn.setImageResource(R.drawable.baseline_favorite_border_24)
+                icon = R.drawable.baseline_favorite_border_24
             }
+
+        return icon
     }
 
 }

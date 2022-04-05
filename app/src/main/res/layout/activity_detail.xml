@@ -26,18 +26,20 @@
 
             <ImageView
                 android:id="@+id/arrow_back"
-                android:layout_width="@dimen/list_weather_icon_size"
-                android:layout_height="@dimen/list_weather_icon_size"
+                android:layout_width="@dimen/list_weather_icon_size_large"
+                android:layout_height="@dimen/list_weather_icon_size_large"
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
+                android:background="@drawable/list_ripple_effect"
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/baseline_west_24" />
 
             <ImageView
-                android:id="@+id/logout_menu"
-                android:layout_width="@dimen/list_weather_icon_size"
-                android:layout_height="@dimen/list_weather_icon_size"
+                android:id="@+id/like"
+                android:layout_width="@dimen/list_weather_icon_size_large"
+                android:layout_height="@dimen/list_weather_icon_size_large"
+                android:background="@drawable/list_ripple_effect"
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
                 android:clickable="true"
@@ -263,13 +265,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/detailed_city_recyclerview"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:layoutAnimation="@anim/layout_animation"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                android:layout_height="wrap_content">
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/detailed_city_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:layoutAnimation="@anim/layout_animation"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            </RelativeLayout>
 
         </LinearLayout>
 

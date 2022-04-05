@@ -7,6 +7,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="color2">#0A124E</color>
+
+    <color name="colorAccentRipple">#807D5593</color>
     <color name="colorAccentLight">#397D5593</color>
     <color name="transparent">#00FFFFFF</color>
 

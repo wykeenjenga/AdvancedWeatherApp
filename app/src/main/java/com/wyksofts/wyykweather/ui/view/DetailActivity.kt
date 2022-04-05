@@ -5,12 +5,10 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
@@ -63,6 +61,8 @@ class DetailActivity : AppCompatActivity() {
     lateinit var maxtemp: TextView
     lateinit var card_background: LinearLayout
     lateinit var cardView: CardView
+    lateinit var progress_bar: ProgressBar
+    lateinit var fav: ImageView
 
 
 
@@ -82,6 +82,7 @@ class DetailActivity : AppCompatActivity() {
         mintemp = findViewById(R.id.min_temp)
         maxtemp = findViewById(R.id.max_temp)
         cardView = findViewById(R.id.cardView)
+        progress_bar = findViewById(R.id.progress_bar)
 
         card_background = findViewById(R.id.card_background)
 
@@ -138,10 +139,17 @@ class DetailActivity : AppCompatActivity() {
 
         getWeatherForecast()
 
+
+        arrow_back.setOnClickListener {
+            this.finish()
+        }
+
     }
 
     //get weather forecast
     private fun getWeatherForecast(){
+
+        progress_bar.isVisible = true
 
         //recyclerView
         val recyclerview = findViewById<RecyclerView>(R.id.detailed_city_recyclerview)
@@ -153,6 +161,8 @@ class DetailActivity : AppCompatActivity() {
 
 
         val jsonRequest = JsonObjectRequest(Request.Method.GET, url,null, { response ->
+
+            progress_bar.isVisible = false
 
             //days
             val days = arrayOf(1, 2, 3, 4, 5, 6)
@@ -192,7 +202,10 @@ class DetailActivity : AppCompatActivity() {
             }
 
 
-        },{ Toast.makeText(this, "error fetching forecast", Toast.LENGTH_LONG).show() })
+        },{
+            Toast.makeText(this, "error fetching forecast", Toast.LENGTH_LONG).show()
+            progress_bar.isVisible = false
+        })
 
         queue.add(jsonRequest)
 

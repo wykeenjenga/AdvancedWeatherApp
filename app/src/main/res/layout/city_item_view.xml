@@ -11,7 +11,7 @@
 
         <RelativeLayout
             android:id="@+id/itemView"
-            android:background="@drawable/list_ripple_effect"
+            android:background="@drawable/ripple_effect"
             android:clickable="true"
             android:focusable="true"
             android:layout_width="match_parent"

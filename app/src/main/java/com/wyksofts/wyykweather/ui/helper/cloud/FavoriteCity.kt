@@ -65,12 +65,12 @@ class FavoriteCity {
                         favBtn.setImageResource(R.drawable.baseline_favorite_24)
 
                         favBtn.setOnClickListener {
-                            deleteCity(city)
+                            deleteCity(city, context)
+                            favBtn.setImageResource(R.drawable.baseline_favorite_border_24)
                         }
 
                     }else{
                         favBtn.setImageResource(R.drawable.baseline_favorite_border_24)
-
                         favBtn.setOnClickListener {
                             addCity(city,context)
                             favBtn.setImageResource(R.drawable.baseline_favorite_24)

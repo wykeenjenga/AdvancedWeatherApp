@@ -1,4 +1,4 @@
-package com.wyksofts.wyykweather.ui.helper.local
+package com.wyksofts.wyykweather.data.local
 
 import android.content.ContentValues
 import android.content.Context

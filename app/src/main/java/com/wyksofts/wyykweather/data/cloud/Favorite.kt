@@ -1,59 +1,61 @@
-package com.wyksofts.wyykweather.ui.helper.cloud
+package com.wyksofts.wyykweather.data.cloud
 
-import android.content.ContentValues.TAG
 import android.content.Context
-import android.util.Log
-import android.widget.ImageView
-import android.widget.Toast
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.wyksofts.wyykweather.R
+import com.wyksofts.wyykweather.model.FavoriteViewModel
 import com.wyksofts.wyykweather.utils.showToast
 
-class FavoriteCity {
+class Favorite(private val viewModel: FavoriteViewModel) {
 
     val db = Firebase.firestore
 
-    //add city to cloud
-    fun addCity(cityName: String, context: Context){
+    //add city to cloud fav db
+    fun addCity(cityName: String, context: Context) : Int{
 
-        // Create a new user with a first and last name
+        //city to be added
         val city = hashMapOf(
             "cityName" to cityName,
         )
 
-        // Add a new document with a generated ID
+        // add city
         db.collection("cities")
             .document(cityName)
             .set(city, SetOptions.merge())
             .addOnSuccessListener { documentReference ->
                 showToast().showSuccess(context,"$cityName successfully added")
+
+                viewModel.favIcon = R.drawable.baseline_favorite_24
+                viewModel.currentIcon.value = viewModel.favIcon
             }
             .addOnFailureListener { e ->
                 showToast().showFailure(context,"Error adding: \t$cityName")
             }
 
+        return viewModel.favIcon
     }
 
-    //delete city from cloud
-    fun deleteCity(cityName: String, context: Context){
+    //remove city from cloud fav db
+    fun deleteCity(cityName: String, context: Context): Int{
 
         db.collection("cities").document(cityName)
             .delete()
             .addOnSuccessListener {
                 showToast().showFailure(context,"$cityName removed from fav")
+                viewModel.favIcon = R.drawable.baseline_favorite_border_24
+                viewModel.currentIcon.value = viewModel.favIcon
             }
             .addOnFailureListener {
                     e -> showToast().showFailure(context,"Unable to remove $cityName")
             }
 
+        return viewModel.favIcon
     }
 
     //get all cities
-    fun getCities(city: String, favBtn: ImageView, context: Context) :Int{
-
-        var icon = R.drawable.baseline_favorite_border_24
+    fun getCities(city: String){
 
         val docRef = db.collection("cities").document(city)
         docRef.get()
@@ -65,30 +67,20 @@ class FavoriteCity {
 
                     if (name == city){
 
-                        icon = R.drawable.baseline_favorite_24
-
-                        favBtn.setOnClickListener {
-                            deleteCity(city, context)
-                            icon = R.drawable.baseline_favorite_border_24
-                        }
+                        viewModel.favIcon = R.drawable.baseline_favorite_24
+                        viewModel.currentIcon.value = viewModel.favIcon
 
                     }else{
-                        icon = R.drawable.baseline_favorite_border_24
-                        favBtn.setOnClickListener {
-                            addCity(city,context)
-                            icon = R.drawable.baseline_favorite_24
-                        }
-
+                        viewModel.favIcon = R.drawable.baseline_favorite_border_24
+                        viewModel.currentIcon.value = viewModel.favIcon
                     }
                 }else{
-                    icon = R.drawable.baseline_favorite_border_24
+                    viewModel.favIcon = R.drawable.baseline_favorite_border_24
                 }
             }
             .addOnFailureListener { exception ->
-                icon = R.drawable.baseline_favorite_border_24
+                viewModel.favIcon  = R.drawable.baseline_favorite_border_24
             }
-
-        return icon
     }
 
 }

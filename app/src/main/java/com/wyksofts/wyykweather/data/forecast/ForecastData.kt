@@ -1,4 +1,4 @@
-package com.wyksofts.wyykweather.data
+package com.wyksofts.wyykweather.data.forecast
 
 import android.util.Log
 import android.widget.Toast

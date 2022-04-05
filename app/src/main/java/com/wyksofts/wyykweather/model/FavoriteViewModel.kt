@@ -1,4 +1,4 @@
-package com.wyksofts.wyykweather.ui.helper.cloud
+package com.wyksofts.wyykweather.model
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,6 +10,10 @@ class FavoriteViewModel : ViewModel() {
 
     val currentIcon : MutableLiveData<Int> by lazy{
         MutableLiveData<Int>()
+    }
+
+    val currentCity : MutableLiveData<String> by lazy{
+        MutableLiveData<String>()
     }
 
 

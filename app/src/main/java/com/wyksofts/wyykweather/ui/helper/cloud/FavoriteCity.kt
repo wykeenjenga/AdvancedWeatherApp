@@ -1,53 +1,69 @@
 package com.wyksofts.wyykweather.ui.helper.cloud
 
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.util.Log
+import android.widget.ImageView
+import android.widget.Toast
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.wyksofts.wyykweather.R
 
 class FavoriteCity {
 
     val db = Firebase.firestore
 
     //add city to cloud
-    fun addCity(cityName: String){
+    fun addCity(cityName: String, context: Context){
 
         // Create a new user with a first and last name
         val city = hashMapOf(
-            cityName to cityName,
+            "cityName" to cityName,
         )
 
         // Add a new document with a generated ID
         db.collection("cities")
-            .add(city)
+            .document(cityName)
+            .set(city, SetOptions.merge())
             .addOnSuccessListener { documentReference ->
-                Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
+                Toast.makeText(context,
+                    "DocumentSnapshot added with", Toast.LENGTH_LONG).show()
             }
             .addOnFailureListener { e ->
-                Log.w(TAG, "Error adding document", e)
+                Toast.makeText(context,
+                    "Error adding document", Toast.LENGTH_LONG).show()
             }
 
     }
 
     //delete city from cloud
-    fun deleteCity(cityName: String){
+    fun deleteCity(cityName: String, context: Context){
 
     }
 
     //get all cities
-    fun getCities(){
+    fun getCities(city: String, favBtn: ImageView) {
 
-        db.collection("users")
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    Log.d(TAG, "${document.id} => ${document.data}")
+        val docRef = db.collection("cities").document(city)
+        docRef.get()
+            .addOnSuccessListener { document ->
+
+                if (document != null){
+
+                    val name = document.get("cityName").toString()
+                    if (name.equals(city)){
+                        favBtn.setImageResource(R.drawable.baseline_favorite_24)
+                    }else{
+                        favBtn.setImageResource(R.drawable.baseline_favorite_border_24)
+                    }
+                }else{
+                    favBtn.setImageResource(R.drawable.baseline_favorite_border_24)
                 }
             }
             .addOnFailureListener { exception ->
-                Log.w(TAG, "Error getting documents.", exception)
+                favBtn.setImageResource(R.drawable.baseline_favorite_border_24)
             }
-
     }
 
 }

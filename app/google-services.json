@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "160296936749",
+    "project_id": "wyyk-weather",
+    "storage_bucket": "wyyk-weather.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:160296936749:android:5ae22c18aed2210bfe9fa4",
+        "android_client_info": {
+          "package_name": "com.wyksofts.wyykweather"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "160296936749-b9lbgqk6cdi90pv27rab4nv7rim8inr5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeAwpnENtKLzrnVeFcobeokWV9ACcDsqw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "160296936749-b9lbgqk6cdi90pv27rab4nv7rim8inr5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

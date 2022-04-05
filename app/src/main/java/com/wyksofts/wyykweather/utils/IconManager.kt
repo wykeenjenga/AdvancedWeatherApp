@@ -59,6 +59,7 @@ class IconManager {
         return bg
     }
 
+
     fun getColor(colorBg: String?): Int {
 
         val color: Int = when (colorBg) {

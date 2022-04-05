@@ -3,7 +3,6 @@ package com.wyksofts.wyykweather.ui.view;
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -15,23 +14,16 @@ import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.bumptech.glide.Glide
-import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
 import com.wyksofts.wyykweather.R
 import com.wyksofts.wyykweather.data.ForecastData
 import com.wyksofts.wyykweather.model.forecastModel
-import com.wyksofts.wyykweather.ui.adapter.CityAdapter
 import com.wyksofts.wyykweather.ui.adapter.ForecastAdapter
+import com.wyksofts.wyykweather.ui.helper.cloud.FavoriteCity
 import com.wyksofts.wyykweather.utils.Constants
 import com.wyksofts.wyykweather.utils.Convert
 import com.wyksofts.wyykweather.utils.IconManager
-import org.json.JSONArray
-import org.json.JSONObject
 import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 class DetailActivity : AppCompatActivity() {
@@ -140,15 +132,42 @@ class DetailActivity : AppCompatActivity() {
 
         getWeatherForecast()
 
+        getCities()
+
 
         arrow_back.setOnClickListener {
             this.finish()
         }
 
+        var isFavorite = false
         fav.setOnClickListener {
-            //add city to favourite
+
+            FavoriteCity().addCity(city,applicationContext)
+            fav.setImageResource(R.drawable.baseline_favorite_24)
+
+//            //add city to favourite
+//            if (isFavorite){
+//                FavoriteCity().addCity(city,applicationContext)
+//                fav.setImageResource(R.drawable.baseline_favorite_24)
+//                isFavorite = true
+//            }
+//            else{
+//                FavoriteCity().deleteCity(city,applicationContext)
+//                fav.setImageResource(R.drawable.baseline_favorite_border_24)
+//                isFavorite = false
+//            }
+
         }
 
+
+    }
+
+    //get all cities
+    private fun getCities(){
+
+        val list = FavoriteCity().getCities(city,fav)
+
+        //
     }
 
     //get weather forecast

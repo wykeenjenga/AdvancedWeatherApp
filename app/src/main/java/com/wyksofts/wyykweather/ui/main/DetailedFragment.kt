@@ -22,7 +22,7 @@ import com.wyksofts.wyykweather.R
 import com.wyksofts.wyykweather.data.cloud.Favorite
 import com.wyksofts.wyykweather.data.forecast.ForecastData
 import com.wyksofts.wyykweather.databinding.FragmentDetailedBinding
-import com.wyksofts.wyykweather.model.FavoriteViewModel
+import com.wyksofts.wyykweather.ui.favorite.FavoriteViewModel
 import com.wyksofts.wyykweather.ui.forecast.forecastModel
 import com.wyksofts.wyykweather.ui.forecast.ForecastAdapter
 import com.wyksofts.wyykweather.utils.*

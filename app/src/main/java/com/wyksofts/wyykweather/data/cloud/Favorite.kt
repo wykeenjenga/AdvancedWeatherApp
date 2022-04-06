@@ -5,7 +5,7 @@ import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.wyksofts.wyykweather.R
-import com.wyksofts.wyykweather.model.FavoriteViewModel
+import com.wyksofts.wyykweather.ui.favorite.FavoriteViewModel
 import com.wyksofts.wyykweather.utils.showToast
 
 class Favorite(private val viewModel: FavoriteViewModel) {

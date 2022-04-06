@@ -1,9 +1,7 @@
-package com.wyksofts.wyykweather.ui.cities
+package com.wyksofts.wyykweather.ui.citiesWeather
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wyksofts.wyykweather.R
 import com.wyksofts.wyykweather.model.citiesModel
-import com.wyksofts.wyykweather.ui.main.DetailedFragment
 import com.wyksofts.wyykweather.utils.IconManager
 
 

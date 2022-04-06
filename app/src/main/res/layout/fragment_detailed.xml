@@ -217,7 +217,7 @@
                                 android:id="@+id/waterDrop"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/colorPrimary"
+                                android:textColor="@color/gray"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
 
@@ -240,7 +240,7 @@
                                 android:id="@+id/windSpeed"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/colorPrimary"
+                                android:textColor="@color/gray"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -288,8 +288,8 @@
                 <ProgressBar
                     android:id="@+id/progressBar"
                     android:layout_centerInParent="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"/>
 
 
                 <androidx.recyclerview.widget.RecyclerView

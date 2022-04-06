@@ -14,8 +14,10 @@
         <entry key="app/src/main/res/drawable/a01n_svg.xml" value="0.111" />
         <entry key="app/src/main/res/drawable/a04d_svg.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/baseline_air_20.xml" value="0.1365" />
+        <entry key="app/src/main/res/drawable/baseline_cancel_24.xml" value="0.1645" />
         <entry key="app/src/main/res/drawable/baseline_create_24.xml" value="0.1365" />
         <entry key="app/src/main/res/drawable/baseline_place_24.xml" value="0.1365" />
+        <entry key="app/src/main/res/drawable/baseline_travel_explore_24.xml" value="0.1645" />
         <entry key="app/src/main/res/drawable/baseline_water_drop_20.xml" value="0.1365" />
         <entry key="app/src/main/res/drawable/bg.xml" value="0.11" />
         <entry key="app/src/main/res/drawable/close_dialog_bg.xml" value="0.1645" />

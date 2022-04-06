@@ -1,74 +1,133 @@
 package com.wyksofts.wyykweather.ui.main
 
-import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.transition.TransitionInflater
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.android.volley.Request
-import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.Volley
 import com.bumptech.glide.Glide
-import com.google.android.gms.location.FusedLocationProviderClient
 import com.wyksofts.wyykweather.R
-import com.wyksofts.wyykweather.databinding.FragmentDetailedBinding
 import com.wyksofts.wyykweather.databinding.FragmentHomeBinding
+import com.wyksofts.wyykweather.databinding.FragmentHomeBinding.*
 import com.wyksofts.wyykweather.model.citiesModel
-import com.wyksofts.wyykweather.ui.cities.CityAdapter
-import com.wyksofts.wyykweather.ui.cities.cityDetailInterface
-import com.wyksofts.wyykweather.utils.Constants
-import com.wyksofts.wyykweather.utils.Convert
+import com.wyksofts.wyykweather.ui.citiesWeather.CitiesWeather
+import com.wyksofts.wyykweather.ui.citiesWeather.CitiesWeatherViewModel
+import com.wyksofts.wyykweather.ui.currentWeather.CurrentWeather
+import com.wyksofts.wyykweather.ui.currentWeather.CurrentWeatherViewModel
+import com.wyksofts.wyykweather.ui.citiesWeather.CityAdapter
+import com.wyksofts.wyykweather.ui.citiesWeather.cityDetailInterface
 import com.wyksofts.wyykweather.utils.IconManager
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.search_toolbar.*
 
-@Suppress("NAME_SHADOWING")
 class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
 
+    //model
+    lateinit var currWViewModel: CurrentWeatherViewModel
+    lateinit var citiesWeatherViewModel: CitiesWeatherViewModel
+
+    //view binding
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+
+    //location shared SharedPreferences
+    var pref: SharedPreferences? = null
+    var editor: SharedPreferences.Editor? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedElementEnterTransition = TransitionInflater.from(requireContext())
             .inflateTransition(R.transition.shared_image)
+
+        pref = context?.getSharedPreferences("location", Context.MODE_PRIVATE)
+        editor = pref?.edit()
+
+
+        //current weather data
+        currWViewModel = ViewModelProvider(this).get(CurrentWeatherViewModel::class.java)
+        currWViewModel.WeatherService.observe(this, androidx.lifecycle.Observer {
+
+            //set data
+            homeCity.text = currWViewModel.city
+
+            Glide.with(this)
+                .load(IconManager().getIcon(currWViewModel.icon))
+                .into(homeWeatherIcon)
+
+            homeStatus.text = currWViewModel.description
+
+            homeTemperature.text = currWViewModel.temperature
+
+            homeWater_Drop.text = currWViewModel.water_drop
+
+            homeWind_Speed.text = currWViewModel.wind_speed
+
+        })
+
+
+
+
+
+
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         // Inflate the layout for this fragment
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = inflate(inflater, container, false)
 
         ViewCompat.setTransitionName(binding.homeTemperature, "item_image")
 
-        showCurrentLocationData()
+        val latitude = pref?.getString("latitude", "").toString()
+        val longitude = pref?.getString("longitude", "").toString()
 
-        getCitiesWeather()
+        context?.let { CurrentWeather(currWViewModel,binding.currentLayout).showCurrentLocationData(it,latitude,longitude) }
+
+
+        //getCitiesWeather()
 
         initSearch()
 
         return binding.root
     }
 
+
     private fun initSearch() {
 
         binding.searchBtn.setOnClickListener{
+
+            binding.currentLayout.startAnimation(AnimationUtils.loadAnimation(context,R.anim.slide_up))
+            binding.currentLayout.isVisible = false
             binding.searchView.isVisible = true
             binding.searchBtn.isVisible = false
+            binding.cancelSearch.isVisible = true
 
             val anim = AnimationUtils.loadAnimation(context, R.anim.slide_down)
             binding.searchView.startAnimation(anim)
+            binding.RecyclerViewLayout.startAnimation(AnimationUtils.loadAnimation(context,R.anim.slide_down))
+        }
 
+        binding.cancelSearch.setOnClickListener {
+
+            binding.searchBtn.isVisible = true
+            binding.cancelSearch.isVisible = false
+
+            binding.currentLayout.isVisible = true
+            binding.currentLayout.startAnimation(AnimationUtils.loadAnimation(context,R.anim.slide_down))
+            binding.searchView.isVisible = false
+
+            binding.RecyclerViewLayout.startAnimation(AnimationUtils.loadAnimation(context,R.anim.slide_up))
+
+            binding.searchCity.setText("")
         }
     }
 
@@ -76,8 +135,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
     fun filter(
         city: String, data: ArrayList<citiesModel>,
         recyclerView: RecyclerView,
-        adapter: CityAdapter
-    ) {
+        adapter: CityAdapter){
         val arrayList: java.util.ArrayList<citiesModel> = java.util.ArrayList<citiesModel>()
         for (model in data) {
             if (model.city.toLowerCase().contains(city)) {
@@ -85,14 +143,13 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
                 arrayList.add(model)
             } else {
                 if (arrayList.isEmpty()) {
+                    binding.cancelSearch.isVisible = true
                     recyclerView.setVisibility(View.GONE)
                 } else {
                     recyclerView.setVisibility(View.VISIBLE)
                 }
             }
-            if (city.isEmpty()) {
-                recyclerView.setVisibility(View.VISIBLE)
-            }
+
             adapter.upDateList(arrayList)
         }
     }
@@ -108,111 +165,18 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
 
         binding.citiesRecylerView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
 
-        val data = ArrayList<citiesModel>()
-
-        var url = ""
-
-        val queue = Volley.newRequestQueue(context)
         //loop through cities
         for (city in cities) {
 
-            url = "https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${Constants.OPEN_WEATHER_API_KEY}"
+            CitiesWeather(citiesWeatherViewModel).showCitiesWeather(context,city)
 
-            val jsonRequest = JsonObjectRequest(
-                Request.Method.GET, url,null, { response ->
-
-                    //city
-                    val city = response.getString("name")
-
-                    //description
-                    val description = response.getJSONArray("weather").getJSONObject(0).getString("main")
-
-                    //icon
-                    val icon = response.getJSONArray("weather").getJSONObject(0).getString("icon")
-
-                    //wind_speed and water_drop
-                    val waterDrop = response.getJSONObject("main").getString("humidity")+"\t%"
-                    val windSpeed = response.getJSONObject("wind").getString("speed")+"\tkm/h"
-
-                    //get lat and long
-                    val lat = response.getJSONObject("coord").getString("lat").toString()
-                    val long = response.getJSONObject("coord").getString("lon").toString()
-
-                    //temperature
-                    var temperature = response.getJSONObject("main").getString("temp")
-                    temperature=((((temperature).toFloat()-273.15)).toInt()).toString()
-
-
-                    //max and min temperature
-                    var mintemp=response.getJSONObject("main").getString("temp_min")
-                    mintemp=((((mintemp).toFloat()-273.15)).toInt()).toString()
-
-                    var maxtemp=response.getJSONObject("main").getString("temp_max")
-                    maxtemp=((Math.ceil((maxtemp).toFloat()-273.15)).toInt()).toString()
-
-                    //add data
-                    data.add(
-                        citiesModel(city, temperature, icon, description,
-                        waterDrop, windSpeed, mintemp, maxtemp, lat, long)
-                    )
-
-                    val adapter = CityAdapter(this,data, requireContext())
-                    binding.citiesRecylerView.adapter = adapter
-
-                    binding.searchCity.addTextChangedListener(object : TextWatcher {
-                        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-                        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-                        override fun afterTextChanged(s: Editable) {
-                             filter(s.toString(), data, binding.citiesRecylerView, adapter)
-                        }
-                    })
-
-                },
-                { Toast.makeText(context, "error fetching data", Toast.LENGTH_LONG).show() })
-
-            queue.add(jsonRequest)
         }
 
     }
 
 
 
-    @SuppressLint("SetTextI18n")
-    private fun showCurrentLocationData(){
 
-        val url = "https://api.openweathermap.org/data/2.5/weather?q=Nairobi&appid=${Constants.OPEN_WEATHER_API_KEY}"
-
-        val queue = Volley.newRequestQueue(context)
-        val jsonRequest = JsonObjectRequest(
-            Request.Method.GET, url,null, { response ->
-
-                homeCity.text = response.getString("name")
-
-                //description
-                homeStatus.text = response.getJSONArray("weather").getJSONObject(0).getString("main")
-
-                val icon = response.getJSONArray("weather").getJSONObject(0).getString("icon")
-
-                Glide.with(this)
-                    .load(IconManager().getIcon(icon))
-                    .into(homeWeatherIcon)
-
-
-                //temperature
-                val temp = Convert().convertTemp(response.getJSONObject("main").getString("temp"))
-                homeTemperature.text="${temp}°"
-
-
-                //pressure.text=response.getJSONObject("main").getString("pressure")
-                homeWater_Drop.text = response.getJSONObject("main").getString("humidity")+"\t%"
-                homeWind_Speed.text = response.getJSONObject("wind").getString("speed")+"\tkm/h"
-
-
-            }, {
-                Toast.makeText(context, "ERROR", Toast.LENGTH_LONG).show()
-            })
-        queue.add(jsonRequest)
-    }
 
     override fun onItemClick(city: String, icon: String, description: String, temperature: String,
                              wind_speed: String, water_drop: String, min_temp: String,

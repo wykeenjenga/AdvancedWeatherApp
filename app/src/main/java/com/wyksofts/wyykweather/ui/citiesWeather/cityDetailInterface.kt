@@ -1,4 +1,4 @@
-package com.wyksofts.wyykweather.ui.cities
+package com.wyksofts.wyykweather.ui.citiesWeather
 
 interface cityDetailInterface{
 

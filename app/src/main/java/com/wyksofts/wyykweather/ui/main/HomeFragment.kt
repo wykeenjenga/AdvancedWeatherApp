@@ -19,6 +19,8 @@ import com.android.volley.toolbox.Volley
 import com.bumptech.glide.Glide
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.wyksofts.wyykweather.R
+import com.wyksofts.wyykweather.databinding.FragmentDetailedBinding
+import com.wyksofts.wyykweather.databinding.FragmentHomeBinding
 import com.wyksofts.wyykweather.model.citiesModel
 import com.wyksofts.wyykweather.ui.cities.CityAdapter
 import com.wyksofts.wyykweather.ui.cities.cityDetailInterface
@@ -29,35 +31,39 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.search_toolbar.*
 
 @Suppress("NAME_SHADOWING")
-class home : Fragment(), cityDetailInterface {
+class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
 
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         showCurrentLocationData()
 
-        getCitiesWeather(view)
+        getCitiesWeather()
 
-        //initSearch()
+        initSearch()
 
-        return view
+        return binding.root
     }
 
     private fun initSearch() {
-        searchBtn.setOnClickListener{
-            searchView.isVisible = true
-            searchBtn.isVisible = false
+
+        binding.searchBtn.setOnClickListener{
+            binding.searchView.isVisible = true
+            binding.searchBtn.isVisible = false
 
             val anim = AnimationUtils.loadAnimation(context, R.anim.slide_down)
-            searchView.startAnimation(anim)
+            binding.searchView.startAnimation(anim)
 
         }
     }
@@ -90,13 +96,13 @@ class home : Fragment(), cityDetailInterface {
 
 
     //get cities weather
-    private fun getCitiesWeather(view: View) {
+    private fun getCitiesWeather() {
 
         val cities = arrayOf("Nairobi", "Eden", "Elizabethtown", "New London", "Kampala", "Lagos", "Dakar")
 
         //adda data
-        val citiesRecylerView = view.findViewById<RecyclerView>(R.id.citiesRecylerView)
-        citiesRecylerView?.layoutManager = LinearLayoutManager(context)
+
+        binding.citiesRecylerView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
 
         val data = ArrayList<citiesModel>()
 
@@ -147,14 +153,13 @@ class home : Fragment(), cityDetailInterface {
                     )
 
                     val adapter = CityAdapter(this,data, requireContext())
-                    citiesRecylerView.adapter = adapter
+                    binding.citiesRecylerView.adapter = adapter
 
-                    searchCity.setEnabled(true)
-                    searchCity.addTextChangedListener(object : TextWatcher {
+                    binding.searchCity.addTextChangedListener(object : TextWatcher {
                         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
                         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
                         override fun afterTextChanged(s: Editable) {
-                             filter(s.toString(), data, citiesRecylerView, adapter)
+                             filter(s.toString(), data, binding.citiesRecylerView, adapter)
                         }
                     })
 
@@ -232,7 +237,7 @@ class home : Fragment(), cityDetailInterface {
         bundle.putString("long", long)
         detailedFragment.arguments = bundle
 
-        activity?.supportFragmentManager!!.beginTransaction()
+        requireActivity().supportFragmentManager.beginTransaction()
         .replace(R.id.rootLayout, detailedFragment)
             .addToBackStack(null)
             .commit()

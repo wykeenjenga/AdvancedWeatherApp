@@ -41,6 +41,7 @@
         <entry key="app/src/main/res/layout/fragment_city_list_view.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_detailed.xml" value="0.2515625" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2515625" />
+        <entry key="app/src/main/res/layout/fragment_splash.xml" value="0.2515625" />
         <entry key="app/src/main/res/layout/search_toolbar.xml" value="0.21203703703703702" />
         <entry key="app/src/main/res/menu/main_page_menu.xml" value="0.24635416666666668" />
       </map>

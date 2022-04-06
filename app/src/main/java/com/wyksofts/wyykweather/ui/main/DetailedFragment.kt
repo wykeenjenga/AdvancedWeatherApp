@@ -20,6 +20,7 @@ import com.google.gson.Gson
 import com.wyksofts.wyykweather.R
 import com.wyksofts.wyykweather.data.cloud.Favorite
 import com.wyksofts.wyykweather.data.forecast.ForecastData
+import com.wyksofts.wyykweather.databinding.FragmentDetailedBinding
 import com.wyksofts.wyykweather.model.FavoriteViewModel
 import com.wyksofts.wyykweather.model.forecastModel
 import com.wyksofts.wyykweather.ui.forecast.ForecastAdapter
@@ -28,10 +29,13 @@ import kotlinx.android.synthetic.main.fragment_detailed.*
 import java.text.DateFormat
 import java.util.*
 
-class DetailedFragment : Fragment() {
+class DetailedFragment : Fragment(R.layout.fragment_detailed) {
 
     //view_model
     lateinit var viewModel: FavoriteViewModel
+
+    private var _binding: FragmentDetailedBinding? = null
+    private val binding get() = _binding!!
 
     //shared resources
     var data_city: String = ""
@@ -71,49 +75,55 @@ class DetailedFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+        savedInstanceState: Bundle?): View{
         // Inflate the layout for this fragment
-        val view =  inflater.inflate(R.layout.fragment_detailed, container, false)
 
-
-        //set background colorScheme
-        card_background.setBackgroundResource(BackgroundManager().getBackground(data_description))
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            cardView.outlineAmbientShadowColor = IconManager().getColor(data_description)
-            cardView.outlineSpotShadowColor = IconManager().getColor(data_description)
-        }
+        _binding = FragmentDetailedBinding.inflate(inflater, container, false)
 
         //variables
         initUI()
 
-        return view
+        return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     @SuppressLint("SetTextI18n")
     private fun initUI() {
 
-        city.text = data_city
-        status.text = data_description
-        temperature.text = "$data_temperature\t°"
-        water_drop.text = data_water_drop
-        wind_speed.text = data_wind_speed
-        min_temp.text = "Min:\t $data_min°"
-        max_temp.text = "Max:\t $data_max°"
+        binding.city.text = data_city
+        binding.status.text = data_description
+        binding.temperature.text = "$data_temperature\t°"
+        binding.waterDrop.text = data_water_drop
+        binding.windSpeed.text = data_wind_speed
+        binding.minTemp.text = "Min:\t $data_min°"
+        binding.maxTemp.text = "Max:\t $data_max°"
+
+
+        //set background colorScheme
+        binding.cardView.setBackgroundResource(BackgroundManager().getBackground(data_description))
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            binding.cardView.outlineAmbientShadowColor = IconManager().getColor(data_description)
+            binding.cardView.outlineSpotShadowColor = IconManager().getColor(data_description)
+        }
 
         context?.let {
             Glide.with(it)
                 .load(IconManager().getIcon(data_icon))
-                .into(weather_icon)
+                .into(binding.weatherIcon)
         }
 
         val currentDateTimeString = DateFormat.getDateTimeInstance().format(Date())
-        time.text = currentDateTimeString
+        binding.time.text = currentDateTimeString
 
 
         getWeatherForecast()
 
 
-        arrow_back.setOnClickListener {
+        binding.arrowBack.setOnClickListener {
             activity?.supportFragmentManager?.popBackStackImmediate()
         }
 
@@ -121,11 +131,11 @@ class DetailedFragment : Fragment() {
         Favorite(viewModel).getCities(data_city)
 
 
-        Animator().animate(favBtn,1.0f,1.2f,1100)
-        weather_icon.startAnimation(AnimationUtils.loadAnimation(context, R.anim.zoom_in))
+        Animator().animate(binding.favBtn,1.0f,1.2f,1100)
+        binding.weatherIcon.startAnimation(AnimationUtils.loadAnimation(context, R.anim.zoom_in))
 
         //on favBtn clicked
-        favBtn.setOnClickListener {
+        binding.favBtn.setOnClickListener {
             if(viewModel.favIcon == R.drawable.baseline_favorite_24){
                 viewModel.currentIcon.value =
                     context?.let { it1 -> Favorite(viewModel).deleteCity(data_city, it1) }
@@ -135,7 +145,7 @@ class DetailedFragment : Fragment() {
             }
         }
 
-        Animator().animate(imageViewBigCloud,0.5f,1.3f,10000)
+        Animator().animate(binding.imageViewBigCloud,0.5f,1.3f,10000)
 
     }
 
@@ -144,10 +154,10 @@ class DetailedFragment : Fragment() {
     //get weather forecast
     private fun getWeatherForecast(){
 
-        progress_bar.isVisible = true
+        binding.progressBar.isVisible = true
 
         //recyclerView
-        detailed_city_recyclerview.layoutManager = LinearLayoutManager(context,
+        binding.detailedCityRecyclerview.layoutManager = LinearLayoutManager(context,
             LinearLayoutManager.HORIZONTAL ,false)
 
         val listdata = ArrayList<forecastModel>()
@@ -158,7 +168,7 @@ class DetailedFragment : Fragment() {
 
         val jsonRequest = JsonObjectRequest(Request.Method.GET, url,null, { response ->
 
-            progress_bar.isVisible = false
+            binding.progressBar.isVisible = false
 
             //days
             val days = arrayOf(1, 2, 3, 4, 5, 6)
@@ -193,16 +203,16 @@ class DetailedFragment : Fragment() {
                 listdata.add(forecastModel(date,temperature,weatherIcon,min_temperature,max_temperature))
 
                 val adapter = context?.let { ForecastAdapter(listdata, it) }
-                detailed_city_recyclerview.adapter = adapter
+                binding.detailedCityRecyclerview.adapter = adapter
 
-                detailed_city_recyclerview.startAnimation(AnimationUtils.loadAnimation(context, R.anim.recycler_view_anim))
+                binding.detailedCityRecyclerview.startAnimation(AnimationUtils.loadAnimation(context, R.anim.recycler_view_anim))
 
             }
 
 
         },{
             Toast.makeText(context, "error fetching forecast", Toast.LENGTH_LONG).show()
-            progress_bar.isVisible = false
+            binding.progressBar.isVisible = false
         })
 
         queue.add(jsonRequest)

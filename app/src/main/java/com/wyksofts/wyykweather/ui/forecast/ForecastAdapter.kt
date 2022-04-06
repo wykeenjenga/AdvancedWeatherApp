@@ -14,7 +14,6 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wyksofts.wyykweather.R
-import com.wyksofts.wyykweather.model.forecastModel
 import com.wyksofts.wyykweather.utils.Convert
 import com.wyksofts.wyykweather.utils.IconManager
 

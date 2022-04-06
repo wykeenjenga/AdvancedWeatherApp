@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -22,7 +23,7 @@ import com.wyksofts.wyykweather.data.cloud.Favorite
 import com.wyksofts.wyykweather.data.forecast.ForecastData
 import com.wyksofts.wyykweather.databinding.FragmentDetailedBinding
 import com.wyksofts.wyykweather.model.FavoriteViewModel
-import com.wyksofts.wyykweather.model.forecastModel
+import com.wyksofts.wyykweather.ui.forecast.forecastModel
 import com.wyksofts.wyykweather.ui.forecast.ForecastAdapter
 import com.wyksofts.wyykweather.utils.*
 import kotlinx.android.synthetic.main.fragment_detailed.*
@@ -79,6 +80,8 @@ class DetailedFragment : Fragment(R.layout.fragment_detailed) {
         // Inflate the layout for this fragment
 
         _binding = FragmentDetailedBinding.inflate(inflater, container, false)
+
+        ViewCompat.setTransitionName(binding.temperature, "hero_image")
 
         //variables
         initUI()

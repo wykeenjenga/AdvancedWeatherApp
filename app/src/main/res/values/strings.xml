@@ -25,6 +25,10 @@
     <string name="it_was_last_updated_on">It was last updated on:</string>
     <string name="feels_like">Feels like;</string>
     <string name="today">Today</string>
+    <string name="close_app">Close App</string>
+    <string name="are_you_sure_you_want_to_exit">Are you sure you want to exit?</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
 
 
 </resources>

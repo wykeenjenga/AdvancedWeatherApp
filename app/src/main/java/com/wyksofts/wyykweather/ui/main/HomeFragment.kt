@@ -4,12 +4,14 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.transition.TransitionInflater
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,19 +35,21 @@ import kotlinx.android.synthetic.main.search_toolbar.*
 @Suppress("NAME_SHADOWING")
 class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
 
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
-
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        sharedElementEnterTransition = TransitionInflater.from(requireContext())
+            .inflateTransition(R.transition.shared_image)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        // Inflate the layout for this fragment
 
+        // Inflate the layout for this fragment
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        ViewCompat.setTransitionName(binding.homeTemperature, "item_image")
 
         showCurrentLocationData()
 
@@ -191,7 +195,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
 
                 Glide.with(this)
                     .load(IconManager().getIcon(icon))
-                    .into(homeWeather_Icon)
+                    .into(homeWeatherIcon)
 
 
                 //temperature
@@ -208,21 +212,12 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
                 Toast.makeText(context, "ERROR", Toast.LENGTH_LONG).show()
             })
         queue.add(jsonRequest)
-
     }
 
-    override fun onItemClick(
-        city: String,
-        icon: String,
-        description: String,
-        temperature: String,
-        wind_speed: String,
-        water_drop: String,
-        min_temp: String,
-        max_temp: String,
-        lat: String,
-        long: String
-    ) {
+    override fun onItemClick(city: String, icon: String, description: String, temperature: String,
+                             wind_speed: String, water_drop: String, min_temp: String,
+                             max_temp: String, lat: String, long: String) {
+
         val detailedFragment = DetailedFragment()
         val bundle = Bundle()
         bundle.putString("city", city)
@@ -240,6 +235,9 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
         requireActivity().supportFragmentManager.beginTransaction()
         .replace(R.id.rootLayout, detailedFragment)
             .addToBackStack(null)
+            .setCustomAnimations(R.anim.fade_in,
+            R.anim.fade_out)
+            .addSharedElement(binding.homeTemperature, "hero_image")
             .commit()
     }
 

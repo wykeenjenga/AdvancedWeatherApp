@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:ignore="MissingDefaultResource">
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="8.0dip"
+        android:layout_centerInParent="true"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textSize="14.0sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/close_app"
+            android:fontFamily="serif"
+            android:layout_marginStart="12.0dip"
+            android:layout_marginTop="14sp"
+            android:paddingBottom="12dp"/>
+        <TextView
+            android:textSize="16.0sp"
+            android:layout_gravity="left"
+            android:text="@string/are_you_sure_you_want_to_exit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lines="3"
+            android:layout_marginStart="12.0dip" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent"
+                    android:gravity="center"
+                    android:id="@+id/undo"
+                    android:background="@drawable/list_ripple_effect"
+                    android:focusable="true"
+                    android:clickable="true"
+                    android:fontFamily="serif"
+                    android:layout_width="0.0dip"
+                    android:textSize="14sp"
+                    android:autoSizeMinTextSize="10sp"
+                    android:layout_height="36.0dip"
+                    android:text="@string/cancel"
+                    android:shadowColor="@color/colorAccent"
+                    android:layout_weight="1.0"
+                    tools:ignore="UnusedAttribute" />
+                <View
+                    android:background="@color/colorAccent"
+                    android:layout_width="1.0dip"
+                    android:layout_height="fill_parent" />
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent"
+                    android:gravity="center"
+                    android:id="@+id/yes_exit"
+                    android:background="@drawable/list_ripple_effect"
+                    android:focusable="true"
+                    android:clickable="true"
+                    android:fontFamily="serif"
+                    android:textSize="14sp"
+                    android:layout_width="0.0dip"
+                    android:layout_height="36.0dip"
+                    android:text="@string/yes"
+                    android:shadowColor="@color/colorAccent"
+                    android:layout_weight="1.0" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

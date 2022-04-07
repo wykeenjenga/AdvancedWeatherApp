@@ -2,18 +2,49 @@
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/transparent"
     tools:showIn="navigation_view">
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/dashboardFragment"
-            android:title="@string/dashboard"
-            />
+
+        <item android:title="@string/general">
+            <menu>
+                <item
+                    android:id="@+id/dashboardFragment"
+                    android:title="@string/dashboard"
+                    android:icon="@drawable/baseline_home_24"/>
+                <item
+                    android:id="@+id/forecast"
+                    android:title="@string/forecast"
+                    android:icon="@drawable/baseline_thermostat_24"/>
+                <item
+                    android:id="@+id/userProfile"
+                    android:title="@string/user_profile"
+                    android:icon="@drawable/baseline_admin_panel_settings_24"/>
+
+            </menu>
+
+        </item>
+
     </group>
-    <item android:title="@string/more">
-        <menu>
-            <item
-                android:id="@+id/aboutApp"
-                android:title="@string/about" />
-        </menu>
-    </item>
+    <group android:checkableBehavior="single">
+        <item android:title="@string/more">
+            <menu>
+                <item
+                    android:id="@+id/settings"
+                    android:title="@string/settings"
+                    android:icon="@drawable/baseline_settings_24"/>
+
+                <item
+                    android:id="@+id/aboutApp"
+                    android:title="@string/about"
+                    android:icon="@drawable/baseline_more_24"/>
+
+                <item
+                    android:id="@+id/share"
+                    android:title="@string/share"
+                    android:icon="@drawable/baseline_share_24"/>
+            </menu>
+        </item>
+    </group>
+
 </menu>

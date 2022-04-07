@@ -49,6 +49,16 @@ class CurrentWeather(private val viewModel: CurrentWeatherViewModel, private val
                 viewModel.WeatherService.value = viewModel.water_drop
                 viewModel.WeatherService.value = viewModel.wind_speed
 
+                //get lat and long
+                viewModel.lat = response.getJSONObject("coord").getString("lat").toString()
+                viewModel.long = response.getJSONObject("coord").getString("lon").toString()
+
+                //max and min temperature
+                viewModel.min_temp = Convert().convertTemp(response.getJSONObject("main").getString("temp_min"))
+                viewModel.max_temp = Convert().convertTemp(response.getJSONObject("main").getString("temp_max"))
+
+
+
             }, {
                 Toast.makeText(context, "ERROR", Toast.LENGTH_LONG).show()
             })

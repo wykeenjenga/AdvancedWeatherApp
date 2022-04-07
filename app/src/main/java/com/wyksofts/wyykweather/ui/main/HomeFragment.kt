@@ -25,6 +25,7 @@ import com.wyksofts.wyykweather.model.citiesModel
 import com.wyksofts.wyykweather.ui.citiesWeather.*
 import com.wyksofts.wyykweather.ui.currentWeather.CurrentWeather
 import com.wyksofts.wyykweather.ui.currentWeather.CurrentWeatherViewModel
+import com.wyksofts.wyykweather.utils.Animator
 import com.wyksofts.wyykweather.utils.BackgroundManager
 import com.wyksofts.wyykweather.utils.IconManager
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -53,8 +54,6 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
         super.onCreate(savedInstanceState)
         pref = context?.getSharedPreferences("location", Context.MODE_PRIVATE)
         editor = pref?.edit()
-
-
 
         //current weather data
         currWViewModel = ViewModelProvider(this).get(CurrentWeatherViewModel::class.java)
@@ -152,6 +151,11 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
             showCurrentLocationForecast()
         }
 
+        Animator().animate(binding.favouriteBtn,1.0f,1.2f,1100)
+        favouriteBtn.setOnClickListener{
+            (activity as MainActivity?)?.showFragment(FavoriteFragment(), true)
+        }
+
     }
 
     private fun showCurrentLocationForecast() {
@@ -239,7 +243,6 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
                     recyclerView.setVisibility(View.VISIBLE)
                 }
             }
-
             adapter.upDateList(arrayList)
         }
     }
@@ -270,5 +273,10 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
 
     }
 
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 
 }

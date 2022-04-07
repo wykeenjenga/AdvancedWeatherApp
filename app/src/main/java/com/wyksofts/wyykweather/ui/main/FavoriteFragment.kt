@@ -46,7 +46,7 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite), cityDetailInterfa
         _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
 
         //get data from firebase
-        context?.let { FavoriteData(viewModel, it).getAllCities() }
+        context?.let { FavoriteData(viewModel, it, binding.progressBar).getAllCities() }
 
         initUI()
         return binding.root

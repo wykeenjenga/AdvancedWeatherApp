@@ -3,32 +3,20 @@ package com.wyksofts.wyykweather.ui.main
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.core.view.ViewCompat
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.android.volley.Request
-import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.Volley
 import com.bumptech.glide.Glide
-import com.google.gson.Gson
 import com.wyksofts.wyykweather.R
 import com.wyksofts.wyykweather.data.cloud.FavoriteData
-import com.wyksofts.wyykweather.data.forecast.ForecastData
 import com.wyksofts.wyykweather.databinding.FragmentDetailedBinding
-import com.wyksofts.wyykweather.ui.citiesWeather.CityAdapter
-import com.wyksofts.wyykweather.ui.citiesWeather.cityWeatherViewModel
 import com.wyksofts.wyykweather.ui.favorite.FavoriteViewModel
-import com.wyksofts.wyykweather.ui.forecast.forecastModel
 import com.wyksofts.wyykweather.ui.forecast.ForecastAdapter
 import com.wyksofts.wyykweather.ui.forecast.ForecastViewModel
 import com.wyksofts.wyykweather.ui.forecast.forecastWeather
@@ -148,7 +136,7 @@ class DetailedFragment : Fragment(R.layout.fragment_detailed) {
         }
 
         //get favourite db data
-        context?.let { FavoriteData(viewModel, it).checkCityExistence(data_city) }
+        context?.let { FavoriteData(viewModel, it, binding.progressBar).checkCityExistence(data_city) }
 
 
         Animator().animate(binding.favBtn,1.0f,1.2f,1100)
@@ -158,10 +146,10 @@ class DetailedFragment : Fragment(R.layout.fragment_detailed) {
         binding.favBtn.setOnClickListener {
             if(viewModel.favIcon == R.drawable.baseline_favorite_24){
                 viewModel.currentIcon.value =
-                    context?.let { it1 -> FavoriteData(viewModel, it1).deleteCity(data_city, it1) }
+                    context?.let { it1 -> FavoriteData(viewModel, it1, binding.progressBar).deleteCity(data_city, it1) }
             }else{
                 viewModel.currentIcon.value =
-                    context?.let { it1 -> FavoriteData(viewModel, it1).addCity(data_city, it1) }
+                    context?.let { it1 -> FavoriteData(viewModel, it1, binding.progressBar).addCity(data_city, it1) }
             }
         }
 

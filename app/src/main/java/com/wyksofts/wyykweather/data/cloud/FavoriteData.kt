@@ -1,7 +1,8 @@
 package com.wyksofts.wyykweather.data.cloud
 
 import android.content.Context
-import android.util.Log
+import android.widget.ProgressBar
+import androidx.core.view.isVisible
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -10,7 +11,11 @@ import com.wyksofts.wyykweather.ui.favorite.FavoriteViewModel
 import com.wyksofts.wyykweather.ui.favorite.favoriteCitiesWeather
 import com.wyksofts.wyykweather.utils.showToast
 
-class FavoriteData(private val viewModel: FavoriteViewModel, private val context: Context) {
+class FavoriteData(
+    private val viewModel: FavoriteViewModel,
+    private val context: Context,
+    val favprogressBar: ProgressBar
+) {
 
     val db = Firebase.firestore
 
@@ -89,6 +94,9 @@ class FavoriteData(private val viewModel: FavoriteViewModel, private val context
 
     //get all cities
     fun getAllCities(){
+
+        favprogressBar.isVisible = true
+
         db.collection("cities")
             .get()
             .addOnSuccessListener { result ->
@@ -98,8 +106,10 @@ class FavoriteData(private val viewModel: FavoriteViewModel, private val context
 
                     val cities = listOf(cityName)
 
+                    favprogressBar.isVisible = false
+
                     if (cityName != null) {
-                        favoriteCitiesWeather(viewModel, cities).showCitiesWeather(context)
+                        favoriteCitiesWeather(viewModel, cities).showCitiesWeather(context,favprogressBar)
                     }
 
                 }

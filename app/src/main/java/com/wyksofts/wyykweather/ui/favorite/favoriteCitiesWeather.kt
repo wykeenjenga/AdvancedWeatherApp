@@ -1,7 +1,9 @@
 package com.wyksofts.wyykweather.ui.favorite
 
 import android.content.Context
+import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.core.view.isVisible
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
@@ -13,7 +15,9 @@ import com.wyksofts.wyykweather.utils.Convert
 
 class favoriteCitiesWeather(val viewModel: FavoriteViewModel, val cities: List<String?>) {
 
-    fun showCitiesWeather(context: Context?){
+    fun showCitiesWeather(context: Context?, favprogressBar: ProgressBar){
+
+        favprogressBar.isVisible = true
 
         //loop through cities
         for (city in cities) {
@@ -21,6 +25,8 @@ class favoriteCitiesWeather(val viewModel: FavoriteViewModel, val cities: List<S
             val queue = Volley.newRequestQueue(context)
             val jsonRequest = JsonObjectRequest(
                 Request.Method.GET, city?.let { WeatherApi().getCitiesWeather(it) },null, { response ->
+
+                    favprogressBar.isVisible = false
 
                     //city
                     viewModel.city = response.getString("name")
@@ -61,6 +67,7 @@ class favoriteCitiesWeather(val viewModel: FavoriteViewModel, val cities: List<S
 
                 }, {
                     Toast.makeText(context, "ERROR", Toast.LENGTH_LONG).show()
+                    favprogressBar.isVisible = false
                 })
             queue.add(jsonRequest)
 

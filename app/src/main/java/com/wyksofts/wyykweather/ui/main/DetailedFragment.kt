@@ -3,6 +3,7 @@ package com.wyksofts.wyykweather.ui.main
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,11 +23,13 @@ import com.wyksofts.wyykweather.R
 import com.wyksofts.wyykweather.data.cloud.Favorite
 import com.wyksofts.wyykweather.data.forecast.ForecastData
 import com.wyksofts.wyykweather.databinding.FragmentDetailedBinding
+import com.wyksofts.wyykweather.ui.currentWeather.CurrentWeatherViewModel
 import com.wyksofts.wyykweather.ui.favorite.FavoriteViewModel
 import com.wyksofts.wyykweather.ui.forecast.forecastModel
 import com.wyksofts.wyykweather.ui.forecast.ForecastAdapter
 import com.wyksofts.wyykweather.utils.*
 import kotlinx.android.synthetic.main.fragment_detailed.*
+import kotlinx.android.synthetic.main.fragment_home.*
 import java.text.DateFormat
 import java.util.*
 
@@ -37,6 +40,7 @@ class DetailedFragment : Fragment(R.layout.fragment_detailed) {
 
     private var _binding: FragmentDetailedBinding? = null
     private val binding get() = _binding!!
+
 
     //shared resources
     var data_city: String = ""
@@ -53,10 +57,16 @@ class DetailedFragment : Fragment(R.layout.fragment_detailed) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        //entrace animation
+        sharedElementEnterTransition = TransitionInflater.from(requireContext())
+            .inflateTransition(R.transition.shared_image)
+
+        //get favorite status
         viewModel = ViewModelProvider(this).get(FavoriteViewModel::class.java)
         viewModel.currentIcon.observe(this, androidx.lifecycle.Observer  {
             favBtn.setImageResource(it)
         })
+
 
         val bundle = this.arguments
         if (bundle != null) {
@@ -81,7 +91,7 @@ class DetailedFragment : Fragment(R.layout.fragment_detailed) {
 
         _binding = FragmentDetailedBinding.inflate(inflater, container, false)
 
-        ViewCompat.setTransitionName(binding.temperature, "hero_image")
+        ViewCompat.setTransitionName(binding.temperature, "image")
 
         //variables
         initUI()

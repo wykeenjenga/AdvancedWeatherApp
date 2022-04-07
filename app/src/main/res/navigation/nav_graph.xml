@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.wyksofts.wyykweather.ui.main.Splash"
+        tools:layout="@layout/fragment_splash"
+        android:label="SplashFragment">
+
+        <action
+            android:id="@+id/action_splashFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/splashFragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        tools:layout="@layout/fragment_home"
+        android:name="com.wyksofts.wyykweather.ui.main.HomeFragment"
+        android:label="DashboardFragment">
+
+        <action
+            android:id="@+id/action_dashboardFragment_to_weatherDetailFragment"
+            app:destination="@id/weatherDetailFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/weatherDetailFragment"
+        tools:layout="@layout/fragment_detailed"
+        android:name="com.wyksofts.wyykweather.ui.main.DetailedFragment"
+        android:label="DetailedFragment">
+
+
+
+    </fragment>
+
+
+
+</navigation>

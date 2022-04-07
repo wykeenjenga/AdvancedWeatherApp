@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.wyksofts.wyykweather.R
 import com.wyksofts.wyykweather.databinding.FragmentSplashBinding
 
@@ -32,6 +33,8 @@ class Splash : Fragment(R.layout.fragment_splash) {
 
         startMainActivity()
 
+        findNavController().graph.setStartDestination(R.id.dashboardFragment)
+
         return binding.root
     }
 
@@ -41,7 +44,12 @@ class Splash : Fragment(R.layout.fragment_splash) {
             override fun run() {
                 try {
                     sleep(1000)
+
                     (activity as MainActivity?)?.showFragment(HomeFragment())
+
+                    //findNavController().graph.setStartDestination(R.id.dashboardFragment)
+                    //findNavController().navigate(R.id.action_dashboardFragment_to_weatherDetailFragment)
+
                 } catch (e: InterruptedException) {
                     e.printStackTrace()
                 }

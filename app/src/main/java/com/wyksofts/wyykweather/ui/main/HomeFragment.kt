@@ -3,15 +3,19 @@ package com.wyksofts.wyykweather.ui.main
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.transition.TransitionInflater
-import androidx.fragment.app.Fragment
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -19,20 +23,18 @@ import com.wyksofts.wyykweather.R
 import com.wyksofts.wyykweather.databinding.FragmentHomeBinding
 import com.wyksofts.wyykweather.databinding.FragmentHomeBinding.*
 import com.wyksofts.wyykweather.model.citiesModel
-import com.wyksofts.wyykweather.ui.citiesWeather.CitiesWeather
-import com.wyksofts.wyykweather.ui.citiesWeather.CitiesWeatherViewModel
+import com.wyksofts.wyykweather.ui.citiesWeather.*
 import com.wyksofts.wyykweather.ui.currentWeather.CurrentWeather
 import com.wyksofts.wyykweather.ui.currentWeather.CurrentWeatherViewModel
-import com.wyksofts.wyykweather.ui.citiesWeather.CityAdapter
-import com.wyksofts.wyykweather.ui.citiesWeather.cityDetailInterface
 import com.wyksofts.wyykweather.utils.IconManager
 import kotlinx.android.synthetic.main.fragment_home.*
+
 
 class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
 
     //model
     lateinit var currWViewModel: CurrentWeatherViewModel
-    lateinit var citiesWeatherViewModel: CitiesWeatherViewModel
+    lateinit var viewModel: cityWeatherViewModel
 
     //view binding
     private var _binding: FragmentHomeBinding? = null
@@ -42,13 +44,14 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
     var pref: SharedPreferences? = null
     var editor: SharedPreferences.Editor? = null
 
+    //adapter
+    var adapter : CityAdapter? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedElementEnterTransition = TransitionInflater.from(requireContext())
-            .inflateTransition(R.transition.shared_image)
-
         pref = context?.getSharedPreferences("location", Context.MODE_PRIVATE)
         editor = pref?.edit()
+
 
 
         //current weather data
@@ -73,11 +76,6 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
         })
 
 
-
-
-
-
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -87,17 +85,51 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
 
         ViewCompat.setTransitionName(binding.homeTemperature, "item_image")
 
+        initSearch()
+
+        //get data for citiesModel
+        getCitiesWeather()
+
+        return binding.root
+    }
+
+    private fun getCitiesWeather() {
+
+        // Cities weather data
+        viewModel = ViewModelProvider(this).get(cityWeatherViewModel::class.java)
+        viewModel.liveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer  {
+
+            binding.citiesRecylerView.layoutManager = LinearLayoutManager(context,
+                LinearLayoutManager.VERTICAL, false)
+
+            adapter = CityAdapter(this,viewModel.newlist, requireContext())
+            binding.citiesRecylerView.adapter = adapter
+
+            binding.searchCity.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+                override fun afterTextChanged(s: Editable) {
+                    filter(s.toString(), viewModel.newlist, binding.citiesRecylerView, adapter!!)
+                }
+            })
+        })
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         val latitude = pref?.getString("latitude", "").toString()
         val longitude = pref?.getString("longitude", "").toString()
 
         context?.let { CurrentWeather(currWViewModel,binding.currentLayout).showCurrentLocationData(it,latitude,longitude) }
 
+        cityWeather(viewModel).showCitiesWeather(context)
 
-        //getCitiesWeather()
+        binding.menu.setOnClickListener {
+            val navDrawer: DrawerLayout = binding.drawerLayout
 
-        initSearch()
+        }
 
-        return binding.root
     }
 
 
@@ -105,7 +137,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
 
         binding.searchBtn.setOnClickListener{
 
-            binding.currentLayout.startAnimation(AnimationUtils.loadAnimation(context,R.anim.slide_up))
+            binding.currentLayout.startAnimation(AnimationUtils.loadAnimation(context, R.anim.slide_up))
             binding.currentLayout.isVisible = false
             binding.searchView.isVisible = true
             binding.searchBtn.isVisible = false
@@ -156,27 +188,6 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
 
 
 
-    //get cities weather
-    private fun getCitiesWeather() {
-
-        val cities = arrayOf("Nairobi", "Eden", "Elizabethtown", "New London", "Kampala", "Lagos", "Dakar")
-
-        //adda data
-
-        binding.citiesRecylerView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
-
-        //loop through cities
-        for (city in cities) {
-
-            CitiesWeather(citiesWeatherViewModel).showCitiesWeather(context,city)
-
-        }
-
-    }
-
-
-
-
 
     override fun onItemClick(city: String, icon: String, description: String, temperature: String,
                              wind_speed: String, water_drop: String, min_temp: String,
@@ -194,15 +205,11 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
         bundle.putString("max_temp", max_temp)
         bundle.putString("lat", lat)
         bundle.putString("long", long)
+
         detailedFragment.arguments = bundle
 
-        requireActivity().supportFragmentManager.beginTransaction()
-        .replace(R.id.rootLayout, detailedFragment)
-            .addToBackStack(null)
-            .setCustomAnimations(R.anim.fade_in,
-            R.anim.fade_out)
-            .addSharedElement(binding.homeTemperature, "hero_image")
-            .commit()
+        (activity as MainActivity?)?.showDetailedWeather(detailedFragment,bundle,binding.homeTemperature)
+
     }
 
 

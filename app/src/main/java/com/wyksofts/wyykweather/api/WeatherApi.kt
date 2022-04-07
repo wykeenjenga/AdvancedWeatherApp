@@ -19,7 +19,7 @@ class WeatherApi {
 
 
     fun getCitiesWeather(city: String): String {
-        return "${Constants.BASE_URL}weather?q=Nairobi&appid=${Constants.OPEN_WEATHER_API_KEY}"
+        return "${Constants.BASE_URL}weather?q=$city&appid=${Constants.OPEN_WEATHER_API_KEY}"
     }
 
 

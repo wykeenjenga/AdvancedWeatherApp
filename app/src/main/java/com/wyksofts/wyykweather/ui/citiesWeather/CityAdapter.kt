@@ -13,9 +13,7 @@ import com.wyksofts.wyykweather.model.citiesModel
 import com.wyksofts.wyykweather.utils.IconManager
 
 
-class CityAdapter(
-    var onClickInteface: cityDetailInterface,
-    var mList: List<citiesModel>,
+class CityAdapter( var onClickInteface: cityDetailInterface, var mList: List<citiesModel>,
     val context: Context) : RecyclerView.Adapter<CityAdapter.ViewHolder>() {
 
 
@@ -58,10 +56,7 @@ class CityAdapter(
                 data.mintemp,data.maxtemp,
                 data.lat, data.long
             )
-
-
         }
-
     }
 
     //upDateList

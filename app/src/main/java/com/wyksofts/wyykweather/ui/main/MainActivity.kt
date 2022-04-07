@@ -5,26 +5,33 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.wyksofts.wyykweather.R
+import com.wyksofts.wyykweather.databinding.FragmentDetailedBinding
 
 
 class MainActivity : AppCompatActivity() {
 
     private val PERMISSION_ID = 13
-    lateinit var mFusedLocationClient: FusedLocationProviderClient
+    private lateinit var mFusedLocationClient: FusedLocationProviderClient
 
     private var pref: SharedPreferences? = null
     private var editor: SharedPreferences.Editor? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,10 +48,25 @@ class MainActivity : AppCompatActivity() {
         getLastLocation()
     }
 
+    fun showDetailedWeather(fragment: Fragment, bundle: Bundle, homeTemperature: TextView?){
+        val fm = supportFragmentManager.beginTransaction()
+        fragment.arguments = bundle
+        if (homeTemperature != null) {
+            fm.add(R.id.root_fragment, fragment)
+                .addSharedElement(homeTemperature,"image")
+                .setCustomAnimations(R.anim.fade_out, R.anim.fade_in)
+                .addToBackStack(null)
+                .commit()
+        }
+
+    }
+
     fun showFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.rootLayout, fragment)
+        val fm = supportFragmentManager.beginTransaction()
+        fm.add(R.id.root_fragment, fragment)
             .commit()
+        //val appBarConfig = AppBarConfiguration(setOf(R.id.dashboardFragment))
+        //findNavController(R.id.container_fragment).graph.setStartDestination(R.id.splashFragment)
     }
 
 
@@ -88,7 +110,6 @@ class MainActivity : AppCompatActivity() {
             requestPermissions()
         }
     }
-
 
     private fun isLocationEnabled(): Boolean {
         var locationManager: LocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager

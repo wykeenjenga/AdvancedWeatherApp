@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:gravity="center"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,6 +34,16 @@
                 android:focusable="true"
                 android:src="@drawable/baseline_west_24" />
 
+            <TextView
+                android:id="@+id/city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="serif"
+                android:layout_centerInParent="true"
+                android:textColor="@color/black"
+                android:textSize="16sp"/>
+
             <ImageView
                 android:id="@+id/favBtn"
                 android:layout_width="@dimen/list_weather_icon_size_large"
@@ -42,7 +52,7 @@
                 android:layout_centerInParent="true"
                 android:background="@drawable/list_ripple_effect"
                 android:clickable="true"
-                android:focusable="true" />
+                android:focusable="true"/>
 
         </RelativeLayout>
 
@@ -78,15 +88,6 @@
                     android:orientation="vertical"
                     android:padding="12dp">
 
-                    <TextView
-                        android:id="@+id/city"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="serif"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -274,7 +275,7 @@
 
             <TextView
                 android:textStyle="bold"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 android:layout_marginStart="12dp"
                 android:fontFamily="serif"

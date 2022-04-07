@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@drawable/cloudy_bg"
+    android:background="@color/white"
     android:layout_height="match_parent">
 
     <androidx.drawerlayout.widget.DrawerLayout
@@ -50,7 +50,7 @@
                         android:background="?attr/selectableItemBackground"
                         android:clickable="true"
                         android:focusable="true"
-                        android:src="@drawable/baseline_favorite_24" />
+                        android:src="@drawable/baseline_favorite_black_24" />
 
                 </RelativeLayout>
 
@@ -85,7 +85,6 @@
                             <TextView
                                 android:id="@+id/homeCity"
                                 android:text="@string/today"
-                                android:textStyle="bold"
                                 android:layout_marginStart="12dp"
                                 android:textColor="@color/colorAccent"
                                 android:textSize="20sp"
@@ -121,7 +120,7 @@
                             <TextView
                                 android:id="@+id/homeStatus"
                                 android:textStyle="bold"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black"
                                 android:textSize="30sp"
                                 android:fontFamily="serif"
                                 android:layout_width="wrap_content"
@@ -129,7 +128,7 @@
                             <TextView
                                 android:id="@+id/homeTemperature"
                                 android:textStyle="bold"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black"
                                 android:textSize="66sp"
                                 android:fontFamily="serif"
                                 android:layout_width="wrap_content"
@@ -155,7 +154,7 @@
                                     <TextView
                                         android:id="@+id/homeWind_Speed"
                                         android:textStyle="bold"
-                                        android:textColor="@color/white"
+                                        android:textColor="@color/black"
                                         android:textSize="14sp"
                                         android:fontFamily="serif"
                                         android:layout_width="wrap_content"
@@ -178,7 +177,7 @@
                                     <TextView
                                         android:id="@+id/homeWater_Drop"
                                         android:textStyle="bold"
-                                        android:textColor="@color/white"
+                                        android:textColor="@color/black"
                                         android:textSize="14sp"
                                         android:fontFamily="serif"
                                         android:layout_width="wrap_content"
@@ -190,7 +189,7 @@
                         <View
                             android:layout_width="2dp"
                             android:layout_gravity="center"
-                            android:background="@color/white"
+                            android:background="@color/black"
                             android:layout_height="46dp"/>
 
                         <LinearLayout
@@ -345,11 +344,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="serif"
                             android:padding="8dp"
                             android:text="@string/cities"
-                            android:textColor="@color/colorAccent"
-                            android:textSize="20sp"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
                             android:textStyle="bold" />
 
                         <androidx.recyclerview.widget.RecyclerView
@@ -374,7 +372,11 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
-            android:background="@color/transparent"
+            android:background="@color/white"
+            app:iconTint="@color/colorPrimaryDark"
+            app:itemIconTint="#7d5593"
+            app:itemTextColor="@drawable/drawer_selected_item"
+            app:itemBackground="@drawable/ripple_effect"
             app:headerLayout="@layout/header_layout"
             app:menu="@menu/drawer_menu" />
 

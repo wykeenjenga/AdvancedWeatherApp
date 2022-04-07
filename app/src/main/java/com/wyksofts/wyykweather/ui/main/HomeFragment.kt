@@ -1,7 +1,10 @@
 package com.wyksofts.wyykweather.ui.main
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,7 +13,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.view.ViewCompat
+import androidx.core.view.ViewCompat.setBackground
 import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -26,8 +32,10 @@ import com.wyksofts.wyykweather.model.citiesModel
 import com.wyksofts.wyykweather.ui.citiesWeather.*
 import com.wyksofts.wyykweather.ui.currentWeather.CurrentWeather
 import com.wyksofts.wyykweather.ui.currentWeather.CurrentWeatherViewModel
+import com.wyksofts.wyykweather.utils.BackgroundManager
 import com.wyksofts.wyykweather.utils.IconManager
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.header_layout.view.*
 
 
 class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
@@ -115,6 +123,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
         })
     }
 
+    @SuppressLint("RtlHardcoded")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -125,9 +134,20 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
 
         cityWeather(viewModel).showCitiesWeather(context)
 
-        binding.menu.setOnClickListener {
-            val navDrawer: DrawerLayout = binding.drawerLayout
+        //navigation view
+        val navDrawer: DrawerLayout = binding.drawerLayout
+        val navigation = binding.navigationView
 
+        //on menu clicked
+        binding.menu.setOnClickListener {
+            if(navDrawer.isDrawerVisible(Gravity.LEFT)){
+                navDrawer.openDrawer(Gravity.RIGHT)
+            }else{
+                navDrawer.openDrawer(Gravity.LEFT)
+            }
+            navigation.header_image.setImageResource(IconManager().getIcon(currWViewModel.icon))
+            navigation.header_text.text = currWViewModel.description
+            navigation.header_bg.setBackgroundResource(BackgroundManager().getBackground(currWViewModel.description))
         }
 
     }

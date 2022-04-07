@@ -8,10 +8,11 @@
     <color name="white">#FFFFFFFF</color>
     <color name="color2">#0A124E</color>
     <color name="gray">#7C7C7C</color>
+    <color name="transparent">#090909</color>
 
     <color name="colorAccentRipple">#4D7D5593</color>
     <color name="colorAccentLight">#397D5593</color>
-    <color name="transparent">#63FFFFFF</color>
+    <color name="gray1">#63FFFFFF</color>
 
 
     <color name="cloud_sunny_wind_accent">#96f5f5</color>
@@ -23,6 +24,10 @@
     <color name="green">#28E0AE</color>
     <color name="green1">#13C696</color>
     <color name="green2">#0FA87E</color>
+
+    <color name="clouds">#4798EF</color>
+    <color name="clouds1">#2774C6</color>
+    <color name="clouds2">#0B4A8E</color>
 
 
     <color name="cloud_rainy_thunderstorm">#5ae6ff</color>

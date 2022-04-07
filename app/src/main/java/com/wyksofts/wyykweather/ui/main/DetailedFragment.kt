@@ -3,6 +3,8 @@ package com.wyksofts.wyykweather.ui.main
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
@@ -20,16 +22,18 @@ import com.android.volley.toolbox.Volley
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.wyksofts.wyykweather.R
-import com.wyksofts.wyykweather.data.cloud.Favorite
+import com.wyksofts.wyykweather.data.cloud.FavoriteData
 import com.wyksofts.wyykweather.data.forecast.ForecastData
 import com.wyksofts.wyykweather.databinding.FragmentDetailedBinding
-import com.wyksofts.wyykweather.ui.currentWeather.CurrentWeatherViewModel
+import com.wyksofts.wyykweather.ui.citiesWeather.CityAdapter
+import com.wyksofts.wyykweather.ui.citiesWeather.cityWeatherViewModel
 import com.wyksofts.wyykweather.ui.favorite.FavoriteViewModel
 import com.wyksofts.wyykweather.ui.forecast.forecastModel
 import com.wyksofts.wyykweather.ui.forecast.ForecastAdapter
+import com.wyksofts.wyykweather.ui.forecast.ForecastViewModel
+import com.wyksofts.wyykweather.ui.forecast.forecastWeather
 import com.wyksofts.wyykweather.utils.*
 import kotlinx.android.synthetic.main.fragment_detailed.*
-import kotlinx.android.synthetic.main.fragment_home.*
 import java.text.DateFormat
 import java.util.*
 
@@ -37,6 +41,8 @@ class DetailedFragment : Fragment(R.layout.fragment_detailed) {
 
     //view_model
     lateinit var viewModel: FavoriteViewModel
+    lateinit var forecastViewModel: ForecastViewModel
+
 
     private var _binding: FragmentDetailedBinding? = null
     private val binding get() = _binding!!
@@ -67,6 +73,8 @@ class DetailedFragment : Fragment(R.layout.fragment_detailed) {
             favBtn.setImageResource(it)
         })
 
+        forecastViewModel = ViewModelProvider(this).get(ForecastViewModel::class.java)
+
 
         val bundle = this.arguments
         if (bundle != null) {
@@ -93,16 +101,15 @@ class DetailedFragment : Fragment(R.layout.fragment_detailed) {
 
         ViewCompat.setTransitionName(binding.temperature, "image")
 
+        //request data from api
+        context?.let { forecastWeather(forecastViewModel, it).getForecast(binding.progressBar,data_lat,data_long) }
+
         //variables
         initUI()
 
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
 
     @SuppressLint("SetTextI18n")
     private fun initUI() {
@@ -141,7 +148,7 @@ class DetailedFragment : Fragment(R.layout.fragment_detailed) {
         }
 
         //get favourite db data
-        Favorite(viewModel).getCities(data_city)
+        context?.let { FavoriteData(viewModel, it).checkCityExistence(data_city) }
 
 
         Animator().animate(binding.favBtn,1.0f,1.2f,1100)
@@ -151,10 +158,10 @@ class DetailedFragment : Fragment(R.layout.fragment_detailed) {
         binding.favBtn.setOnClickListener {
             if(viewModel.favIcon == R.drawable.baseline_favorite_24){
                 viewModel.currentIcon.value =
-                    context?.let { it1 -> Favorite(viewModel).deleteCity(data_city, it1) }
+                    context?.let { it1 -> FavoriteData(viewModel, it1).deleteCity(data_city, it1) }
             }else{
                 viewModel.currentIcon.value =
-                    context?.let { it1 -> Favorite(viewModel).addCity(data_city, it1) }
+                    context?.let { it1 -> FavoriteData(viewModel, it1).addCity(data_city, it1) }
             }
         }
 
@@ -166,70 +173,23 @@ class DetailedFragment : Fragment(R.layout.fragment_detailed) {
 
     //get weather forecast
     private fun getWeatherForecast(){
+        forecastViewModel.liveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer  {
 
-        binding.progressBar.isVisible = true
+            //recyclerView
+            binding.detailedCityRecyclerview.layoutManager = LinearLayoutManager(context,
+                LinearLayoutManager.HORIZONTAL ,false)
 
-        //recyclerView
-        binding.detailedCityRecyclerview.layoutManager = LinearLayoutManager(context,
-            LinearLayoutManager.HORIZONTAL ,false)
+            val adapter = context?.let { ForecastAdapter(forecastViewModel.newlist, it) }
+            binding.detailedCityRecyclerview.adapter = adapter
 
-        val listdata = ArrayList<forecastModel>()
+            binding.detailedCityRecyclerview.startAnimation(AnimationUtils.loadAnimation(context, R.anim.recycler_view_anim))
 
-        val queue = Volley.newRequestQueue(context)
-        val url = "https://api.openweathermap.org/data/2.5/onecall?lat=$data_lat&lon=$data_long&exclude=current,minutely,hourly,alerts&appid=${Constants.OPEN_WEATHER_API_KEY}"
-
-
-        val jsonRequest = JsonObjectRequest(Request.Method.GET, url,null, { response ->
-
-            binding.progressBar.isVisible = false
-
-            //days
-            val days = arrayOf(1, 2, 3, 4, 5, 6)
-
-
-            for(day in days) {
-
-                //create jsonObject
-                val gson = Gson()
-
-                val temp_list = response.getJSONArray("daily").getJSONObject(day).getString("temp")
-                val day_list = response.getJSONArray("daily").getJSONObject(day).getString("dt").toLong()
-
-                //icon
-                val icon_list = response.getJSONArray("daily").getJSONObject(day).getJSONArray("weather")
-
-                val weatherIcon = ForecastData().getWeatherIcon(icon_list.toString())
-
-                //temperature
-                val jsonString = temp_list
-                val temp_model = gson.fromJson(jsonString, ForecastData.tempData::class.java)
-
-                //temperature, min and max
-                val temperature = Convert().convertTemp(temp_model.day)
-                val min_temperature = Convert().convertTemp(temp_model.min)
-                val max_temperature = Convert().convertTemp(temp_model.max)
-
-                //date
-                val date = Constants.getDate(day_list)
-
-                //add data
-                listdata.add(forecastModel(date,temperature,weatherIcon,min_temperature,max_temperature))
-
-                val adapter = context?.let { ForecastAdapter(listdata, it) }
-                binding.detailedCityRecyclerview.adapter = adapter
-
-                binding.detailedCityRecyclerview.startAnimation(AnimationUtils.loadAnimation(context, R.anim.recycler_view_anim))
-
-            }
-
-
-        },{
-            Toast.makeText(context, "error fetching forecast", Toast.LENGTH_LONG).show()
-            binding.progressBar.isVisible = false
         })
+    }
 
-        queue.add(jsonRequest)
-
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 }

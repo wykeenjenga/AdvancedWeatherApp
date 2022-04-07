@@ -1,14 +1,16 @@
 package com.wyksofts.wyykweather.data.cloud
 
 import android.content.Context
+import android.util.Log
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.wyksofts.wyykweather.R
 import com.wyksofts.wyykweather.ui.favorite.FavoriteViewModel
+import com.wyksofts.wyykweather.ui.favorite.favoriteCitiesWeather
 import com.wyksofts.wyykweather.utils.showToast
 
-class Favorite(private val viewModel: FavoriteViewModel) {
+class FavoriteData(private val viewModel: FavoriteViewModel, private val context: Context) {
 
     val db = Firebase.firestore
 
@@ -54,8 +56,10 @@ class Favorite(private val viewModel: FavoriteViewModel) {
         return viewModel.favIcon
     }
 
-    //get all cities
-    fun getCities(city: String){
+
+
+    //check if a city exist
+    fun checkCityExistence(city: String){
 
         val docRef = db.collection("cities").document(city)
         docRef.get()
@@ -80,6 +84,28 @@ class Favorite(private val viewModel: FavoriteViewModel) {
             }
             .addOnFailureListener { exception ->
                 viewModel.favIcon  = R.drawable.baseline_favorite_border_24
+            }
+    }
+
+    //get all cities
+    fun getAllCities(){
+        db.collection("cities")
+            .get()
+            .addOnSuccessListener { result ->
+                for(document in result){
+
+                    val cityName = document.getString("cityName")
+
+                    val cities = listOf(cityName)
+
+                    if (cityName != null) {
+                        favoriteCitiesWeather(viewModel, cities).showCitiesWeather(context)
+                    }
+
+                }
+            }
+            .addOnFailureListener { exception ->
+
             }
     }
 

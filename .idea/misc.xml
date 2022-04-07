@@ -19,8 +19,10 @@
         <entry key="app/src/main/res/drawable/baseline_cancel_24.xml" value="0.1645" />
         <entry key="app/src/main/res/drawable/baseline_create_24.xml" value="0.1365" />
         <entry key="app/src/main/res/drawable/baseline_home_24.xml" value="0.167" />
+        <entry key="app/src/main/res/drawable/baseline_more_24.xml" value="0.167" />
         <entry key="app/src/main/res/drawable/baseline_place_24.xml" value="0.1365" />
         <entry key="app/src/main/res/drawable/baseline_settings_24.xml" value="0.167" />
+        <entry key="app/src/main/res/drawable/baseline_share_24.xml" value="0.167" />
         <entry key="app/src/main/res/drawable/baseline_thermostat_24.xml" value="0.167" />
         <entry key="app/src/main/res/drawable/baseline_travel_explore_24.xml" value="0.1645" />
         <entry key="app/src/main/res/drawable/baseline_water_drop_20.xml" value="0.1365" />
@@ -32,6 +34,8 @@
         <entry key="app/src/main/res/drawable/detailed_default_bg.xml" value="0.156" />
         <entry key="app/src/main/res/drawable/detailed_snow_bg.xml" value="0.142" />
         <entry key="app/src/main/res/drawable/divider.xml" value="0.142" />
+        <entry key="app/src/main/res/drawable/drawer_item.xml" value="0.167" />
+        <entry key="app/src/main/res/drawable/drawer_selected_item.xml" value="0.167" />
         <entry key="app/src/main/res/drawable/home_ripple_effect.xml" value="0.157" />
         <entry key="app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1365" />
         <entry key="app/src/main/res/drawable/ic_baseline_search_accent_24.xml" value="0.157" />
@@ -57,7 +61,8 @@
         <entry key="app/src/main/res/layout/fragment_splash.xml" value="0.2515625" />
         <entry key="app/src/main/res/layout/header_layout.xml" value="0.24322916666666666" />
         <entry key="app/src/main/res/layout/search_toolbar.xml" value="0.21203703703703702" />
-        <entry key="app/src/main/res/menu/drawer_menu.xml" value="0.24322916666666666" />
+        <entry key="app/src/main/res/menu-v26/drawer_menu.xml" value="0.24322916666666666" />
+        <entry key="app/src/main/res/menu/drawer_menu.xml" value="0.39049784342447913" />
         <entry key="app/src/main/res/menu/main_page_menu.xml" value="0.24635416666666668" />
       </map>
     </option>

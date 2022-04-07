@@ -3,28 +3,21 @@ package com.wyksofts.wyykweather.ui.main
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
-import androidx.core.view.ViewCompat.setBackground
 import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.navigation.NavigationView
 import com.wyksofts.wyykweather.R
 import com.wyksofts.wyykweather.databinding.FragmentHomeBinding
 import com.wyksofts.wyykweather.databinding.FragmentHomeBinding.*
@@ -56,6 +49,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
     var adapter : CityAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         pref = context?.getSharedPreferences("location", Context.MODE_PRIVATE)
         editor = pref?.edit()
@@ -130,9 +124,10 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
         val latitude = pref?.getString("latitude", "").toString()
         val longitude = pref?.getString("longitude", "").toString()
 
+        //get weather data
         context?.let { CurrentWeather(currWViewModel,binding.currentLayout).showCurrentLocationData(it,latitude,longitude) }
-
         cityWeather(viewModel).showCitiesWeather(context)
+
 
         //navigation view
         val navDrawer: DrawerLayout = binding.drawerLayout
@@ -148,6 +143,49 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
             navigation.header_image.setImageResource(IconManager().getIcon(currWViewModel.icon))
             navigation.header_text.text = currWViewModel.description
             navigation.header_bg.setBackgroundResource(BackgroundManager().getBackground(currWViewModel.description))
+
+            onNavigationItemSelected(navDrawer, navigation)
+        }
+
+
+        homeCity.setOnClickListener {
+            showCurrentLocationForecast()
+        }
+
+    }
+
+    private fun showCurrentLocationForecast() {
+        onItemClick(
+            currWViewModel.city, currWViewModel.icon,
+            currWViewModel.description, currWViewModel.temperature,
+            currWViewModel.wind_speed, currWViewModel.water_drop, currWViewModel.min_temp,
+            currWViewModel.max_temp, currWViewModel.lat, currWViewModel.long)
+    }
+
+    private fun onNavigationItemSelected(navDrawer: DrawerLayout, navigation: NavigationView){
+
+        navigation.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+
+                R.id.dashboardFragment -> {
+                    if (navDrawer.isDrawerOpen(GravityCompat.START)) {
+                        navDrawer.closeDrawer(GravityCompat.START)
+                    }
+                    true
+                }
+
+                R.id.forecast ->{
+                    showCurrentLocationForecast()
+                    true
+                }
+
+                else -> {
+                    if (navDrawer.isDrawerOpen(GravityCompat.START)) {
+                        navDrawer.closeDrawer(GravityCompat.START)
+                    }
+                    false
+                }
+            }
         }
 
     }

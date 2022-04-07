@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
@@ -15,13 +14,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.wyksofts.wyykweather.R
-import com.wyksofts.wyykweather.databinding.FragmentDetailedBinding
 
 
 class MainActivity : AppCompatActivity() {
@@ -38,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         //show Splash screen
-        showFragment(Splash())
+        showFragment(Splash(), false)
 
         //check location permission
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
@@ -61,10 +56,20 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun showFragment(fragment: Fragment) {
-        val fm = supportFragmentManager.beginTransaction()
-        fm.add(R.id.root_fragment, fragment)
-            .commit()
+    fun showFragment(fragment: Fragment, b: Boolean) {
+
+        if(b){
+            val fm = supportFragmentManager.beginTransaction()
+                .addToBackStack(null)
+            fm.add(R.id.root_fragment, fragment)
+                .commit()
+
+        }else{
+            val fm = supportFragmentManager.beginTransaction()
+            fm.add(R.id.root_fragment, fragment)
+                .commit()
+        }
+
         //val appBarConfig = AppBarConfiguration(setOf(R.id.dashboardFragment))
         //findNavController(R.id.container_fragment).graph.setStartDestination(R.id.splashFragment)
     }

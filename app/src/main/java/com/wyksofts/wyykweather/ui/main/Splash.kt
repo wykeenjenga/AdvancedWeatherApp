@@ -45,7 +45,7 @@ class Splash : Fragment(R.layout.fragment_splash) {
                 try {
                     sleep(1000)
 
-                    (activity as MainActivity?)?.showFragment(HomeFragment())
+                    (activity as MainActivity?)?.showFragment(HomeFragment(), false)
 
                     //findNavController().graph.setStartDestination(R.id.dashboardFragment)
                     //findNavController().navigate(R.id.action_dashboardFragment_to_weatherDetailFragment)

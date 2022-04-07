@@ -38,7 +38,6 @@ class CurrentWeather(private val viewModel: CurrentWeatherViewModel, private val
                 viewModel.WeatherService.value = viewModel.icon
 
 
-
                 //temperature
                 viewModel.temperature = Convert().convertTemp(response.getJSONObject("main").getString("temp"))
                 viewModel.WeatherService.value = viewModel.temperature

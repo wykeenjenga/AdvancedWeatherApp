@@ -18,7 +18,6 @@ class cityWeatherViewModel : ViewModel() {
     var long = ""
 
     var liveData = MutableLiveData<ArrayList<citiesModel>>()
-
     var newlist = arrayListOf<citiesModel>()
 
     fun add(city: citiesModel){

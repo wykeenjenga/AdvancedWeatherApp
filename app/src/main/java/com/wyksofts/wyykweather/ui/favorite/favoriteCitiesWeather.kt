@@ -1,6 +1,7 @@
 package com.wyksofts.wyykweather.ui.favorite
 
 import android.content.Context
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.core.view.isVisible
@@ -53,6 +54,8 @@ class favoriteCitiesWeather(val viewModel: FavoriteViewModel, val cities: List<S
                     //max and min temperature
                     viewModel.min_temp = Convert().convertTemp(response.getJSONObject("main").getString("temp_min"))
                     viewModel.max_temp = Convert().convertTemp(response.getJSONObject("main").getString("temp_max"))
+
+                    //check whether cities
 
 
                     val model = favoriteModel(

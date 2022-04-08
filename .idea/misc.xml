@@ -13,6 +13,8 @@
         <entry key="app/src/main/res/drawable-v24/ripple_effect.xml" value="0.1175" />
         <entry key="app/src/main/res/drawable/a01d_svg.xml" value="0.1175" />
         <entry key="app/src/main/res/drawable/a01n_svg.xml" value="0.111" />
+        <entry key="app/src/main/res/drawable/a02d_svg.xml" value="0.167" />
+        <entry key="app/src/main/res/drawable/a02n_svg.xml" value="0.167" />
         <entry key="app/src/main/res/drawable/a04d_svg.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/baseline_admin_panel_settings_24.xml" value="0.167" />
         <entry key="app/src/main/res/drawable/baseline_air_20.xml" value="0.1365" />
@@ -30,6 +32,8 @@
         <entry key="app/src/main/res/drawable/bg.xml" value="0.11" />
         <entry key="app/src/main/res/drawable/close_dialog_bg.xml" value="0.1645" />
         <entry key="app/src/main/res/drawable/cloudy_bg.xml" value="0.1365" />
+        <entry key="app/src/main/res/drawable/custom_btn.xml" value="0.167" />
+        <entry key="app/src/main/res/drawable/custom_ring_btn.xml" value="0.167" />
         <entry key="app/src/main/res/drawable/detailed_clear_bg.xml" value="0.167" />
         <entry key="app/src/main/res/drawable/detailed_clouds_bg.xml" value="0.167" />
         <entry key="app/src/main/res/drawable/detailed_default_bg.xml" value="0.156" />
@@ -54,15 +58,20 @@
         <entry key="app/src/main/res/layout/city_item_view.xml" value="0.140597539543058" />
         <entry key="app/src/main/res/layout/close_diag.xml" value="0.2515625" />
         <entry key="app/src/main/res/layout/deatail_forecast_card.xml" value="0.24635416666666668" />
+        <entry key="app/src/main/res/layout/divider.xml" value="0.23802083333333332" />
+        <entry key="app/src/main/res/layout/divider_with_or.xml" value="0.23802083333333332" />
         <entry key="app/src/main/res/layout/fragment_city_detailedview.xml" value="0.24635416666666668" />
         <entry key="app/src/main/res/layout/fragment_city_list_view.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_close_dialog.xml" value="0.2515625" />
         <entry key="app/src/main/res/layout/fragment_detailed.xml" value="0.2515625" />
         <entry key="app/src/main/res/layout/fragment_favorite.xml" value="0.1881145788798632" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2515625" />
+        <entry key="app/src/main/res/layout/fragment_sign_up.xml" value="0.1996579734929457" />
         <entry key="app/src/main/res/layout/fragment_splash.xml" value="0.2515625" />
+        <entry key="app/src/main/res/layout/google_btn.xml" value="0.23802083333333332" />
         <entry key="app/src/main/res/layout/header_layout.xml" value="0.24322916666666666" />
         <entry key="app/src/main/res/layout/search_toolbar.xml" value="0.21203703703703702" />
+        <entry key="app/src/main/res/layout/sign_in_dialog.xml" value="0.23802083333333332" />
         <entry key="app/src/main/res/menu-v26/drawer_menu.xml" value="0.24322916666666666" />
         <entry key="app/src/main/res/menu/drawer_menu.xml" value="0.39049784342447913" />
         <entry key="app/src/main/res/menu/main_page_menu.xml" value="0.24635416666666668" />

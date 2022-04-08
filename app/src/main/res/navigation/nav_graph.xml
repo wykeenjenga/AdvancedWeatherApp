@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.wyksofts.wyykweather.ui.main.Splash"
+        android:name="com.wyksofts.wyykweather.ui.main.SplashScreen"
         tools:layout="@layout/fragment_splash"
         android:label="SplashFragment">
 

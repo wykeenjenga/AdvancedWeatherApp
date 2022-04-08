@@ -8,12 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wyksofts.wyykweather.R
-import com.wyksofts.wyykweather.data.cloud.FavoriteData
+import com.wyksofts.wyykweather.data.cloud.FavoriteDataModel
 import com.wyksofts.wyykweather.databinding.FragmentFavoriteBinding
 import com.wyksofts.wyykweather.model.favoriteModel
 import com.wyksofts.wyykweather.ui.citiesWeather.cityDetailInterface
@@ -45,8 +46,12 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite), cityDetailInterfa
         // Inflate the layout for this fragment
         _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
 
+        binding.searchBtn.isActivated = false
+
+        ViewCompat.setTransitionName(binding.title, "item_image")
+
         //get data from firebase
-        context?.let { FavoriteData(viewModel, it, binding.progressBar).getAllCities() }
+        context?.let { FavoriteDataModel(viewModel, it, binding.progressBar).getAllCities() }
 
         initUI()
         return binding.root
@@ -79,7 +84,6 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite), cityDetailInterfa
                 favRecyclerViewLayout.startAnimation(AnimationUtils.loadAnimation(context,R.anim.slide_down))
 
             }else{
-                searchViewLayout.startAnimation(AnimationUtils.loadAnimation(context,R.anim.slide_up))
                 searchViewLayout.isVisible = false
                 favRecyclerViewLayout.startAnimation(AnimationUtils.loadAnimation(context,R.anim.slide_up))
             }
@@ -97,10 +101,10 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite), cityDetailInterfa
 
     //init filter
     fun filter(city: String, data: ArrayList<favoriteModel>,
-               recyclerView: RecyclerView, adapter: FavoriteAdapter
-    ){
+               recyclerView: RecyclerView, adapter: FavoriteAdapter){
 
         val arrayList: java.util.ArrayList<favoriteModel> = java.util.ArrayList<favoriteModel>()
+
         for (model in data) {
             if (model.city.toLowerCase().contains(city)) {
                 recyclerView.setVisibility(View.VISIBLE)
@@ -123,7 +127,7 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite), cityDetailInterfa
         min_temp: String, max_temp: String, lat: String,
         long: String) {
 
-        val detailedFragment = DetailedFragment()
+        val fragment = DetailedFragment()
         val bundle = Bundle()
         bundle.putString("city", city)
         bundle.putString("description", description)
@@ -136,9 +140,9 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite), cityDetailInterfa
         bundle.putString("lat", lat)
         bundle.putString("long", long)
 
-        detailedFragment.arguments = bundle
+        fragment.arguments = bundle
 
-        (activity as MainActivity?)?.showDetailedWeather(detailedFragment,bundle,null)
+        (activity as MainActivity?)?.showDetailedWeather(fragment,bundle,binding.title)
 
     }
 

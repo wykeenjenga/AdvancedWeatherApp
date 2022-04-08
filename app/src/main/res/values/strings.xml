@@ -37,6 +37,25 @@
     <string name="share">Share</string>
     <string name="general">General</string>
     <string name="favorite_cities">My favorite cities</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="login">Login</string>
+    <string name="user_name">User name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="i_accept_terms_and_services">I accept policy and </string>
+    <string name="terms">terms</string>
+    <string name="register">Register</string>
+    <string name="continue_with_google">Continue with google</string>
+    <string name="google">google</string>
+    <string name="web_client_id">160296936749-b9lbgqk6cdi90pv27rab4nv7rim8inr5.apps.googleusercontent.com</string>
+    <string name="favTxt">Did you like to add this city to favorite list?</string>
+    <string name="favTxt2">Please consider creating an account with us to have maximo experience of WyyK Weather.</string>
+    <string name="create_account">Create Account</string>
+    <string name="logo">logo</string>
+    <string name="welcome">Welcome</string>
+    <string name="or">or</string>
+    <string name="continue_without_account">Continue Without Account</string>
 
 
 </resources>

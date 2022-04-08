@@ -13,13 +13,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.wyksofts.wyykweather.R
-import com.wyksofts.wyykweather.data.cloud.FavoriteData
+import com.wyksofts.wyykweather.data.cloud.FavoriteDataModel
 import com.wyksofts.wyykweather.databinding.FragmentDetailedBinding
 import com.wyksofts.wyykweather.ui.favorite.FavoriteViewModel
 import com.wyksofts.wyykweather.ui.forecast.ForecastAdapter
 import com.wyksofts.wyykweather.ui.forecast.ForecastViewModel
 import com.wyksofts.wyykweather.ui.forecast.forecastWeather
+import com.wyksofts.wyykweather.ui.user.SignInDialog
 import com.wyksofts.wyykweather.utils.*
 import kotlinx.android.synthetic.main.fragment_detailed.*
 import java.text.DateFormat
@@ -32,6 +35,7 @@ class DetailedFragment : Fragment(R.layout.fragment_detailed) {
     lateinit var forecastViewModel: ForecastViewModel
 
 
+    //view binding
     private var _binding: FragmentDetailedBinding? = null
     private val binding get() = _binding!!
 
@@ -92,6 +96,7 @@ class DetailedFragment : Fragment(R.layout.fragment_detailed) {
         //request data from api
         context?.let { forecastWeather(forecastViewModel, it).getForecast(binding.progressBar,data_lat,data_long) }
 
+
         //variables
         initUI()
 
@@ -127,6 +132,9 @@ class DetailedFragment : Fragment(R.layout.fragment_detailed) {
         val currentDateTimeString = DateFormat.getDateTimeInstance().format(Date())
         binding.time.text = currentDateTimeString
 
+        //check if city exists on my favorite db
+        FavoriteDataModel(viewModel, context, binding.progressBar).checkCityExistence(data_city)
+
 
         getWeatherForecast()
 
@@ -135,22 +143,30 @@ class DetailedFragment : Fragment(R.layout.fragment_detailed) {
             activity?.supportFragmentManager?.popBackStackImmediate()
         }
 
-        //get favourite db data
-        context?.let { FavoriteData(viewModel, it, binding.progressBar).checkCityExistence(data_city) }
-
 
         Animator().animate(binding.favBtn,1.0f,1.2f,1100)
         binding.weatherIcon.startAnimation(AnimationUtils.loadAnimation(context, R.anim.zoom_in))
 
+        //get currentUser
+        val user = Firebase.auth.currentUser
+
         //on favBtn clicked
         binding.favBtn.setOnClickListener {
-            if(viewModel.favIcon == R.drawable.baseline_favorite_24){
-                viewModel.currentIcon.value =
-                    context?.let { it1 -> FavoriteData(viewModel, it1, binding.progressBar).deleteCity(data_city, it1) }
+
+            if (user != null){
+
+                if(viewModel.favIcon == R.drawable.baseline_favorite_24){
+                    viewModel.currentIcon.value =
+                        context?.let { it1 -> FavoriteDataModel(viewModel, it1, binding.progressBar).deleteCity(data_city, it1) }
+                }else{
+                    viewModel.currentIcon.value =
+                        context?.let { it1 -> FavoriteDataModel(viewModel, it1, binding.progressBar).addCity(data_city, it1) }
+                }
             }else{
-                viewModel.currentIcon.value =
-                    context?.let { it1 -> FavoriteData(viewModel, it1, binding.progressBar).addCity(data_city, it1) }
+                //show sing up dialog
+                activity?.let { it1 -> SignInDialog().show(it1.supportFragmentManager, "signin_diag") }
             }
+
         }
 
         Animator().animate(binding.imageViewBigCloud,0.5f,1.3f,10000)

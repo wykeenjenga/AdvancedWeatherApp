@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple
+    xmlns:tools="http://schemas.android.com/tools"
+    android:color="@color/colorAccent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:targetApi="lollipop">
+    <item>
+        <shape android:shape="rectangle">
+
+            <solid
+                android:color="@color/colorAccent" />
+
+            <gradient
+                android:gradientRadius="360"
+                android:angle="180"
+                android:startColor="@color/colorAccent"
+                android:centerColor="@color/cloud_rainy_thunderstorm"
+                android:endColor="@color/cloud_rainy_thunderstorm2"/>
+
+            <corners
+                android:radius="100.0dip" />
+
+            <size
+                android:height="40.0dip"
+                android:width="240.0dip" />
+
+            <padding
+                android:top="4.0dip"
+                android:bottom="4.0dip"/>
+
+            <stroke />
+        </shape>
+    </item>
+</ripple>

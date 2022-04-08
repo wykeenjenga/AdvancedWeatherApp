@@ -1,13 +1,15 @@
 package com.wyksofts.wyykweather.ui.citiesWeather
 
 import android.content.Context
-import android.util.Log
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.wyksofts.wyykweather.api.WeatherApi
 import com.wyksofts.wyykweather.model.citiesModel
+import com.wyksofts.wyykweather.utils.Constants
 import com.wyksofts.wyykweather.utils.Convert
 
 class cityWeather(private val viewModel: cityWeatherViewModel) {
@@ -15,8 +17,7 @@ class cityWeather(private val viewModel: cityWeatherViewModel) {
 
     fun showCitiesWeather(context: Context?){
 
-        val cities = arrayOf("Nairobi", "Eden", "Elizabethtown", "New London", "Kampala", "Lagos", "Dakar")
-
+        val cities = Constants.CITIES
 
         //loop through cities
         for (city in cities) {
@@ -53,7 +54,7 @@ class cityWeather(private val viewModel: cityWeatherViewModel) {
 
 
                     val model = citiesModel(
-                        viewModel.city, viewModel.temperature,
+                        viewModel.isCityFav, viewModel.city, viewModel.temperature,
                         viewModel.icon, viewModel.description,
                         viewModel.wind_speed, viewModel.water_drop,
                         viewModel.min_temp, viewModel.max_temp,
@@ -62,12 +63,16 @@ class cityWeather(private val viewModel: cityWeatherViewModel) {
 
                     viewModel.add(model)
 
+
                 }, {
                     Toast.makeText(context, "ERROR", Toast.LENGTH_LONG).show()
                 })
             queue.add(jsonRequest)
 
         }
+
     }
+
+
 
 }

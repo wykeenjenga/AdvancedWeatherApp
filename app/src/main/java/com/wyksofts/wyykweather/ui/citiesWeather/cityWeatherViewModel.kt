@@ -17,6 +17,9 @@ class cityWeatherViewModel : ViewModel() {
     var lat = ""
     var long = ""
 
+    var isCityFav : Boolean = false
+
+
     var liveData = MutableLiveData<ArrayList<citiesModel>>()
     var newlist = arrayListOf<citiesModel>()
 

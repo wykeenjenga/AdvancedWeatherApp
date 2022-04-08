@@ -67,6 +67,7 @@ class DetailedFragment : Fragment(R.layout.fragment_detailed) {
 
         forecastViewModel = ViewModelProvider(this).get(ForecastViewModel::class.java)
 
+        activity?.window?.statusBarColor= getResources().getColor(R.color.black)
 
         val bundle = this.arguments
         if (bundle != null) {
@@ -114,6 +115,8 @@ class DetailedFragment : Fragment(R.layout.fragment_detailed) {
         binding.windSpeed.text = data_wind_speed
         binding.minTemp.text = "Min:\t $data_min°"
         binding.maxTemp.text = "Max:\t $data_max°"
+
+        binding.forecastTitle.text = "$data_city, forecast."
 
 
         //set background colorScheme

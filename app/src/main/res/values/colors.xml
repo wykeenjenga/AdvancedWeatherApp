@@ -7,19 +7,24 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="color2">#0A124E</color>
-    <color name="gray">#7C7C7C</color>
+    <color name="gray">#f2f2f2</color>
+
+
+
+    <color name="gray_recycler">#f6f6f6</color>
     <color name="transparent">#090909</color>
 
+    // color accent used for ripples
     <color name="colorAccentRipple">#4D7D5593</color>
     <color name="colorAccentLight">#397D5593</color>
     <color name="gray1">#63FFFFFF</color>
 
 
+    //cloud clear and detailed view colors
     <color name="cloud_sunny_wind_accent">#96f5f5</color>
     <color name="cloud_sunny_wind">#6efae6</color>
     <color name="cloud_sunny_wind1">#70f3e9</color>
     <color name="cloud_sunny_wind2">#72efed</color>
-
 
     <color name="green">#28E0AE</color>
     <color name="green1">#13C696</color>
@@ -29,15 +34,29 @@
     <color name="clouds1">#2774C6</color>
     <color name="clouds2">#0B4A8E</color>
 
+    <color name="cloud_sunny">#f9e177</color>
+    <color name="cloud_sunny1">#fec98b</color>
+    <color name="cloud_sunny2">#ffbe94</color>
 
     <color name="cloud_rainy_thunderstorm">#5ae6ff</color>
     <color name="cloud_rainy_thunderstorm1">#49C3E6</color>
     <color name="cloud_rainy_thunderstorm2">#42B1DF</color>
 
 
-    <color name="cloud_sunny">#f9e177</color>
-    <color name="cloud_sunny1">#fec98b</color>
-    <color name="cloud_sunny2">#ffbe94</color>
+    //home background color
+    //home sunny / clouds
+    <color name="home_sunny">#eff9ff</color>
+    <color name="home_sunny1">#c8e9fd</color>
+    <color name="home_sunny2">#8dd4ff</color>
 
+    //home clear
+    <color name="home_clear">#27367c</color>
+    <color name="home_clear1">#0d1551</color>
+    <color name="home_clear2">#04053f</color>
+
+    //home rainy / thunderstorm / drizzle
+    <color name="home_rainy">#f2f2f2</color>
+    <color name="home_rainy1">#dbdadb</color>
+    <color name="home_rainy2">#cccaca</color>
 
 </resources>

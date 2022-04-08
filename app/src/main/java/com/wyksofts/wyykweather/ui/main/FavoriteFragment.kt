@@ -53,6 +53,10 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite), cityDetailInterfa
         //get data from firebase
         context?.let { FavoriteDataModel(viewModel, it, binding.progressBar).getAllCities() }
 
+        //status bar
+        activity?.window?.statusBarColor= getResources().getColor(R.color.black)
+
+
         initUI()
         return binding.root
     }

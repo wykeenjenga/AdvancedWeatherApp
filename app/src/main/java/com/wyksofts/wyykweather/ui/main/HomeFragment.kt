@@ -8,6 +8,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.*
+import android.view.View.inflate
 import android.view.animation.AnimationUtils
 import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
@@ -84,6 +85,8 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
 
             homeWind_Speed.text = currWViewModel.wind_speed
 
+            homeFragmentBG.setBackgroundResource(BackgroundManager().getHomeBackground(currWViewModel.description))
+
         })
 
 
@@ -104,7 +107,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
         return binding.root
     }
 
-    @SuppressLint("RtlHardcoded")
+    @SuppressLint("RtlHardcoded", "SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -135,13 +138,25 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
         }
 
 
+        //on city clicked
         homeCity.setOnClickListener {
             showCurrentLocationForecast()
         }
 
+        //fav btn
         Animator().animate(binding.favouriteBtn,1.0f,1.2f,1100)
         favouriteBtn.setOnClickListener{
             (activity as MainActivity?)?.showFragment(FavoriteFragment(), true)
+        }
+
+        val user = Firebase.auth.currentUser
+        val name = user?.displayName.toString()
+
+        //DayMessage
+        if (user != null){
+            binding.DayMessage.text = "${GetDayMessage().showDayMessage()},\t$name"
+        }else{
+            binding.DayMessage.text = GetDayMessage().showDayMessage()
         }
 
 

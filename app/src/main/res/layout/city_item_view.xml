@@ -55,8 +55,16 @@
                     android:layout_width="@dimen/list_weather_icon_size"
                     android:layout_height="@dimen/list_weather_icon_size"
                     android:src="@drawable/moon_cloud" />
-
             </LinearLayout>
+
+            <ImageView
+                android:id="@+id/favIcon"
+                android:layout_marginStart="12dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:layout_marginEnd="12dp"
+                android:layout_width="@dimen/list_weather_icon_size"
+                android:layout_height="@dimen/list_weather_icon_size" />
 
 
         </RelativeLayout>

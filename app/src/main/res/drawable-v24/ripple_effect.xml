@@ -8,7 +8,7 @@
         <shape android:shape="rectangle">
 
             <solid
-                android:color="@color/white" />
+                android:color="@color/gray_recycler" />
 
             <padding
                 android:top="4.0dip"

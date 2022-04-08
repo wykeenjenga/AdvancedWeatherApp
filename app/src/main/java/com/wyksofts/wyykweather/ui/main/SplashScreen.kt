@@ -1,15 +1,18 @@
 package com.wyksofts.wyykweather.ui.main
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.wyksofts.wyykweather.R
 import com.wyksofts.wyykweather.databinding.FragmentSplashBinding
 
 
+@SuppressLint("CustomSplashScreen")
 class SplashScreen(val isSplash: Boolean) : Fragment(R.layout.fragment_splash) {
 
     private  var _binding: FragmentSplashBinding? = null
@@ -37,8 +40,12 @@ class SplashScreen(val isSplash: Boolean) : Fragment(R.layout.fragment_splash) {
 
         if (isSplash){
 
-            binding.splashFragment.setBackgroundResource(R.drawable.splash_bg)
+            binding.splashFragment.setBackgroundResource(R.drawable.splash_screen)
             binding.landingLayout.isVisible = false
+            binding.splashView.isVisible = true
+
+            binding.logo.startAnimation(AnimationUtils.loadAnimation(context, R.anim.zoom_in))
+            binding.title.startAnimation(AnimationUtils.loadAnimation(context, R.anim.slide_down))
 
             val timer: Thread = object : Thread() {
                 override fun run() {
@@ -63,10 +70,9 @@ class SplashScreen(val isSplash: Boolean) : Fragment(R.layout.fragment_splash) {
     private fun showLandingScreen() {
 
         //start animation when done show accounts view
-        binding.splashFragment.setBackgroundResource(R.color.white)
+        binding.splashFragment.setBackgroundResource(R.color.gray)
         binding.landingLayout.isVisible = true
-        binding.logo.isVisible = false
-
+        binding.splashView.isVisible = false
 
 
         binding.continueWithGoogle.setOnClickListener {

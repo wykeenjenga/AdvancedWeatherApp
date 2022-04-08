@@ -41,13 +41,17 @@
         <entry key="app/src/main/res/drawable/divider.xml" value="0.142" />
         <entry key="app/src/main/res/drawable/drawer_item.xml" value="0.167" />
         <entry key="app/src/main/res/drawable/drawer_selected_item.xml" value="0.167" />
+        <entry key="app/src/main/res/drawable/home_clear.xml" value="0.167" />
+        <entry key="app/src/main/res/drawable/home_rainy.xml" value="0.167" />
         <entry key="app/src/main/res/drawable/home_ripple_effect.xml" value="0.157" />
+        <entry key="app/src/main/res/drawable/home_sunny.xml" value="0.167" />
         <entry key="app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1365" />
         <entry key="app/src/main/res/drawable/ic_baseline_search_accent_24.xml" value="0.157" />
         <entry key="app/src/main/res/drawable/ic_big_cloud.xml" value="0.156" />
         <entry key="app/src/main/res/drawable/ic_menu_24.xml" value="0.157" />
         <entry key="app/src/main/res/drawable/ic_small_cloud.xml" value="0.157" />
         <entry key="app/src/main/res/drawable/list_ripple_effect.xml" value="0.156" />
+        <entry key="app/src/main/res/drawable/list_ripple_effect_white.xml" value="0.167" />
         <entry key="app/src/main/res/drawable/splash_bg.xml" value="0.13522033691406243" />
         <entry key="app/src/main/res/layout-land/activity_detail.xml" value="0.18645833333333334" />
         <entry key="app/src/main/res/layout-land/close_diag.xml" value="0.1484375" />

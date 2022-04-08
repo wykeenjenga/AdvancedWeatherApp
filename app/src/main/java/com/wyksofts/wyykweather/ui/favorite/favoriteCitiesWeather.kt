@@ -16,9 +16,9 @@ import com.wyksofts.wyykweather.utils.Convert
 
 class favoriteCitiesWeather(val viewModel: FavoriteViewModel, val cities: List<String?>) {
 
-    fun showCitiesWeather(context: Context?, favprogressBar: ProgressBar){
+    fun showCitiesWeather(context: Context?, favprogressBar: ProgressBar?){
 
-        favprogressBar.isVisible = true
+        favprogressBar?.isVisible = true
 
         //loop through cities
         for (city in cities) {
@@ -27,7 +27,7 @@ class favoriteCitiesWeather(val viewModel: FavoriteViewModel, val cities: List<S
             val jsonRequest = JsonObjectRequest(
                 Request.Method.GET, city?.let { WeatherApi().getCitiesWeather(it) },null, { response ->
 
-                    favprogressBar.isVisible = false
+                    favprogressBar?.isVisible = false
 
                     //city
                     viewModel.city = response.getString("name")
@@ -55,8 +55,6 @@ class favoriteCitiesWeather(val viewModel: FavoriteViewModel, val cities: List<S
                     viewModel.min_temp = Convert().convertTemp(response.getJSONObject("main").getString("temp_min"))
                     viewModel.max_temp = Convert().convertTemp(response.getJSONObject("main").getString("temp_max"))
 
-                    //check whether cities
-
 
                     val model = favoriteModel(
                         viewModel.city, viewModel.temperature,
@@ -70,7 +68,7 @@ class favoriteCitiesWeather(val viewModel: FavoriteViewModel, val cities: List<S
 
                 }, {
                     Toast.makeText(context, "ERROR", Toast.LENGTH_LONG).show()
-                    favprogressBar.isVisible = false
+                    favprogressBar?.isVisible = false
                 })
             queue.add(jsonRequest)
 

@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "160296936749-lt1n74u75mm8de338i877acct0p9l3es.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wyksofts.wyykweather",
+            "certificate_hash": "046df4f681c93c36ef1efd2bcdc8214e809014dc"
+          }
+        },
+        {
           "client_id": "160296936749-b9lbgqk6cdi90pv27rab4nv7rim8inr5.apps.googleusercontent.com",
           "client_type": 3
         }

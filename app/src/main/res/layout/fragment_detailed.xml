@@ -29,7 +29,7 @@
                 android:layout_height="@dimen/list_weather_icon_size_large"
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
-                android:background="@drawable/list_ripple_effect"
+                android:background="@drawable/list_ripple_effect_white"
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/baseline_west_24" />
@@ -40,9 +40,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="serif"
+                android:textStyle="bold"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
-                android:textSize="16sp"/>
+                android:textSize="18sp"/>
 
             <ImageView
                 android:id="@+id/favBtn"
@@ -50,9 +51,9 @@
                 android:layout_height="@dimen/list_weather_icon_size_large"
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
-                android:background="@drawable/list_ripple_effect"
+                android:background="@drawable/list_ripple_effect_white"
                 android:clickable="true"
-                android:focusable="true"/>
+                android:focusable="true" />
 
         </RelativeLayout>
 
@@ -273,15 +274,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:layout_marginStart="12dp"
-                android:fontFamily="serif"
-                android:text="@string/forecast"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:gravity="center"
+                android:layout_height="wrap_content">
+                <View
+                    android:layout_width="5dp"
+                    android:background="@color/colorAccent"
+                    android:layout_height="14dp"/>
+
+                <TextView
+                    android:id="@+id/forecastTitle"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:layout_marginStart="12dp"
+                    android:text="@string/forecast"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -304,7 +315,6 @@
             </RelativeLayout>
 
         </LinearLayout>
-
 
 
     </LinearLayout>

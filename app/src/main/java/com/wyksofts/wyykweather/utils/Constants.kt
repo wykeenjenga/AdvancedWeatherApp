@@ -16,4 +16,8 @@ object Constants {
         return timeFormatter.format(Date(date*1000L))
     }
 
+
+    //cities list
+    val CITIES = arrayOf("Eden", "Elizabethtown", "New London", "Kampala", "Lagos", "Dakar", "Nairobi")
+
 }

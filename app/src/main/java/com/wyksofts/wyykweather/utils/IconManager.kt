@@ -2,7 +2,6 @@ package com.wyksofts.wyykweather.utils
 
 import android.graphics.Color
 import com.wyksofts.wyykweather.R
-import java.time.DayOfWeek
 
 class IconManager {
 
@@ -33,10 +32,12 @@ class IconManager {
     fun getIcon(weatherIcon: String?): Int {
 
         val icon: Int = when (weatherIcon) {
-            "Clear", "Sands" -> R.drawable.cloud_sunny
+            "Sands" -> R.drawable.cloud_sunny
+            "Clear" -> R.drawable.clear_night
             "Rain", "Snow", "Drizzle", "Thunderstorm" -> R.drawable.thunderstorm
-            "Clouds" -> R.drawable.cloud_sunny
-            "01d", "01n" -> R.drawable.sunny
+            "Clouds" -> R.drawable.clouds_night
+            "01d" -> R.drawable.sunny
+            "01n" -> R.drawable.clear_night
             "09n", "09d", "10d", "10n" -> R.drawable.cloud_rain
             "11d", "11n" -> R.drawable.thunderstorm
             "02d", "02n", "03d", "03n", "04d", "04n" -> R.drawable.cloud_sunny

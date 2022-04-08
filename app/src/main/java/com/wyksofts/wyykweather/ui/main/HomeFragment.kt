@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.*
 import android.view.animation.AnimationUtils
 import androidx.core.view.GravityCompat
@@ -18,6 +19,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.wyksofts.wyykweather.R
 import com.wyksofts.wyykweather.databinding.FragmentHomeBinding
 import com.wyksofts.wyykweather.databinding.FragmentHomeBinding.*
@@ -25,11 +29,12 @@ import com.wyksofts.wyykweather.model.citiesModel
 import com.wyksofts.wyykweather.ui.citiesWeather.*
 import com.wyksofts.wyykweather.ui.currentWeather.CurrentWeather
 import com.wyksofts.wyykweather.ui.currentWeather.CurrentWeatherViewModel
-import com.wyksofts.wyykweather.utils.Animator
-import com.wyksofts.wyykweather.utils.BackgroundManager
-import com.wyksofts.wyykweather.utils.IconManager
+import com.wyksofts.wyykweather.ui.favorite.FavoriteViewModel
+import com.wyksofts.wyykweather.utils.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.header_layout.view.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
@@ -37,6 +42,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
     //model
     lateinit var currWViewModel: CurrentWeatherViewModel
     lateinit var viewModel: cityWeatherViewModel
+    lateinit var favViewModel: FavoriteViewModel
 
     //view binding
     private var _binding: FragmentHomeBinding? = null
@@ -54,6 +60,10 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
         super.onCreate(savedInstanceState)
         pref = context?.getSharedPreferences("location", Context.MODE_PRIVATE)
         editor = pref?.edit()
+
+        // Cities weather data
+        viewModel = ViewModelProvider(this).get(cityWeatherViewModel::class.java)
+        favViewModel = ViewModelProvider(this).get(FavoriteViewModel::class.java)
 
         //current weather data
         currWViewModel = ViewModelProvider(this).get(CurrentWeatherViewModel::class.java)
@@ -92,28 +102,6 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
         getCitiesWeather()
 
         return binding.root
-    }
-
-    private fun getCitiesWeather() {
-
-        // Cities weather data
-        viewModel = ViewModelProvider(this).get(cityWeatherViewModel::class.java)
-        viewModel.liveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer  {
-
-            binding.citiesRecylerView.layoutManager = LinearLayoutManager(context,
-                LinearLayoutManager.VERTICAL, false)
-
-            adapter = CityAdapter(this,viewModel.newlist, requireContext())
-            binding.citiesRecylerView.adapter = adapter
-
-            binding.searchCity.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-                override fun afterTextChanged(s: Editable) {
-                    filter(s.toString(), viewModel.newlist, binding.citiesRecylerView, adapter!!)
-                }
-            })
-        })
     }
 
     @SuppressLint("RtlHardcoded")
@@ -156,6 +144,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
             (activity as MainActivity?)?.showFragment(FavoriteFragment(), true)
         }
 
+
     }
 
     private fun showCurrentLocationForecast() {
@@ -165,6 +154,56 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
             currWViewModel.wind_speed, currWViewModel.water_drop, currWViewModel.min_temp,
             currWViewModel.max_temp, currWViewModel.lat, currWViewModel.long)
     }
+
+
+    private fun getCitiesWeather() {
+
+        viewModel.liveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer  {
+
+            binding.citiesRecylerView.layoutManager = LinearLayoutManager(context,
+                LinearLayoutManager.VERTICAL, false)
+
+            //list of favorite cities
+            val db = Firebase.firestore
+            val user = Firebase.auth.currentUser
+            val email = user?.email.toString()
+
+            val docRef = db.collection("cities").document(email)
+
+            docRef.get().addOnSuccessListener { document ->
+
+                    if (document != null){ //check if document is empty
+
+                        val cities = document.data //get data in in a list
+
+                        if (cities != null) {
+                            for(cityName in cities.values){
+                                //sort data model of cities
+                                Collections.sort(viewModel.newlist, Collections.reverseOrder(SortComparator(cityName as String)))
+                            }
+                        }
+                    }else{
+                        Log.d("No city found :::>>>>>>>>>>>>>>>>>>>>>", "NO CITY FOUND....HAHAHA")
+                    }
+                adapter = CityAdapter(this,viewModel.newlist, viewModel, requireContext())
+                binding.citiesRecylerView.adapter = adapter
+
+            }
+                .addOnFailureListener { exception -> }
+
+
+            binding.searchCity.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+                override fun afterTextChanged(s: Editable) {
+                    filter(s.toString(), viewModel.newlist, binding.citiesRecylerView, adapter!!)
+                }
+            })
+        })
+
+    }
+
+
 
     private fun onNavigationItemSelected(navDrawer: DrawerLayout, navigation: NavigationView){
 
@@ -191,6 +230,31 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
                 }
             }
         }
+
+    }
+
+
+
+    override fun onItemClick(city: String, icon: String, description: String, temperature: String,
+                             wind_speed: String, water_drop: String, min_temp: String,
+                             max_temp: String, lat: String, long: String) {
+
+        val detailedFragment = DetailedFragment()
+        val bundle = Bundle()
+        bundle.putString("city", city)
+        bundle.putString("description", description)
+        bundle.putString("icon", icon)
+        bundle.putString("temperature", temperature)
+        bundle.putString("wind_speed", wind_speed)
+        bundle.putString("water_drop", water_drop)
+        bundle.putString("min_temp", min_temp)
+        bundle.putString("max_temp", max_temp)
+        bundle.putString("lat", lat)
+        bundle.putString("long", long)
+
+        detailedFragment.arguments = bundle
+
+        (activity as MainActivity?)?.showDetailedWeather(detailedFragment,bundle,binding.homeTemperature)
 
     }
 
@@ -225,52 +289,27 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
         }
     }
 
-    //init filter
-    fun filter(
-        city: String, data: ArrayList<citiesModel>,
-        recyclerView: RecyclerView,
-        adapter: CityAdapter){
+
+    //init filter search
+    fun filter(city: String, data: ArrayList<citiesModel>, recyclerView: RecyclerView, adapter: CityAdapter){
+
         val arrayList: java.util.ArrayList<citiesModel> = java.util.ArrayList<citiesModel>()
+
         for (model in data) {
-            if (model.city.toLowerCase().contains(city)) {
-                recyclerView.setVisibility(View.VISIBLE)
+
+            if (model.city.lowercase(Locale.getDefault()).contains(city)) {
+                recyclerView.visibility = View.VISIBLE
                 arrayList.add(model)
             } else {
                 if (arrayList.isEmpty()) {
                     binding.cancelSearch.isVisible = true
-                    recyclerView.setVisibility(View.GONE)
+                    recyclerView.visibility = View.GONE
                 } else {
-                    recyclerView.setVisibility(View.VISIBLE)
+                    recyclerView.visibility = View.VISIBLE
                 }
             }
             adapter.upDateList(arrayList)
         }
-    }
-
-
-
-
-    override fun onItemClick(city: String, icon: String, description: String, temperature: String,
-                             wind_speed: String, water_drop: String, min_temp: String,
-                             max_temp: String, lat: String, long: String) {
-
-        val detailedFragment = DetailedFragment()
-        val bundle = Bundle()
-        bundle.putString("city", city)
-        bundle.putString("description", description)
-        bundle.putString("icon", icon)
-        bundle.putString("temperature", temperature)
-        bundle.putString("wind_speed", wind_speed)
-        bundle.putString("water_drop", water_drop)
-        bundle.putString("min_temp", min_temp)
-        bundle.putString("max_temp", max_temp)
-        bundle.putString("lat", lat)
-        bundle.putString("long", long)
-
-        detailedFragment.arguments = bundle
-
-        (activity as MainActivity?)?.showDetailedWeather(detailedFragment,bundle,binding.homeTemperature)
-
     }
 
 

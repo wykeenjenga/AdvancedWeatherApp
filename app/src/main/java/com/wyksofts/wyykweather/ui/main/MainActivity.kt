@@ -1,6 +1,7 @@
 package com.wyksofts.wyykweather.ui.main;
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -9,38 +10,57 @@ import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.wyksofts.wyykweather.R
+import com.wyksofts.wyykweather.ui.forecast.ForecastViewModel
+import com.wyksofts.wyykweather.ui.main.permission.getCurrentLocation
+import com.wyksofts.wyykweather.ui.user.ContinueWithGoogle
+import com.wyksofts.wyykweather.ui.user.UserViewModel
+import com.wyksofts.wyykweather.utils.showToast
 
 
 class MainActivity : AppCompatActivity() {
 
-    private val PERMISSION_ID = 13
-    private lateinit var mFusedLocationClient: FusedLocationProviderClient
+    //google signing
+    lateinit var mGoogleSignInClient: GoogleSignInClient
+    private val RC_SIGN_IN = 191
+    var progressBar: ProgressBar? = null
 
-    private var pref: SharedPreferences? = null
-    private var editor: SharedPreferences.Editor? = null
+    //location
+    private val PERMISSION_ID = 13
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
         //show Splash screen
-        showFragment(Splash(), false)
+        showFragment(SplashScreen(true), false)
 
-        //check location permission
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        pref = this.getSharedPreferences("location", Context.MODE_PRIVATE)
-        editor = pref?.edit()
+        //get current location
+        getCurrentLocation(this).getLastLocation()
 
-        getLastLocation()
     }
 
     fun showDetailedWeather(fragment: Fragment, bundle: Bundle, homeTemperature: TextView?){
@@ -69,9 +89,6 @@ class MainActivity : AppCompatActivity() {
             fm.add(R.id.root_fragment, fragment)
                 .commit()
         }
-
-        //val appBarConfig = AppBarConfiguration(setOf(R.id.dashboardFragment))
-        //findNavController(R.id.container_fragment).graph.setStartDestination(R.id.splashFragment)
     }
 
 
@@ -84,64 +101,12 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
-    @SuppressLint("MissingPermission")
-    private fun getLastLocation() {
-        if (checkPermissions()) {
-            if (isLocationEnabled()) {
-
-                mFusedLocationClient.lastLocation.addOnCompleteListener(this) { task ->
-                    var location: Location? = task.result
-                    if (location == null) {
-                        //requestNewLocationData()
-                        Toast.makeText(this, "Location not found", Toast.LENGTH_LONG).show()
-                    } else {
-                        //Toast.makeText(this, "${location.latitude}", Toast.LENGTH_LONG).show()
-                        val latitude = location.latitude
-                        val longitude = location.longitude
-
-                        editor?.putString("latitude",latitude.toString())
-                        editor?.putString("longitude",longitude.toString())
-                        editor?.commit()
-
-                    }
-                }
-            } else {
-                Toast.makeText(this, "Please turn on your location", Toast.LENGTH_LONG).show()
-                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                startActivity(intent)
-            }
-        } else {
-            requestPermissions()
-        }
-    }
-
-    private fun isLocationEnabled(): Boolean {
-        var locationManager: LocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
-            LocationManager.NETWORK_PROVIDER
-        )
-    }
-
-    private fun checkPermissions(): Boolean {
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED &&
-            ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            return true
-        }
-        return false
-    }
-
-    private fun requestPermissions() {
+    fun requestPermissions() {
         ActivityCompat.requestPermissions(
             this,
-            arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION),
+            arrayOf(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION),
             PERMISSION_ID
         )
     }
@@ -150,8 +115,39 @@ class MainActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == PERMISSION_ID) {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                getLastLocation()
+                getCurrentLocation(this).getLastLocation()
+
+                //show Splash screen
+                showFragment(SplashScreen(true), false)
             }
+        }
+    }
+
+
+
+    //signing with google account
+    fun signIn(proBar: ProgressBar) {
+
+        this.progressBar = proBar
+
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.web_client_id))
+            .requestEmail()
+            .build()
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+
+        val signInIntent = mGoogleSignInClient.signInIntent
+        startActivityForResult(signInIntent, RC_SIGN_IN)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RC_SIGN_IN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+
+            this.progressBar?.isVisible = false
+            ContinueWithGoogle(this).handleSignInResult(task,applicationContext)
         }
     }
 

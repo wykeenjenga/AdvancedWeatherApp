@@ -18,4 +18,18 @@ class BackgroundManager {
         }
         return bg
     }
+
+    fun getHomeBackground(background: String?) : Int {
+
+        val bg: Int = when (background){
+            "Sunny", "Clouds" -> R.drawable.home_sunny
+            "Clear" -> R.drawable.home_rainy
+            "Rain", "Storm","Thunderstorm"  -> R.drawable.home_rainy
+            "Snow", "Drizzle"  -> R.drawable.detailed_snow_bg
+            else -> R.drawable.home_rainy
+        }
+        return bg
+    }
+
+
 }

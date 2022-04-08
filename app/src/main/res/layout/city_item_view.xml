@@ -1,81 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <RelativeLayout
+        android:id="@+id/itemView"
+        android:background="@drawable/ripple_effect"
+        android:clickable="true"
+        android:focusable="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:padding="@dimen/main_padding">
 
-        <RelativeLayout
-            android:id="@+id/itemView"
-            android:background="@drawable/ripple_effect"
-            android:clickable="true"
-            android:focusable="true"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="@dimen/main_padding">
+        <TextView
+            android:id="@+id/city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_marginStart="28dp"
+            android:fontFamily="serif"
+            android:layout_centerInParent="true"
+            android:text="@string/nairobi_city" />
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="@dimen/margin_end"
+            android:layout_height="wrap_content">
             <TextView
-                android:id="@+id/city"
+                android:id="@+id/degreeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:textColor="@color/colorPrimary"
-                android:textStyle="bold"
-                android:textSize="14sp"
-                android:layout_marginStart="28dp"
                 android:fontFamily="serif"
-                android:layout_centerInParent="true"
-                android:text="@string/nairobi_city" />
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:gravity="center"
-                android:layout_centerInParent="true"
-                android:layout_marginEnd="@dimen/margin_end"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/degreeText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="serif"
-                    android:textStyle="bold"
-                    android:text="@string/_32_c"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"/>
-
-                <ImageView
-                    android:id="@+id/weatherIcon"
-                    android:layout_marginStart="12dp"
-                    android:layout_width="@dimen/list_weather_icon_size"
-                    android:layout_height="@dimen/list_weather_icon_size"
-                    android:src="@drawable/moon_cloud" />
-            </LinearLayout>
+                android:textStyle="bold"
+                android:text="@string/_32_c"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"/>
 
             <ImageView
-                android:id="@+id/favIcon"
+                android:id="@+id/weatherIcon"
                 android:layout_marginStart="12dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerInParent="true"
-                android:layout_marginEnd="12dp"
                 android:layout_width="@dimen/list_weather_icon_size"
-                android:layout_height="@dimen/list_weather_icon_size" />
+                android:layout_height="@dimen/list_weather_icon_size"
+                android:src="@drawable/moon_cloud" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/favIcon"
+            android:layout_marginStart="12dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="12dp"
+            android:layout_width="@dimen/list_weather_icon_size"
+            android:layout_height="@dimen/list_weather_icon_size" />
 
 
-        </RelativeLayout>
+    </RelativeLayout>
 
-        <View
-            android:layout_gravity="center"
-            android:layout_marginStart="18dp"
-            android:layout_marginEnd="18dp"
-            android:layout_width="match_parent"
-            android:background="@drawable/divider"
-            android:layout_height="0.5dp"/>
-    </LinearLayout>
-
-</androidx.cardview.widget.CardView>
+    <View
+        android:layout_gravity="center"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
+        android:layout_width="match_parent"
+        android:background="@drawable/divider"
+        android:layout_height="0.5dp"/>
+</LinearLayout>

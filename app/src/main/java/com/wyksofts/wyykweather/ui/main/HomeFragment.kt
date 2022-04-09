@@ -4,11 +4,11 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.*
-import android.view.View.inflate
 import android.view.animation.AnimationUtils
 import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
@@ -35,7 +35,6 @@ import com.wyksofts.wyykweather.utils.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.header_layout.view.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
@@ -115,7 +114,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
         val longitude = pref?.getString("longitude", "").toString()
 
         //get weather data
-        context?.let { CurrentWeather(currWViewModel,binding.currentLayout).showCurrentLocationData(it,latitude,longitude) }
+        context?.let { CurrentWeather(currWViewModel,binding.currentLayout, binding.homeProgressBar).showCurrentLocationData(it,latitude,longitude) }
         cityWeather(viewModel).showCitiesWeather(context)
 
 
@@ -159,9 +158,10 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
             binding.DayMessage.text = GetDayMessage().showDayMessage()
         }
 
-
     }
 
+
+    //show current forecast
     private fun showCurrentLocationForecast() {
         onItemClick(
             currWViewModel.city, currWViewModel.icon,
@@ -171,6 +171,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
     }
 
 
+    //get cities weather
     private fun getCitiesWeather() {
 
         viewModel.liveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer  {
@@ -193,18 +194,31 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
 
                         if (cities != null) {
                             for(cityName in cities.values){
+
                                 //sort data model of cities
-                                Collections.sort(viewModel.newlist, Collections.reverseOrder(SortComparator(cityName as String)))
+                                Collections.sort(viewModel.newlist,
+                                    Collections.reverseOrder(SortComparator(cityName.toString())))
                             }
                         }
                     }else{
-                        Log.d("No city found :::>>>>>>>>>>>>>>>>>>>>>", "NO CITY FOUND....HAHAHA")
+
+                        //no city found
                     }
+
+                //refresh View
+                binding.swipeContainer.setOnRefreshListener {
+                    adapter?.clear()
+                    run {
+                        Handler().postDelayed(Runnable {
+                            adapter?.addAll(viewModel.newlist)
+                            binding.swipeContainer.isRefreshing = false
+                        }, 3000)
+                    }
+                }
                 adapter = CityAdapter(this,viewModel.newlist, viewModel, requireContext())
                 binding.citiesRecylerView.adapter = adapter
 
-            }
-                .addOnFailureListener { exception -> }
+            }.addOnFailureListener { exception -> }
 
 
             binding.searchCity.addTextChangedListener(object : TextWatcher {
@@ -308,7 +322,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), cityDetailInterface {
     //init filter search
     fun filter(city: String, data: ArrayList<citiesModel>, recyclerView: RecyclerView, adapter: CityAdapter){
 
-        val arrayList: java.util.ArrayList<citiesModel> = java.util.ArrayList<citiesModel>()
+        val arrayList: ArrayList<citiesModel> = ArrayList<citiesModel>()
 
         for (model in data) {
 

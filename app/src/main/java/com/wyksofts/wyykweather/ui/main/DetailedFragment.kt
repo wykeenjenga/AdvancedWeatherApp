@@ -97,7 +97,6 @@ class DetailedFragment : Fragment(R.layout.fragment_detailed) {
         //request data from api
         context?.let { forecastWeather(forecastViewModel, it).getForecast(binding.progressBar,data_lat,data_long) }
 
-
         //variables
         initUI()
 

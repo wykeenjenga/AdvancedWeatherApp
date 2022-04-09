@@ -3,6 +3,7 @@ package com.wyksofts.wyykweather.ui.currentWeather
 import android.content.Context
 import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.core.view.isVisible
 import com.android.volley.Request
@@ -11,15 +12,23 @@ import com.android.volley.toolbox.Volley
 import com.wyksofts.wyykweather.R
 import com.wyksofts.wyykweather.api.WeatherApi
 import com.wyksofts.wyykweather.utils.Convert
+import com.wyksofts.wyykweather.utils.showToast
 
-class CurrentWeather(private val viewModel: CurrentWeatherViewModel, private val currentLayout: LinearLayout) {
+class CurrentWeather(
+    private val viewModel: CurrentWeatherViewModel,
+    private val currentLayout: LinearLayout,
+    private val homeProgressBar: ProgressBar
+) {
 
     fun showCurrentLocationData(context : Context, latitude: String, longitude: String){
 
+        homeProgressBar.isVisible = true
 
         val queue = Volley.newRequestQueue(context)
         val jsonRequest = JsonObjectRequest(
             Request.Method.GET, WeatherApi().getCurrentWeather(latitude,longitude),null, { response ->
+
+                homeProgressBar.isVisible = false
 
                 //show layout
                 currentLayout.isVisible = true
@@ -57,9 +66,9 @@ class CurrentWeather(private val viewModel: CurrentWeatherViewModel, private val
                 viewModel.max_temp = Convert().convertTemp(response.getJSONObject("main").getString("temp_max"))
 
 
-
             }, {
-                Toast.makeText(context, "ERROR", Toast.LENGTH_LONG).show()
+                homeProgressBar.isVisible = false
+                showToast().showFailure(context,"Error: Slow connection...")
             })
         queue.add(jsonRequest)
     }

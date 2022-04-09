@@ -6,7 +6,7 @@
         <shape android:shape="rectangle">
 
             <gradient
-                android:angle="200"
+                android:angle="270"
                 android:startColor="@color/clouds"
                 android:centerColor="@color/clouds1"
                 android:endColor="@color/clouds2"/>

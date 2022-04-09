@@ -21,9 +21,7 @@ import kotlin.collections.ArrayList
 class CityAdapter(
     var onClickInteface: cityDetailInterface,
     var mList: List<citiesModel>,
-    val viewModel: cityWeatherViewModel,
-    val context: Context
-) : RecyclerView.Adapter<CityAdapter.ViewHolder>() {
+    val viewModel: cityWeatherViewModel, val context: Context) : RecyclerView.Adapter<CityAdapter.ViewHolder>() {
 
 
     //abstract var holder: ViewHolder
@@ -70,7 +68,8 @@ class CityAdapter(
 
     }
 
-    fun setIcons(data: citiesModel, holder: ViewHolder) {
+    private fun setIcons(data: citiesModel, holder: ViewHolder) {
+
         val db = Firebase.firestore
         val user = Firebase.auth.currentUser
         val email = user?.email.toString()
@@ -85,15 +84,32 @@ class CityAdapter(
 
                 if (cities != null) {
                     for (cityName in cities.values) {
-                        //sort data model of cities
-                        if (data.city == cityName) {
+                        //sort data model of cities model.city.lowercase(Locale.getDefault()).contains(city)
+                        if (data.city == cityName.toString()) {
                             holder.favIcon.setImageResource(R.drawable.baseline_favorite_24)
                         }
                     }
                 }
-            } else {
             }
         }
+    }
+
+    // Clean all cities from recyclerview
+    @SuppressLint("NotifyDataSetChanged")
+    fun clear() {
+        val arrayList: ArrayList<citiesModel> = ArrayList<citiesModel>()
+        mList = arrayList
+        arrayList.clear()
+        notifyDataSetChanged()
+    }
+
+    // Add a list of items
+    @SuppressLint("NotifyDataSetChanged")
+    fun addAll(listData: List<citiesModel>?) {
+        val arrayList: ArrayList<citiesModel> = ArrayList<citiesModel>()
+        mList = arrayList
+        arrayList.addAll(listData!!)
+        notifyDataSetChanged()
     }
 
 

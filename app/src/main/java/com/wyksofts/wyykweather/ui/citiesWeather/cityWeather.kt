@@ -65,7 +65,7 @@ class cityWeather(private val viewModel: cityWeatherViewModel) {
 
 
                 }, {
-                    Toast.makeText(context, "ERROR", Toast.LENGTH_LONG).show()
+                    //Toast.makeText(context, "ERROR", Toast.LENGTH_LONG).show()
                 })
             queue.add(jsonRequest)
 

@@ -19,15 +19,13 @@ class SplashScreen(val isSplash: Boolean) : Fragment(R.layout.fragment_splash) {
     private val binding get() = _binding!!
 
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?): View? {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentSplashBinding.inflate(inflater, container, false)
 
-        //statusbar color
+        //status_bar color
         activity?.window?.statusBarColor= getResources().getColor(R.color.black)
 
         startMainActivity()

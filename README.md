@@ -19,7 +19,7 @@ Still in Active Development.
 
 ## Video
 
-<video src='https://youtu.be/yEB7ps3xcxM' width=180/>
+<video src='https://user-images.githubusercontent.com/46722362/162609670-89afe317-08ff-4b77-bfa9-d86eae05f272.mov' width=180/>
 
 
 ## Screenshots

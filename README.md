@@ -48,7 +48,7 @@ Still in Active Development.
        width="220" height="450" />
        
        
-## Run the project
+## Running the project
 > - Sync the Gradle and run the project. Install APK on your emulator or real device.
 > - Turn on the internet of your testing device. For better understanding, please read the comments of every methods.
 > - Hope, these comments will help you to feel the MVVM Architecture.

@@ -16,3 +16,24 @@
 <a href='https://ko-fi.com/wycliffn2291' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://az743702.vo.msecnd.net/cdn/kofi2.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
 Still in Active Development.
+
+
+## Screenshots for Iphone
+
+<img src="https://user-images.githubusercontent.com/46722362/161338459-32ab8175-d0a5-4e77-86e6-0c67e9d8185c.png"
+      data-canonical-src="https://user-images.githubusercontent.com/46722362/161338459-32ab8175-d0a5-4e77-86e6-0c67e9d8185c.png"
+       width="220" height="450" />
+       <img src="https://user-images.githubusercontent.com/46722362/161338474-2906c9f1-c234-4a45-9c77-afc6a7d3529b.png"
+      data-canonical-src="https://user-images.githubusercontent.com/46722362/161338474-2906c9f1-c234-4a45-9c77-afc6a7d3529b.png"
+       width="220" height="450" />
+       
+       
+## Run the project
+> - Sync the Gradle and run the project. Install APK on your emulator or real device.
+> - Turn on the internet of your testing device. For better understanding, please read the comments of every methods.
+> - Hope, these comments will help you to feel the MVVM Architecture.
+
+## Disclaimer
+> - There are some other ways of implementation of MVVM.
+> - We find most of the MVVM tutorials are covered with Rx and Dagger. But it's not mandatory to use Rx or Dagger in MVVM. 
+> - The main difference between MVP and MVVM is: Presenter is not Life Cycle aware. On the otherhand ViewModel is Life Cycle aware.

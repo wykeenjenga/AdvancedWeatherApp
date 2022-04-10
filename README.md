@@ -1,5 +1,8 @@
 
 # Advanced Android Weather App using MVVM Architecture Sample (ViewModel + LiveData + Kotlin + volley) = Weather App
+## Video
+
+https://user-images.githubusercontent.com/46722362/162609670-89afe317-08ff-4b77-bfa9-d86eae05f272.mov
 
 ## Introduction
 > - MVVM Architecture is one of the most popular and latest architecture to develop a maintanable and managable codebase.
@@ -16,14 +19,12 @@
 
 <a href='https://ko-fi.com/wycliffn2291' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://az743702.vo.msecnd.net/cdn/kofi2.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
+
+
 Still in Active Development.
 
-## Video
-
-<video src='https://user-images.githubusercontent.com/46722362/162609670-89afe317-08ff-4b77-bfa9-d86eae05f272.mov' width=180/>
-
-
 ## Screenshots
+
 <img src="https://user-images.githubusercontent.com/46722362/162608718-55030008-573f-4ce8-91b7-5bbe1336c3a7.png"
       data-canonical-src="https://user-images.githubusercontent.com/46722362/162608718-55030008-573f-4ce8-91b7-5bbe1336c3a7.png"
        width="220" height="450" />
@@ -56,3 +57,30 @@ Still in Active Development.
 > - There are some other ways of implementation of MVVM.
 > - We find most of the MVVM tutorials are covered with Rx and Dagger. But it's not mandatory to use Rx or Dagger in MVVM. 
 > - The main difference between MVP and MVVM is: Presenter is not Life Cycle aware. On the otherhand ViewModel is Life Cycle aware.
+
+
+## License
+```
+MIT License
+
+Copyright (c) 2022 Wycliff Njenga
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+```
